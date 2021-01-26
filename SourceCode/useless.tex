@@ -1,0 +1,48 @@
+Let $Y$ be a discrete random variable that takes only a countable number of non-positive values. Suppose random variable $Y$ take $m$ different values,$y_1, y_2,...,y_m$ with probability $p_{y1},p_{y2},$\\$...,p_{ym}$. And $\sum_{i=1}^{m}p_{yi}=1$.
+By definition, $E[Y]=\sum_{i=1}^{m}x_ip_{yi}$.
+Assume $y_1\textless y_2\textless ...\textless y_m\le0$.
+Then we have
+\begin{equation}
+\nonumber Pr[Y\le t]=\left\{
+\begin{array}{rcl}
+0 & & {t \le y_1}\\
+p_{y1} & & {y_1 \textless t \le y_2}\\
+\sum_{i=1}^{2}p_{yi} & & {y_2 \textless t \le y_3}\\
+\sum_{i=1}^{3}p_{yi} & & {y_3 \textless t \le y_4}\\
+... & & ...\\
+\sum_{i=1}^{m-1}p_{yi} & & {y_{m-1} \textless t \le y_m}\\
+1 & & {y_m \textless t\le 0}
+\end{array} \right.
+\end{equation}
+Then,
+\begin{align}
+  \nonumber -\int_{-\infty}^{0}Pr[Y\le t]\, dt &=-(0\cdot (-\infty)+(y_2-y_1)(p_{y1})+(y_3-y_2)\sum_{i=1}^{2}p_{yi}+(y_4-y_3)\sum_{i=1}^{3}p_{yi}\\
+  \nonumber &+(y_m-y_{m-1})\sum_{i=1}^{m-1}p_{yi}+y_m \cdot 1)\\
+  \nonumber &=y_1p_{y1}+y_2p_{y2}+y_3p_{y_3}+...+y_mp_{ym}\\
+  \nonumber &=E[Y]
+\end{align}
+This can be extended to the situation when $Y$ is any non-positive random variable.
+By combining (1)for all non-negative random variables $X$, $E[X]=\int_{0}^{\infty}Pr[X\ge t]\, dt$ and (2)for all non-positive random variables $Y$, $E[Y]=-\int_{-\infty}^{0}Pr[Y\le t]\, dt$ and the process of proof, we have that for all real-valued random variable $X$, $E[X]=-\int_{-\infty}^{0}Pr[X\le t]\, dt+\int_{0}^{\infty}Pr[X\ge t]\, dt$.
+
+
+\begin{theorem}[Grimmett-Stirzaker Theorem 7.3.5. Reverse Markov Inequality]\label{theorem4}
+Let $Y$ be a random variable that is never larger than $B$. Then, for all $\alpha \textless B$,
+\begin{align}
+    \nonumber Pr[Y\le\alpha]\le \frac{B-E[Y]}{B-\alpha}.
+\end{align}
+\end{theorem}
+\begin{proof}
+Since $Y$ is a random variable that is never larger than $B$, we have $Pr[Y\le B]=1$.
+Since $\alpha \textless B$, we have $B-\alpha \textgreater 0$.
+Apply Markov's inequality to the random variable $\widetilde{Y}=B-Y$ and use Lemma \ref{lemma2}, we have
+\begin{align}
+    \nonumber Pr[Y \le \alpha]=Pr[\widetilde{Y}\ge B-\alpha]\le \frac{E[\widetilde{Y}]}{B-\alpha}=\frac{B-E[Y]}{B-\alpha}
+\end{align}
+\end{proof}
+Using Theorem \ref{theorem4} by setting $Y=|E(C)|$, $B=|E|$, $\alpha=(\frac{1-\epsilon}{2})\cdot |E|$ where $0\textless \epsilon\textless 1$, we have
+\begin{align}
+    \nonumber Pr[|E(C)|\le (\frac{1-\epsilon}{2})\cdot |E|] & \le \frac{|E|-E[|E(C)|]}{|E|-\frac{1-\epsilon}{2}\cdot |E|} \\
+    \nonumber &=\frac{|E|-\frac{|E|}{2}}{|E|-\frac{1-\epsilon}{2}\cdot |E|}\\
+    \nonumber &=\frac{1}{1+\epsilon}
+\end{align}
+Thus, we have $\frac{1}{1+\epsilon}$ where $0\textless \epsilon\textless 1$ is an upper bound on the failure probability.

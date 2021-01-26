@@ -1,0 +1,85 @@
+%\documentclass[10pt, conference, compsocconf]{IEEEtran}
+%\documentclass[10pt, conference, letterpaper]{IEEEtran}
+%\geometry{left=1.9cm,right=1.9cm,top=1.9cm,bottom=2.54cm}
+\documentclass[a4paper,11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{xeCJK}%支持中文
+\usepackage{colortbl}%彩色表格
+\usepackage{bm}%处理数学公式
+%\usepackage{cite}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage[ruled,vlined]{algorithm2e}     
+\usepackage[noend]{algpseudocode}%算法伪代码
+\usepackage{cases}
+%\renewcommand\arraystretch{2}
+\usepackage{wrapfig}%图表和文字混排宏包
+\usepackage{mathrsfs}%花体
+%\usepackage{balance}%最后一页平衡balance the last two columns in twocolumn mode
+%\usepackage[linesnumbered,boxed,ruled,vlined]{algorithm2e}%算法排版样式
+\usepackage{graphicx}%加入图片
+%\usepackage{afterpage}
+\usepackage{geometry}%可以自定义页面设置
+\geometry{margin=1in}
+\usepackage{tabularx}% 用于灵活地控制表格的生成
+\usepackage{hyperref}% 文献引用的宏包
+\hypersetup{colorlinks=true,allcolors=blue}
+\usepackage{xcolor}%改变字体颜色
+\usepackage{caption}%图表标题
+\usepackage{subcaption}%子标题
+\usepackage{enumerate}
+\usepackage{bm}
+
+%\captionsetup{margin=20pt, format=hang}
+%\hyphenation{cognitive radio network}
+\newcommand{\lzn}[1]{\textcolor{purple}{#1}}
+\newcommand{\tann}[1]{\textcolor{red}{#1}}
+\newcommand{\para}[1]{{\vspace{3pt} \bf \noindent #1}}
+%\setlength{\floatsep} {10pt plus 3pt minus 2pt}
+%\setlength{\textfloatsep} {10pt plus 2pt minus 2pt}
+%\setlength{\intextsep} {10pt plus 2pt minus 2pt}
+%\setlength{\textfloatsep}{0.1cm}
+%\setlength{\floatsep}{0.1cm}
+%\newcommand{\changeafter}[1]{#1}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+%\newtheorem {环境名}{标题}[排序单位],[排序单位] 一般为 chapter，若带上 chapter 则表示 定理按章节编号
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{question}[theorem]{Question}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{fact}[theorem]{Fact}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+%\makeatletter
+\newcommand{\rmnum}[1]{\romannumeral #1}
+\newcommand{\Rmnum}[1]{\expandafter\@slowromancap\romannumeral #1@}
+
+\begin{document}
+%\maketitle
+\input{homework1.tex}
+% \begin{abstract}
+% %\input{1abs.tex}
+% \end{abstract}
+% % \begin{keyword}
+% % \end{keyword}
+%\input{coreset.tex}
+%\input{Introduction.tex}
+%\input{Without_r_j.tex}
+%\input{With_r_j.tex}
+%\input{makespan_ZN.tex}
+%\clearpage
+%\input{CompletionTime_P.tex}
+%\input{WeightCompletionTime.tex}
+%\balance
+%\newpage
+\bibliographystyle{alpha}
+\bibliography{reference}
+\end{document}
