@@ -26,43 +26,48 @@ The number $e$ is a mathematical constant approximately equal to $2.71828$. It i
 \end{align}
 \end{definition}
 \begin{lemma}\label{gp}
-Given a geometric progression, 
-\begin{align}
-    \nonumber a, ar, ar^2, ar^3, ar^4, ...
-\end{align}
-If $r \ge 2$ and $a\textgreater 0$, then the sum of first $n-1$ terms is less than the value of the $n$-th term.
-\begin{align}
-    \nonumber \sum_{k=1}^{n-1}ar^{k-1} \textless ar^{n-1}
-\end{align}
+Given a geometric progression with first term $a \textgreater 0$ and common ratio $r \ge 2$, for every $n$, the sum of the first $n$ terms is less than the ($n+1$)-th term.
+%\begin{align}
+ %  \nonumber \sum_{k=1}^{n}ar^{k-1} textless ar^{n}
+%\end{align}
 \end{lemma}
 \begin{proof}
+%Suppose a geometric progression with first term $a$ and common ratio $r$ as follows:
+%\begin{align}
+ %   \nonumber a, ar, ar^2, ar^3, ar^4, ...
+%\end{align}
+%If $r \ge 2$ and $a\textgreater 0$, then the sum of first $n-1$ terms is less than the value of the $n$-th term.
+%\begin{align}
+ %   \nonumber \sum_{k=1}^{n-1}ar^{k-1} %\textless ar^{n-1}
+%\end{align}
+For every $n$, the sum of the first $n$ terms is $\sum_{k=1}^{n}ar^{k-1}$ and the ($n+1$)-th term is $ar^{n}$.
 \begin{align}
-    \nonumber \sum_{k=1}^{n-1}ar^{k-1}&=\frac{a(r^{n-1}-1)}{r-1}\\
-    \nonumber &=\frac{ar^{n-1}-a}{r-1}
+    \nonumber \sum_{k=1}^{n}ar^{k-1}&=\frac{a(r^{n}-1)}{r-1}\\
+    \nonumber &=\frac{ar^{n}-a}{r-1}
 \end{align}
 \begin{align}
     \nonumber &r\ge 2 \implies r-1 \ge 1 \implies \frac{1}{r-1} \le 1
 \end{align}
 Thus, 
 \begin{align}
-    \nonumber \sum_{k=1}^{n-1}ar^{k-1}\le ar^{n-1}-a \textless ar^{n-1}
+    \nonumber \sum_{k=1}^{n}ar^{k-1}\le ar^{n}-a \textless ar^{n}
 \end{align} 
 \end{proof}
 \begin{lemma}\label{Markov}
-Suppose $X$ is a random variable taking non-negative values. For all $\alpha \textgreater 0$, $Pr[X\textgreater \alpha ]\textless \frac{E[X]}{\alpha}$ .
+Suppose $X$ is a random variable taking non-negative values. For all $\alpha \textgreater 0$, $Pr[X\textgreater \alpha ]\le \frac{E[X]}{\alpha}$ .
 \end{lemma}
 \begin{proof}
 $E[X]=Pr[X\textgreater \alpha] \cdot E[X|X\textgreater \alpha ]+Pr[X\le \alpha]\cdot E[X|X \le \alpha]$\\
 Observe that $E[X|X\textgreater \alpha ]\textgreater \alpha$, $Pr[X\le \alpha]\ge 0$.
 Since $X$ is a random variable taking non-negative values, $E[X|X \le \alpha] \ge 0$.
-Hence $E[X]\textgreater Pr[X\textgreater \alpha] \cdot \alpha $. Since $\alpha \textgreater 0$, we have $Pr[X\textgreater \alpha ]\textless \frac{E[X]}{\alpha}$.
+Hence $E[X]\ge Pr[X\textgreater \alpha] \cdot \alpha $. Since $\alpha \textgreater 0$, we have $Pr[X\textgreater \alpha ]\le \frac{E[X]}{\alpha}$.
 \end{proof}
 \begin{lemma}\label{Chebyshev}
-Suppose $X$ is a random variable with expectation $E[X]$. Then for all $\alpha \textgreater 0$, $Pr[X\textless E[X]-\alpha] \textless \frac{var[X]}{\alpha^2}$, where $var[X]$ is the variance of $X$.
+Suppose $X$ is a random variable with expectation $E[X]$. Then for all $\alpha \textgreater 0$, $Pr[X\textless E[X]-\alpha] \le \frac{var[X]}{\alpha^2}$, where $var[X]$ is the variance of $X$.
 \end{lemma}
 \begin{proof}
-Since $Pr[X\textless E[X]-\alpha]\le Pr[|X-E[X]|\textgreater \alpha]$, it suffices to prove $Pr[|X-E[X]|\textgreater \alpha] \textless \frac{var[X]}{\alpha^2}$.
-Observe that $Pr[|X-E[X]|\textgreater \alpha]=Pr[(X-E[X])^2\textgreater \alpha^2]$. Since $(X-E[X])^2$ takes non-negative values and $\alpha \textgreater 0$ implies $\alpha^2 \textgreater 0$, by Lemma \ref{Markov}, we have $Pr[(X-E[X])^2\textgreater \alpha^2]\textless \frac{E[(X-E[X])^2]}{\alpha^2}=\frac{var[X]}{\alpha^2}$.
+Since $Pr[X\textless E[X]-\alpha]\le Pr[|X-E[X]|\textgreater \alpha]$, it suffices to prove $Pr[|X-E[X]|\textgreater \alpha] \le \frac{var[X]}{\alpha^2}$.
+Observe that $Pr[|X-E[X]|\textgreater \alpha]=Pr[(X-E[X])^2\textgreater \alpha^2]$. Since $(X-E[X])^2$ takes non-negative values and $\alpha \textgreater 0$ implies $\alpha^2 \textgreater 0$, by Lemma \ref{Markov}, we have $Pr[(X-E[X])^2\textgreater \alpha^2]\le \frac{E[(X-E[X])^2]}{\alpha^2}=\frac{var[X]}{\alpha^2}$.
 \end{proof}
 \subsection {Randomized Algorithm and Analysis}
 In this section, first, I will give a randomized algorithm for graph with no short cycles problem, in which construct an $n$-vertex random graph $G_{n,p}$ with no cycles of length $l$ or less. Then analyze the algorithm and show that if $n\ge 2^{l+2}$, there exists graph $G_{n,p}$ that has at least $\Omega (n^{1+\frac{1}{l-1}})$ edges. The above can be summarized by the following theorem.
@@ -107,7 +112,10 @@ By Definition \ref{e}, bound $(\frac{n}{n-i})^{n-i+\frac{1}{2}}$ as follows.
     \nonumber&= ((1+\frac{1}{\frac{n-i}{i}})^{\frac{n-i}{i}})^{i+\frac{i}{2(n-i)}}\\
     \nonumber &\textless e^{i+\frac{i}{2(n-i)}}
 \end{align}
-Since $\tbinom{n}{i}=\tbinom{n}{n-i}$, the assume that $i\le \frac{n}{2}$ is reasonable. In order to bound $(\frac{n}{n-i})^{n-i+\frac{1}{2}}$, we have to bound $\frac{i}{2(n-i)}$
+Since $\tbinom{n}{i}=\tbinom{n}{n-i}$, 
+we can assume $i\le \frac{n}{2}$. 
+%the assume that $i\le \frac{n}{2}$ is reasonable. 
+In order to bound $(\frac{n}{n-i})^{n-i+\frac{1}{2}}$, we have to bound $\frac{i}{2(n-i)}$
 \begin{align}
    \nonumber i\le \frac{n}{2} 
    \implies n \ge 2i 
@@ -158,18 +166,18 @@ Choose an appropriate value of $p$ such that $E[X] \ge 2E[Y]$. Since $E[X]=\tbin
 
 For $\alpha \textgreater 0$, by Lemma \ref{Chebyshev}, we have:
 \begin{align}
-    \nonumber Pr[X\textless E[X]-\alpha] &\textless \frac{var[X]}{\alpha^2}\\
+    \nonumber Pr[X\textless E[X]-\alpha] &\le \frac{var[X]}{\alpha^2}\\
     \nonumber &=\frac{\tbinom{n}{2}p(1-p)}{\alpha^2}
 \end{align}
 What we need is to satisfy $Pr[X\textless E[X]-\alpha] \textless \frac{1}{2}$, so $\frac{\tbinom{n}{2}p(1-p)}{\alpha^2}\le \frac{1}{2} $. Thus $\alpha \ge \sqrt{2\tbinom{n}{2}p(1-p)}$. We can set $\alpha = \sqrt{2\tbinom{n}{2}p}=\Theta(n^{\frac{l}{2l-2}})$.
 
 For $\beta \textgreater 0$, by Lemma \ref{Markov}, we have: 
 \begin{align}
-    \nonumber Pr[Y \textgreater \beta] &\textless \frac{E[Y]}{\beta}\\
+    \nonumber Pr[Y \textgreater \beta] &\le \frac{E[Y]}{\beta}\\
     \nonumber & \le \frac{(np)^l}{\beta} 
 \end{align}
-Since we have to satisfy $Pr[Y \textgreater \beta]\textless \frac{1}{2}$, $\frac{(np)^l}{\beta} \le \frac{1}{2}$. Thus we have $\beta \ge 2(np)^l$. We can set $\beta = 2(np)^l = \Theta (n^{\frac{l}{l-1}})$.
-Thus,
+Since we have to satisfy $Pr[Y \textgreater \beta]\textless \frac{1}{2}$, we have $\frac{(np)^l}{\beta} \le \frac{1}{2}$. Thus $\beta \ge 2(np)^l$. We can set $\beta = 2(np)^l = \Theta (n^{\frac{l}{l-1}})$.
+Then,
 \begin{align}
     \nonumber E[X]-\alpha-\beta = \Theta (n^\frac{l}{l-1}) - \Theta(n^{\frac{l}{2l-2}}) - \Theta (n^{\frac{l}{l-1}})=\Omega (n^{1+\frac{1}{l-1}})
 \end{align}
@@ -220,5 +228,5 @@ Then I will show the relationship between values $E[Z|R_{[i]}=r_{[i]}]$ and  $E[
 Thus we have either $E[Z|R_{[i]}=r_{[i]}\wedge R_i=1]$ or $E[Z|R_{[i]}=r_{[i]}\wedge R_i=0]$ is not less than  $E[Z|R_{[i]}] $. In algorithm \ref{alg}, we choose the larger one. So we have $E[Z|R_{[i+1]}=r_{[i+1]}] \ge E[Z|R_{[i]}=r_{[i]}]$ where $i\in [\tbinom{n}{2}-1]$.
 Thus, the algorithm \ref{alg} can guarantee that the output graph $G$ has edges at least $E[Z]$.
 \subsubsection{Time Complexity }
-In algorithm \ref{alg}, we decide whether to add edge $R_i$ in $G$ one by one. There are totally $\tbinom{n}{2}$ edges to be selected.
+In Algorithm \ref{alg}, we decide whether to add edge $R_i$ in $G$ one by one. There are totally $\tbinom{n}{2}$ edges to be selected.
 When we consider whether to add edge $R_i$, we have to compute two expectations, $E[Z|R_{[i]}=r_{[i]}\wedge R_i=1]$ and $E[Z|R_{[i]}=r_{[i]}\wedge R_i=0]$. Then I will show how to compute $E[Z|R_{[i]}=r_{[i]}]$.
