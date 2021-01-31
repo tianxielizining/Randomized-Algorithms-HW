@@ -1,0 +1,110 @@
+\section{A Proof using Stirling's Formula}
+\begin{lemma}[\textbf{Stirling's formula}\cite{stirling}]\label{Stirling}
+ For $n=1,2,3,...$
+\begin{align}
+    \nonumber \sqrt{2\pi}n^{n+\frac{1}{2}}e^{-n}e^{\frac{1}{12n+1}}\textless n! \textless \sqrt{2\pi}n^{n+\frac{1}{2}}e^{-n}e^{\frac{1}{12n}} 
+\end{align}
+\end{lemma}
+\begin{definition}[\textbf{Euler's number}\cite{e}]\label{e}
+The number $e$ is a mathematical constant approximately equal to $2.71828$. It is the limit of $(1+\frac{1}{n})^n$ as $n$ approaches infinity. The number $e$ is the unique real number such that
+\begin{align}
+    \nonumber (1+\frac{1}{x})^{x} \textless e \textless (1+\frac{1}{x})^{x+1}
+\end{align}
+\end{definition}
+\begin{lemma}\label{gp}
+Given a geometric progression with first term $a \textgreater 0$ and common ratio $r \ge 2$, for every $n$, the sum of the first $n$ terms is less than the ($n+1$)-th term.
+%\begin{align}
+ %  \nonumber \sum_{k=1}^{n}ar^{k-1} textless ar^{n}
+%\end{align}
+\end{lemma}
+\begin{proof}
+%Suppose a geometric progression with first term $a$ and common ratio $r$ as follows:
+%\begin{align}
+ %   \nonumber a, ar, ar^2, ar^3, ar^4, ...
+%\end{align}
+%If $r \ge 2$ and $a\textgreater 0$, then the sum of first $n-1$ terms is less than the value of the $n$-th term.
+%\begin{align}
+ %   \nonumber \sum_{k=1}^{n-1}ar^{k-1} %\textless ar^{n-1}
+%\end{align}
+For every $n$, the sum of the first $n$ terms is $\sum_{k=1}^{n}ar^{k-1}$ and the ($n+1$)-th term is $ar^{n}$.
+\begin{align}
+    \nonumber \sum_{k=1}^{n}ar^{k-1}&=\frac{a(r^{n}-1)}{r-1}\\
+    \nonumber &=\frac{ar^{n}-a}{r-1}
+\end{align}
+\begin{align}
+    \nonumber &r\ge 2 \implies r-1 \ge 1 \implies \frac{1}{r-1} \le 1
+\end{align}
+Thus, 
+\begin{align}
+    \nonumber \sum_{k=1}^{n}ar^{k-1}\le ar^{n}-a \textless ar^{n}
+\end{align} 
+\end{proof}
+
+
+\begin{claim}
+$\sum_{i=3}^{n}\tbinom{n}{i}p^i\textless (np)^l$
+\end{claim}
+\begin{proof}
+Consider $\tbinom{n}{i}$, where $i\in\{3,4,5,...,l\}$. By Lemma \ref{Stirling}, we have:
+\begin{align}
+   \nonumber\tbinom{n}{i}&=\frac{n!}{i!(n-i)!}\\
+    \nonumber&\textless \frac{\sqrt{2\pi}n^{n+\frac{1}{2}}e^{-n}e^{\frac{1}{12n}}}{\sqrt{2\pi}i^{i+\frac{1}{2}}e^{-i}e^{\frac{1}{12i+1}}\sqrt{2\pi}(n-i)^{(n-i)+\frac{1}{2}}e^{-(n-i)}e^{\frac{1}{12(n-i)+1}}}\\
+    \nonumber &=\frac{1}{\sqrt{2\pi}}\cdot e^{\frac{1}{12n}-\frac{1}{12i+1}}\cdot e^{-\frac{1}{12(n-i)-1}} \cdot n^{n+\frac{1}{2}} \cdot \frac{1}{i^{i+\frac{1}{2}}} \cdot \frac{1}{(n-i)^{n-i+\frac{1}{2}}}\\
+    &=\frac{1}{\sqrt{2\pi}}\cdot e^{\frac{1}{12n}-\frac{1}{12i+1}}\cdot e^{-\frac{1}{12(n-i)-1}} \cdot \frac{n^i}{i^{i+\frac{1}{2}}} \cdot (\frac{n}{n-i})^{n-i+\frac{1}{2}}\label{a}
+\end{align}
+Since $n\ge 2^{l+2}$ and $l\ge i$, we have $12n \textgreater 12i+1$, which implies $\frac{1}{12n} \textless \frac{1}{12i+1}$. Then
+\begin{align}
+     e^{\frac{1}{12n}-\frac{1}{12i+1}} \textless 1 \label{b}
+\end{align}
+By Definition \ref{e}, bound $(\frac{n}{n-i})^{n-i+\frac{1}{2}}$ as follows.
+\begin{align}
+    \nonumber (\frac{n}{n-i})^{n-i+\frac{1}{2}}
+    &= (\frac{n-i+i}{n-i})^{n-i+\frac{1}{2}}\\
+    \nonumber&= (1+\frac{i}{n-i})^{n-i+\frac{1}{2}}\\
+    \nonumber&= (1+\frac{1}{\frac{n-i}{i}})^{n-i+\frac{1}{2}}\\
+    \nonumber&= ((1+\frac{1}{\frac{n-i}{i}})^{\frac{n-i}{i}})^{i+\frac{i}{2(n-i)}}\\
+    \nonumber &\textless e^{i+\frac{i}{2(n-i)}}
+\end{align}
+Since $\tbinom{n}{i}=\tbinom{n}{n-i}$, 
+we can assume $i\le \frac{n}{2}$. 
+%the assume that $i\le \frac{n}{2}$ is reasonable. 
+In order to bound $(\frac{n}{n-i})^{n-i+\frac{1}{2}}$, we have to bound $\frac{i}{2(n-i)}$
+\begin{align}
+   \nonumber i\le \frac{n}{2} 
+   \implies n \ge 2i 
+   %\implies n-i \ge i 
+   \implies 2(n-i) \ge 2i \implies \frac{1}{2(n-i)} \le \frac{1}{2i} \implies  \frac{i}{2(n-i)} \le \frac{i}{2i} =\frac{1}{2}
+\end{align}
+Thus, 
+\begin{align}
+    (\frac{n}{n-i})^{n-i+\frac{1}{2}} \textless e^{i+\frac{1}{2}}\label{c}
+\end{align}
+By inequation \ref{a}, \ref{b} and \ref{c} we have:
+\begin{align}
+\nonumber \tbinom{n}{i} &\textless \frac{1}{\sqrt{2\pi}}\cdot 1\cdot e^{-\frac{1}{12(n-i)-1}} \cdot \frac{n^i}{i^{i+\frac{1}{2}}} \cdot e^{i+\frac{1}{2}}\\
+\nonumber &= \frac{1}{\sqrt{2\pi}}\cdot e^{i+\frac{1}{2}-\frac{1}{12(n-i)-1}} \cdot \frac{n^i}{i^{i+\frac{1}{2}}}\\
+\nonumber &\textless \frac{1}{\sqrt{2\pi}}\cdot e^{i+\frac{1}{2}} \cdot \frac{n^i}{i^{i+\frac{1}{2}}}\\
+\nonumber &= \frac{1}{\sqrt{2\pi}}\cdot (\frac{e}{i})^{i+\frac{1}{2}}\cdot n^i
+\end{align}
+Since $i\ge 3$, we have $\frac{e}{i}\textless 1$. Thus,
+\begin{align}
+    \nonumber \tbinom{n}{i} \textless \frac{1}{\sqrt{2\pi}}\cdot n^i
+\end{align}
+Then, we have
+\begin{align}
+    \nonumber E[Y] &= \sum_{i = 3}^{l}{\binom{n}{i} p^i} 
+    \\
+    \nonumber &\textless \sum_{i=1}^{l}\frac{1}{\sqrt{2\pi}}n^ip^i\\
+    \nonumber &= \frac{1}{\sqrt{2\pi}}\sum_{i=3}^{l}(np)^i
+\end{align}
+Since $p \ge \frac{2}{n}$, we have $np\ge 2$.
+By Lemma \ref{gp}, we have:
+\begin{align}
+    \nonumber E[Y]& \textless   \frac{1}{\sqrt{2\pi}}\sum_{i=3}^{l}(np)^i \\
+    \nonumber & \textless \frac{1}{\sqrt{2\pi}}\sum_{i=1}^{l}(np)^i \\
+    \nonumber & \textless \frac{2}{\sqrt{2\pi}}(np)^l\\
+    \nonumber & \textless (np)^l
+\end{align}
+
+
+\end{proof}

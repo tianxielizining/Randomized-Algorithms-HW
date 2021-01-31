@@ -11,18 +11,6 @@ We will give a randomized algorithm and a deterministic algorithm in the followi
 \begin{lemma}[\textbf{linearity of expectation}]\label{linearity}
 Suppose for each $1 \le i \le n$, $X_i$ is a random variable and $a_i$ is a real number. Then, $E[\sum_{i=1}^na_iX_i]=\sum_{i=1}^{n}a_iE[X_i]$.
 \end{lemma}
-\begin{lemma}[\textbf{Stirling's formula}\cite{stirling}]\label{Stirling}
- For $n=1,2,3,...$
-\begin{align}
-    \nonumber \sqrt{2\pi}n^{n+\frac{1}{2}}e^{-n}e^{\frac{1}{12n+1}}\textless n! \textless \sqrt{2\pi}n^{n+\frac{1}{2}}e^{-n}e^{\frac{1}{12n}} 
-\end{align}
-\end{lemma}
-\begin{definition}[\textbf{Euler's number}\cite{e}]\label{e}
-The number $e$ is a mathematical constant approximately equal to $2.71828$. It is the limit of $(1+\frac{1}{n})^n$ as $n$ approaches infinity. The number $e$ is the unique real number such that
-\begin{align}
-    \nonumber (1+\frac{1}{x})^{x} \textless e \textless (1+\frac{1}{x})^{x+1}
-\end{align}
-\end{definition}
 \begin{lemma}\label{gp}
 Given a geometric progression with first term $a \textgreater 0$ and common ratio $r \ge 2$, for every $n$, the sum of the first $n$ terms is less than the ($n+1$)-th term.
 %\begin{align}
@@ -85,76 +73,26 @@ Construct an $n$-vertex random graph $G_{n,p}$ with no cycles of length $l$ or l
 \subsubsection{Analysis} 
 Let $X$ be the number of edges in $G_{n,p}$. Let $Y_i$ be the number of length-$i$ cycles in $G_{n,p}$. Let $Y:=\sum_{i=3}^{l}Y_i$.
 For each cycle of length $l$ or less, pick one edge and remove it.
-Then we can find an $n$-vertex graph with no cycles of length $l$ or less that has at least $Z:=X-Y$ edges.By the method mentioned above of constructing graph $G_{n,p}$, we have $E[X]=\tbinom{n}{2}p$, $var[X]=\tbinom{n}{2}p(1-p)$, $E[Y_i]=\tbinom{n}{i}p^i$. By Lemma \ref{linearity}, we have $E[Y]=\sum_{i=3}^{l}E[Y_i]$.
+Then we can find an $n$-vertex graph with no cycles of length $l$ or less that has at least $Z:=X-Y$ edges.By the method mentioned above of constructing graph $G_{n,p}$, we have $E[X]=\tbinom{n}{2}p$, $var[X]=\tbinom{n}{2}p(1-p)$, $E[Y_i]=\binom{n}{i}\frac{(i-1)!}{2}p^i$. By Lemma \ref{linearity}, we have $E[Y]=\sum_{i=3}^{l}E[Y_i]$.
 \begin{claim}
 $E[Y]\textless (np)^l$
 \end{claim}
 \begin{proof}
 \begin{align}
-    \nonumber E[Y] = E[\sum_{i=3}^{l}Y_i]=\sum_{i = 3}^{l}{\binom{n}{i} p^i}
-\end{align}
-Now consider $\tbinom{n}{i}$, where $i\in\{3,4,5,...,l\}$. By Lemma \ref{Stirling}, we have:
-\begin{align}
-   \nonumber\tbinom{n}{i}&=\frac{n!}{i!(n-i)!}\\
-    \nonumber&\textless \frac{\sqrt{2\pi}n^{n+\frac{1}{2}}e^{-n}e^{\frac{1}{12n}}}{\sqrt{2\pi}i^{i+\frac{1}{2}}e^{-i}e^{\frac{1}{12i+1}}\sqrt{2\pi}(n-i)^{(n-i)+\frac{1}{2}}e^{-(n-i)}e^{\frac{1}{12(n-i)+1}}}\\
-    \nonumber &=\frac{1}{\sqrt{2\pi}}\cdot e^{\frac{1}{12n}-\frac{1}{12i+1}}\cdot e^{-\frac{1}{12(n-i)-1}} \cdot n^{n+\frac{1}{2}} \cdot \frac{1}{i^{i+\frac{1}{2}}} \cdot \frac{1}{(n-i)^{n-i+\frac{1}{2}}}\\
-    &=\frac{1}{\sqrt{2\pi}}\cdot e^{\frac{1}{12n}-\frac{1}{12i+1}}\cdot e^{-\frac{1}{12(n-i)-1}} \cdot \frac{n^i}{i^{i+\frac{1}{2}}} \cdot (\frac{n}{n-i})^{n-i+\frac{1}{2}}\label{a}
-\end{align}
-Since $n\ge 2^{l+2}$ and $l\ge i$, we have $12n \textgreater 12i+1$, which implies $\frac{1}{12n} \textless \frac{1}{12i+1}$. Then
-\begin{align}
-     e^{\frac{1}{12n}-\frac{1}{12i+1}} \textless 1 \label{b}
-\end{align}
-By Definition \ref{e}, bound $(\frac{n}{n-i})^{n-i+\frac{1}{2}}$ as follows.
-\begin{align}
-    \nonumber (\frac{n}{n-i})^{n-i+\frac{1}{2}}
-    &= (\frac{n-i+i}{n-i})^{n-i+\frac{1}{2}}\\
-    \nonumber&= (1+\frac{i}{n-i})^{n-i+\frac{1}{2}}\\
-    \nonumber&= (1+\frac{1}{\frac{n-i}{i}})^{n-i+\frac{1}{2}}\\
-    \nonumber&= ((1+\frac{1}{\frac{n-i}{i}})^{\frac{n-i}{i}})^{i+\frac{i}{2(n-i)}}\\
-    \nonumber &\textless e^{i+\frac{i}{2(n-i)}}
-\end{align}
-Since $\tbinom{n}{i}=\tbinom{n}{n-i}$, 
-we can assume $i\le \frac{n}{2}$. 
-%the assume that $i\le \frac{n}{2}$ is reasonable. 
-In order to bound $(\frac{n}{n-i})^{n-i+\frac{1}{2}}$, we have to bound $\frac{i}{2(n-i)}$
-\begin{align}
-   \nonumber i\le \frac{n}{2} 
-   \implies n \ge 2i 
-   %\implies n-i \ge i 
-   \implies 2(n-i) \ge 2i \implies \frac{1}{2(n-i)} \le \frac{1}{2i} \implies  \frac{i}{2(n-i)} \le \frac{i}{2i} =\frac{1}{2}
-\end{align}
-Thus, 
-\begin{align}
-    (\frac{n}{n-i})^{n-i+\frac{1}{2}} \textless e^{i+\frac{1}{2}}\label{c}
-\end{align}
-By inequation \ref{a}, \ref{b} and \ref{c} we have:
-\begin{align}
-\nonumber \tbinom{n}{i} &\textless \frac{1}{\sqrt{2\pi}}\cdot 1\cdot e^{-\frac{1}{12(n-i)-1}} \cdot \frac{n^i}{i^{i+\frac{1}{2}}} \cdot e^{i+\frac{1}{2}}\\
-\nonumber &= \frac{1}{\sqrt{2\pi}}\cdot e^{i+\frac{1}{2}-\frac{1}{12(n-i)-1}} \cdot \frac{n^i}{i^{i+\frac{1}{2}}}\\
-\nonumber &\textless \frac{1}{\sqrt{2\pi}}\cdot e^{i+\frac{1}{2}} \cdot \frac{n^i}{i^{i+\frac{1}{2}}}\\
-\nonumber &= \frac{1}{\sqrt{2\pi}}\cdot (\frac{e}{i})^{i+\frac{1}{2}}\cdot n^i
-\end{align}
-Since $i\ge 3$, we have $\frac{e}{i}\textless 1$. Thus,
-\begin{align}
-    \nonumber \tbinom{n}{i} \textless \frac{1}{\sqrt{2\pi}}\cdot n^i
-\end{align}
-Then, we have
-\begin{align}
-    \nonumber E[Y] &= \sum_{i = 3}^{l}{\binom{n}{i} p^i} 
-    \\
-    \nonumber &\textless \sum_{i=1}^{l}\frac{1}{\sqrt{2\pi}}n^ip^i\\
-    \nonumber &= \frac{1}{\sqrt{2\pi}}\sum_{i=3}^{l}(np)^i
+\nonumber E[Y]&=\sum_{i=3}^{l} \binom{n}{i}\frac{(i-1)!}{2}p^i\\
+\nonumber &=\sum_{i=3}^{l} \frac{n!}{i!(n-i)!}\cdot\frac{(i-1)!}{2}p^i\\
+\nonumber &=\sum_{i=3}^{l} \frac{n!}{(n-i)!}\cdot\frac{1}{2i}p^i\\
+\nonumber &\textless \sum_{i=3}^{l}n^i\cdot\frac{1}{2i}p^i\\
+\nonumber &\le \frac{1}{6} \sum_{i=3}^{l}(np)^i
 \end{align}
 Since $p \ge \frac{2}{n}$, we have $np\ge 2$.
 By Lemma \ref{gp}, we have:
 \begin{align}
-    \nonumber E[Y]& \textless   \frac{1}{\sqrt{2\pi}}\sum_{i=3}^{l}(np)^i \\
-    \nonumber & \textless \frac{1}{\sqrt{2\pi}}\sum_{i=1}^{l}(np)^i \\
-    \nonumber & \textless \frac{2}{\sqrt{2\pi}}(np)^l\\
+    \nonumber E[Y]& \textless   \frac{1}{6}\sum_{i=3}^{l}(np)^i \\
+    \nonumber & \textless \frac{1}{6}\sum_{i=1}^{l}(np)^i \\
+    \nonumber & \textless \frac{1}{3}(np)^l\\
     \nonumber & \textless (np)^l
 \end{align}
-
-
 \end{proof}
 Suppose we can show the following:
 \begin{enumerate}
@@ -238,3 +176,6 @@ Thus, the algorithm \ref{alg} can guarantee that the output graph $G$ has edges 
 \subsubsection{Time Complexity }
 In Algorithm \ref{alg}, we decide whether to add edge $R_i$ in $G$ one by one. There are totally $\tbinom{n}{2}$ edges to be selected.
 When we consider whether to add edge $R_i$, we have to compute two expectations, $E[Z|R_{[i]}=r_{[i]}\wedge R_i=1]$ and $E[Z|R_{[i]}=r_{[i]}\wedge R_i=0]$. Then I will show how to compute $E[Z|R_{[i]}=r_{[i]}]$.
+\begin{align}
+E[Y_i]=\binom{n}{i}\frac{(i-1)!}{2}p^i    
+\end{align}
