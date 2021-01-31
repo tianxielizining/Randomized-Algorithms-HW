@@ -4,12 +4,10 @@ An undirected graph $G = (V,E)$ contains a cycle of length $l$ if there are $l$ 
 \end{definition}
 \noindent\textbf{Question.} Suppose a graph has no cycles of length $l$ or less. What is the maximum number of edges that it can have?
 
-I will give a randomized algorithm and a deterministic algorithm in the following subsections. Both algorithms guarantee the number of edges.
+We will give a randomized algorithm and a deterministic algorithm in the following subsections. Both algorithms guarantee the number of edges.
 \subsection{Preliminaries}
 %The following lemmas and definition are useful for analysis.
-\begin{lemma}[\textbf{union bound}]\label{union}
-Suppose $\{A_i\}_{i=1}^n$ is a collection of events. Then, $Pr[\cup_{i=1}^{n}A_i]\le\sum_{i=1}^{n}Pr[A_i]$.
-\end{lemma}
+
 \begin{lemma}[\textbf{linearity of expectation}]\label{linearity}
 Suppose for each $1 \le i \le n$, $X_i$ is a random variable and $a_i$ is a real number. Then, $E[\sum_{i=1}^na_iX_i]=\sum_{i=1}^{n}a_iE[X_i]$.
 \end{lemma}
@@ -53,24 +51,27 @@ Thus,
     \nonumber \sum_{k=1}^{n}ar^{k-1}\le ar^{n}-a \textless ar^{n}
 \end{align} 
 \end{proof}
-\begin{lemma}\label{Markov}
-Suppose $X$ is a random variable taking non-negative values. For all $\alpha \textgreater 0$, $Pr[X\textgreater \alpha ]\le \frac{E[X]}{\alpha}$ .
+\begin{lemma}[\textbf{union bound}]\label{union}
+Suppose $\{A_i\}_{i=1}^n$ is a collection of events. Then, $Pr[\cup_{i=1}^{n}A_i]\le\sum_{i=1}^{n}Pr[A_i]$.
 \end{lemma}
-\begin{proof}
-$E[X]=Pr[X\textgreater \alpha] \cdot E[X|X\textgreater \alpha ]+Pr[X\le \alpha]\cdot E[X|X \le \alpha]$\\
-Observe that $E[X|X\textgreater \alpha ]\textgreater \alpha$, $Pr[X\le \alpha]\ge 0$.
-Since $X$ is a random variable taking non-negative values, $E[X|X \le \alpha] \ge 0$.
-Hence $E[X]\ge Pr[X\textgreater \alpha] \cdot \alpha $. Since $\alpha \textgreater 0$, we have $Pr[X\textgreater \alpha ]\le \frac{E[X]}{\alpha}$.
-\end{proof}
-\begin{lemma}\label{Chebyshev}
-Suppose $X$ is a random variable with expectation $E[X]$. Then for all $\alpha \textgreater 0$, $Pr[X\textless E[X]-\alpha] \le \frac{var[X]}{\alpha^2}$, where $var[X]$ is the variance of $X$.
-\end{lemma}
-\begin{proof}
-Since $Pr[X\textless E[X]-\alpha]\le Pr[|X-E[X]|\textgreater \alpha]$, it suffices to prove $Pr[|X-E[X]|\textgreater \alpha] \le \frac{var[X]}{\alpha^2}$.
-Observe that $Pr[|X-E[X]|\textgreater \alpha]=Pr[(X-E[X])^2\textgreater \alpha^2]$. Since $(X-E[X])^2$ takes non-negative values and $\alpha \textgreater 0$ implies $\alpha^2 \textgreater 0$, by Lemma \ref{Markov}, we have $Pr[(X-E[X])^2\textgreater \alpha^2]\le \frac{E[(X-E[X])^2]}{\alpha^2}=\frac{var[X]}{\alpha^2}$.
-\end{proof}
+%\begin{lemma}\label{Markov}
+%Suppose $X$ is a random variable taking non-negative values. For all $\alpha \textgreater 0$, $Pr[X\textgreater \alpha ]\le \frac{E[X]}{\alpha}$ .
+%\end{lemma}
+%\begin{proof}
+%$E[X]=Pr[X\textgreater \alpha] \cdot E[X|X\textgreater \alpha ]+Pr[X\le \alpha]\cdot E[X|X \le \alpha]$\\
+%Observe that $E[X|X\textgreater \alpha ]\textgreater \alpha$, $Pr[X\le \alpha]\ge 0$.
+%Since $X$ is a random variable taking non-negative values, $E[X|X \le \alpha] \ge 0$.
+%Hence $E[X]\ge Pr[X\textgreater \alpha] \cdot \alpha $. Since $\alpha \textgreater 0$, we have $Pr[X\textgreater \alpha ]\le \frac{E[X]}{\alpha}$.
+%\end{proof}
+%\begin{lemma}\label{Chebyshev}
+%Suppose $X$ is a random variable with expectation $E[X]$. Then for all $\alpha \textgreater 0$, $Pr[X\textless E[X]-\alpha] \le \frac{var[X]}{\alpha^2}$, where $var[X]$ is the variance of $X$.
+%\end{lemma}
+%\begin{proof}
+%Since $Pr[X\textless E[X]-\alpha]\le Pr[|X-E[X]|\textgreater \alpha]$, it suffices to prove $Pr[|X-E[X]|\textgreater \alpha] \le \frac{var[X]}{\alpha^2}$.
+%Observe that $Pr[|X-E[X]|\textgreater \alpha]=Pr[(X-E[X])^2\textgreater \alpha^2]$. Since $(X-E[X])^2$ takes non-negative values and $\alpha \textgreater 0$ implies $\alpha^2 \textgreater 0$, by Lemma \ref{Markov}, we have $Pr[(X-E[X])^2\textgreater \alpha^2]\le \frac{E[(X-E[X])^2]}{\alpha^2}=\frac{var[X]}{\alpha^2}$.
+%\end{proof}
 \subsection {Randomized Algorithm and Analysis}
-In this section, first, I will give a randomized algorithm for graph with no short cycles problem, in which construct an $n$-vertex random graph $G_{n,p}$ with no cycles of length $l$ or less. Then analyze the algorithm and show that if $n\ge 2^{l+2}$, there exists graph $G_{n,p}$ that has at least $\Omega (n^{1+\frac{1}{l-1}})$ edges. The above can be summarized by the following theorem.
+In this section, first, we will give a randomized algorithm for graph with no short cycles problem, in which construct an $n$-vertex random graph $G_{n,p}$ with no cycles of length $l$ or less. Then analyze the algorithm and show that if $n\ge 2^{l+2}$, there exists graph $G_{n,p}$ that has at least $\Omega (n^{1+\frac{1}{l-1}})$ edges. The above can be summarized by the following theorem.
 \begin{theorem}
 For each $l\ge 3$, and $n\ge 2^{l+2}$, there exists an $n$-vertex graph with no cycles of length $l$ or less that has at least $\Omega (n^{1+\frac{1}{l-1}})$ edges.
 \end{theorem}
@@ -86,7 +87,7 @@ Let $X$ be the number of edges in $G_{n,p}$. Let $Y_i$ be the number of length-$
 For each cycle of length $l$ or less, pick one edge and remove it.
 Then we can find an $n$-vertex graph with no cycles of length $l$ or less that has at least $Z:=X-Y$ edges.By the method mentioned above of constructing graph $G_{n,p}$, we have $E[X]=\tbinom{n}{2}p$, $var[X]=\tbinom{n}{2}p(1-p)$, $E[Y_i]=\tbinom{n}{i}p^i$. By Lemma \ref{linearity}, we have $E[Y]=\sum_{i=3}^{l}E[Y_i]$.
 \begin{claim}
-$E[Y]\le (np)^l$
+$E[Y]\textless (np)^l$
 \end{claim}
 \begin{proof}
 \begin{align}
@@ -162,16 +163,23 @@ Suppose we can show the following:
 \end{enumerate}
 By Lemma \ref{union}, we have that with non-zero probability neither events happen, that is $Pr[(X\ge E[X]-\alpha)\cap (Y \le \beta)]\textgreater 0$. Then it shows that there exists an $n$-vertex graph with no cycles of length $l$ or less that has at least $E[X]-\alpha-\beta$ edges. 
 Then we will show how to bound $E[X]-\alpha-\beta$.
-Choose an appropriate value of $p$ such that $E[X] \ge 2E[Y]$. Since $E[X]=\tbinom{n}{2}p$ and $E[Y]\le (np)^l$, we have to satisfy $\tbinom{n}{2}p \ge (np)^l$. Thus, $p\le  \sqrt[l-1]{\frac{1-\frac{1}{n}}{4n^{l-2}}}$. Since $l\ge 3$, $n\ge 2^{l+2}$ and $p\ge \frac{2}{n}$, we can set $p:=\sqrt[l-1]{\frac{1}{8n^{l-2}}}$. Check that $E[X]=\Theta (n^\frac{l}{l-1})$.% Since $E[X] \ge 2E[Y]$ and $E[Y]\le (np)^l$, we have $E[Y]=O(n^\frac{l}{l-1})$.
+Choose an appropriate value of $p$ such that $E[X] \ge 2E[Y]$. Since $E[X]=\tbinom{n}{2}p$ and $E[Y]\textless (np)^l$, we have to satisfy $\tbinom{n}{2}p \ge 2(np)^l$. Thus, $p\le  \sqrt[l-1]{\frac{1-\frac{1}{n}}{4n^{l-2}}}$. Since $l\ge 3$, $n\ge 2^{l+2}$ and $p\ge \frac{2}{n}$, we can set $p:=\sqrt[l-1]{\frac{1}{8n^{l-2}}}$. Check that $E[X]=\Theta (n^\frac{l}{l-1})$.% Since $E[X] \ge 2E[Y]$ and $E[Y]\le (np)^l$, we have $E[Y]=O(n^\frac{l}{l-1})$.
 
-For $\alpha \textgreater 0$, by Lemma \ref{Chebyshev}, we have:
+For $\alpha \textgreater 0$, by 
+%Lemma \ref{Chebyshev}
+Chebyshev's inequality
+, we have:
 \begin{align}
-    \nonumber Pr[X\textless E[X]-\alpha] &\le \frac{var[X]}{\alpha^2}\\
+    \nonumber Pr[X\textless E[X]-\alpha]&\le Pr[|X-E[X]|\textgreater \alpha]\\ 
+    \nonumber &\le \frac{var[X]}{\alpha^2}\\
     \nonumber &=\frac{\tbinom{n}{2}p(1-p)}{\alpha^2}
 \end{align}
 What we need is to satisfy $Pr[X\textless E[X]-\alpha] \textless \frac{1}{2}$, so $\frac{\tbinom{n}{2}p(1-p)}{\alpha^2}\le \frac{1}{2} $. Thus $\alpha \ge \sqrt{2\tbinom{n}{2}p(1-p)}$. We can set $\alpha = \sqrt{2\tbinom{n}{2}p}=\Theta(n^{\frac{l}{2l-2}})$.
 
-For $\beta \textgreater 0$, by Lemma \ref{Markov}, we have: 
+For $\beta \textgreater 0$, by 
+%Lemma \ref{Markov}
+Markov's inequality
+, we have: 
 \begin{align}
     \nonumber Pr[Y \textgreater \beta] &\le \frac{E[Y]}{\beta}\\
     \nonumber & \le \frac{(np)^l}{\beta} 
@@ -187,10 +195,10 @@ Since $E[Z]=E[X-Y]=E[X]-E[Y]$ and $E[X]\ge 2E[Y]$, we have:
     \nonumber E[Z]\ge E[X]-\frac{1}{2}E[X]=\frac{1}{2}E[X]=\Omega (n^\frac{l}{l-1})
 \end{align}
 \subsection{Deterministic Algorithm and Analysis}
-In this section, I will give a deterministic algorithm, which can construct an $n$-graph $G$ without cycles of length $l$ or less. 
+In this section, we will give a deterministic algorithm, which can construct an $n$-graph $G$ without cycles of length $l$ or less. 
 Recall that $Z$ is the number of edges in the final graph.
-Then I will analyze the edges of graph $G$ is at least $E[Z]$. 
-Finally, I will analyze the running time of the deterministic algorithm.
+Then we will analyze the edges of graph $G$ is at least $E[Z]$. 
+Finally, we will analyze the running time of the deterministic algorithm.
 \subsubsection{Deterministic Algorithm}
 Denote $[i]:=\{0,1,2,...,i-1\}$ and $[0]=\emptyset$.
 In graphs with no short cycles problem, for each unordered pair $\{u, v\} \in \tbinom{V}{2}$, we need to decide whether add an edge between vertex $u$ and vertex $v$. 
@@ -220,7 +228,7 @@ For $i\in [\tbinom{n}{2}]$, let $R_{[i]}=r_{[i]}$ be a partial assignment where 
 \subsubsection{Performance Guarantee}
 
 Initially, when $i=0$, $[0]=\emptyset$, we have $E[Z|R_{[0]}=r_{[0]}]=E[Z]$.
-Then I will show the relationship between values $E[Z|R_{[i]}=r_{[i]}]$ and  $E[Z|R_{[i+1]}=r_{[i+1]}]$. 
+Then we will show the relationship between values $E[Z|R_{[i]}=r_{[i]}]$ and  $E[Z|R_{[i+1]}=r_{[i+1]}]$. 
 \begin{align}
     \nonumber E[Z|R_{[i]}=r_{[i]}]&=Pr[R_i=1|R_{[i]}=r_{[i]}]\cdot E[Z|R_{[i]}=r_{[i]}\wedge R_i=1]\\
     \nonumber &~~~~+Pr[R_i=0|R_{[i]}=r_{[i]}]\cdot E[Z|R_{[i]}=r_{[i]}\wedge R_i=0]
