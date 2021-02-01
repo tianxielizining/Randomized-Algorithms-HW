@@ -58,7 +58,7 @@ Suppose $\{A_i\}_{i=1}^n$ is a collection of events. Then, $Pr[\cup_{i=1}^{n}A_i
 %Since $Pr[X\textless E[X]-\alpha]\le Pr[|X-E[X]|\textgreater \alpha]$, it suffices to prove $Pr[|X-E[X]|\textgreater \alpha] \le \frac{var[X]}{\alpha^2}$.
 %Observe that $Pr[|X-E[X]|\textgreater \alpha]=Pr[(X-E[X])^2\textgreater \alpha^2]$. Since $(X-E[X])^2$ takes non-negative values and $\alpha \textgreater 0$ implies $\alpha^2 \textgreater 0$, by Lemma \ref{Markov}, we have $Pr[(X-E[X])^2\textgreater \alpha^2]\le \frac{E[(X-E[X])^2]}{\alpha^2}=\frac{var[X]}{\alpha^2}$.
 %\end{proof}
-\subsection {Randomized Algorithm and Analysis}
+\subsection {Randomized Algorithm and Analysis}\label{RA}
 In this section, first, we will give a randomized algorithm for graph with no short cycles problem, in which construct an $n$-vertex random graph $G_{n,p}$ with no cycles of length $l$ or less. Then analyze the algorithm and show that if $n\ge 2^{l+2}$, there exists graph $G_{n,p}$ that has at least $\Omega (n^{1+\frac{1}{l-1}})$ edges. The above can be summarized by the following theorem.
 \begin{theorem}
 For each $l\ge 3$, and $n\ge 2^{l+2}$, there exists an $n$-vertex graph with no cycles of length $l$ or less that has at least $\Omega (n^{1+\frac{1}{l-1}})$ edges.
@@ -70,7 +70,7 @@ Construct an $n$-vertex random graph $G_{n,p}$ with no cycles of length $l$ or l
     \item Pick one edge in every cycle that of length $l$ or less and remove it.
 \end{enumerate}
 
-\subsubsection{Analysis} 
+\subsubsection{Analysis}\label{Analysis} 
 Let $X$ be the number of edges in $G_{n,p}$. Let $Y_i$ be the number of length-$i$ cycles in $G_{n,p}$. Let $Y:=\sum_{i=3}^{l}Y_i$.
 For each cycle of length $l$ or less, pick one edge and remove it.
 Then we can find an $n$-vertex graph with no cycles of length $l$ or less that has at least $Z:=X-Y$ edges.By the method mentioned above of constructing graph $G_{n,p}$, we have $E[X]=\tbinom{n}{2}p$, $var[X]=\tbinom{n}{2}p(1-p)$, $E[Y_i]=\binom{n}{i}\frac{(i-1)!}{2}p^i$. By Lemma \ref{linearity}, we have $E[Y]=\sum_{i=3}^{l}E[Y_i]$.
@@ -133,23 +133,34 @@ Since $E[Z]=E[X-Y]=E[X]-E[Y]$ and $E[X]\ge 2E[Y]$, we have:
     \nonumber E[Z]\ge E[X]-\frac{1}{2}E[X]=\frac{1}{2}E[X]=\Omega (n^\frac{l}{l-1})
 \end{align}
 \subsection{Deterministic Algorithm and Analysis}
-In this section, we will give a deterministic algorithm, which can construct an $n$-graph $G$ without cycles of length $l$ or less. 
-Recall that $Z$ is the number of edges in the final graph.
-Then we will analyze the edges of graph $G$ is at least $E[Z]$. 
-Finally, we will analyze the running time of the deterministic algorithm.
+In this section, we will give a deterministic algorithm, which can construct an $n$-vertex graph $G$ without cycles of length $l$ or less.
+%Recall that $Z$ is the number of edges in the final graph.
+The deterministic algorithm is a derandomization of the randomized algorithm in Section \ref{RA} by using conditional expectation.
+After giving the deterministic algorithm, we will analyze
+the performance guarantee and time complexity of this algorithm. 
+
+Since the algorithm is related to the randomized algorithm in Section \ref{RA}, we will continue use notations that defined in \ref{RA} in this section.
+In Section \ref{RA}, we defined random variables, $X$, $Y_i$, $Y$ and $Z$ as follows. 
+$X$ represents the number of edges in $G_{n,p}$, which is constructed by independently add an edge between two vertices in $n$ vertices with probability $p$. 
+$Y_i$ means the number of length-$i$ cycles in $G_{n,p}$. 
+$Y$ indicates the number of cycles of length $l$ or less, thus $Y=\sum_{i=3}^{l}Y_i$.
+$Z$ is the objective value of graphs with no short cycles problem. And it is a function of the random variables, $Z=X-Y=X-\sum_{i=3}^{l}Y_i$.
+%we will analyze both the edges of graph $G$ is at least $E[Z]$. 
+%Finally, we will analyze the running time of the deterministic algorithm.
 \subsubsection{Deterministic Algorithm}
 Denote $[i]:=\{0,1,2,...,i-1\}$ and $[0]=\emptyset$.
-In graphs with no short cycles problem, for each unordered pair $\{u, v\} \in \tbinom{V}{2}$, we need to decide whether add an edge between vertex $u$ and vertex $v$. 
-Totally, we have to make decision for $\tbinom{n}{2}$ random variables.
-We denote the $\tbinom{n}{2}$ random variables as $R_0, R_1, ..., R_{\tbinom{n}{2}-1}$. %we use the following method to label all pairs. 
-For $i\in [\tbinom{n}{2}]$, $R_i$ is considered as an edge to be selected in graph $G$.
-Define $R_i$ to be $1$ if we add edge $R_i$ in graph $G$ and $0$ otherwise. 
+In graphs with no short cycles problem, there are $\tbinom{n}{2}$ candidate edges. 
+We use $E:=[\tbinom{n}{2}]$ to denote all candidate edges. 
+Using random variables $R_0, R_1, ..., R_{\tbinom{n}{2}-1}$ to denote whether edge $i$ is in graph $G$.
+Define $R_i$ to be $1$ if we add edge $i$ in graph $G$ and $0$ otherwise. 
 Then, we can use $\sum_{i=0}^{\tbinom{n}{2}-1}R_i$ to denote the object value of the problem. The constraint is that there are no cycles of length $l$ or less.
-For $i\in [\tbinom{n}{2}]$, let $R_{[i]}=r_{[i]}$ be a partial assignment where $r_{[i]}=1$ or $r_{[i]}=0$.
+For $i\in [\tbinom{n}{2}]$, let $R_{[i]}:=r_{[i]}$ be a partial assignment, which means we have already assigned value to random variables $R_{[i]}$.
+
+
 \begin{algorithm}
     \caption{Derandomization for Graphs with No Short Cycles}\label{alg}
-    \KwIn{$n$ vertices: $V$} 
-    \KwOut{a graph $G=(V,E)$} 
+    \KwIn{$n$ vertices: $V$, length $l$} 
+    \KwOut{a graph $G=(V,E)$ with no cycles of length $l$ or less } 
     {
         $E$=$\emptyset$;
 
@@ -157,7 +168,13 @@ For $i\in [\tbinom{n}{2}]$, let $R_{[i]}=r_{[i]}$ be a partial assignment where 
         {
             \If{$E[Z|R_{[i]}=r_{[i]}\wedge R_i=1] \ge E[Z|R_{[i]}=r_{[i]}\wedge R_i=0]$}
             {
-               $ E=E\cup R_i$
+               $r_i=1$
+               
+               $ E=E\cup \{i\}$
+            }
+            \Else
+            {
+                $r_i=0$
             }
         
         }
@@ -165,17 +182,20 @@ For $i\in [\tbinom{n}{2}]$, let $R_{[i]}=r_{[i]}$ be a partial assignment where 
 \end{algorithm}
 \subsubsection{Performance Guarantee}
 
-Initially, when $i=0$, $[0]=\emptyset$, we have $E[Z|R_{[0]}=r_{[0]}]=E[Z]$.
+Initially, when $i=0$, $[i]=\emptyset$, we have $E[Z|R_{[0]}=r_{[0]}]=E[Z]$.
 Then we will show the relationship between values $E[Z|R_{[i]}=r_{[i]}]$ and  $E[Z|R_{[i+1]}=r_{[i+1]}]$. 
 \begin{align}
     \nonumber E[Z|R_{[i]}=r_{[i]}]&=Pr[R_i=1|R_{[i]}=r_{[i]}]\cdot E[Z|R_{[i]}=r_{[i]}\wedge R_i=1]\\
     \nonumber &~~~~+Pr[R_i=0|R_{[i]}=r_{[i]}]\cdot E[Z|R_{[i]}=r_{[i]}\wedge R_i=0]
 \end{align}
-Thus we have either $E[Z|R_{[i]}=r_{[i]}\wedge R_i=1]$ or $E[Z|R_{[i]}=r_{[i]}\wedge R_i=0]$ is not less than  $E[Z|R_{[i]}] $. In algorithm \ref{alg}, we choose the larger one. So we have $E[Z|R_{[i+1]}=r_{[i+1]}] \ge E[Z|R_{[i]}=r_{[i]}]$ where $i\in [\tbinom{n}{2}-1]$.
+Thus we have either $E[Z|R_{[i]}=r_{[i]}\wedge R_i=1]$ or $E[Z|R_{[i]}=r_{[i]}\wedge R_i=0]$ is not less than  $E[Z|R_{[i]}=r_{[i]}] $. In algorithm \ref{alg}, we choose the larger one. So we have $E[Z|R_{[i+1]}=r_{[i+1]}] \ge E[Z|R_{[i]}=r_{[i]}]$ where $i\in [\tbinom{n}{2}-1]$.
 Thus, the algorithm \ref{alg} can guarantee that the output graph $G$ has edges at least $E[Z]$.
 \subsubsection{Time Complexity }
 In Algorithm \ref{alg}, we decide whether to add edge $R_i$ in $G$ one by one. There are totally $\tbinom{n}{2}$ edges to be selected.
 When we consider whether to add edge $R_i$, we have to compute two expectations, $E[Z|R_{[i]}=r_{[i]}\wedge R_i=1]$ and $E[Z|R_{[i]}=r_{[i]}\wedge R_i=0]$. Then I will show how to compute $E[Z|R_{[i]}=r_{[i]}]$.
 \begin{align}
-E[Y_i]=\binom{n}{i}\frac{(i-1)!}{2}p^i    
+    \nonumber E[Z|R_{[i]}=r_{[i]}]&=E[X-Y|R_{[i]}=r_{[i]}]\\
+    \nonumber &=E[X|R_{[i]}=r_{[i]}]-E[Y|R_{[i]}=r_{[i]}]\\
+    \nonumber &=\sum_{x=0}^{i-1}r_x + (\binom{n}{2}-i)\cdot p -E[Y|R_{[i]}=r_{[i]}]
 \end{align}
+Since there are $\binom{n}{2}$ layers of loops, the condition expectation needs to be calculated twice in each layer of the loop, we can get the running time of algorithm \ref{alg} is $O()$.

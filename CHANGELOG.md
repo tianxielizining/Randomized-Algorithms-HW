@@ -19,3 +19,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 + notes2的homework
+
+## 2021-01-31
+
+### Changed
++ modify the proof
+
+## 2021-02-01
+
+### Added
++ Deterministic Algorithm (derandomization) 
