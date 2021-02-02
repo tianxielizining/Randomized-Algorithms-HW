@@ -29,3 +29,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 + Deterministic Algorithm (derandomization) 
+
+## 2021-02-02
+
+### Added
++ homework for notes3
++ basic
