@@ -1,0 +1,84 @@
+\section{Chernoff Bound: Measure Concentration}
+\begin{theorem}[Basic Chernoff Bound]
+    Suppose $Y$ is the sum of $n$ independent $\{0,1\}$-random variables $X_i$'s such that for each $i$, $Pr[X_i=1]=p$. 
+    Let $\mu :=E[Y]=np$. Then, for $0<\epsilon<1$,
+    \begin{align}
+       \nonumber Pr[|Y-E[Y]|\le \epsilon E[Y]]\le 2e^{-\frac{1}{3}\epsilon^2np}
+    \end{align}
+\end{theorem}
+\subsection{Homework}
+\blue{1. \textbf{The Other Half of Chernoff.} Suppose $X_0, X_1, ..., X_{n-1}$ are independent $\{0,1\}$-random
+variables, each having expectation $p$. Let $Y := \sum_{i}X_i$ and $\mu := E[Y]$. Using the method of
+moment generating function, prove the following.
+\begin{align}
+    \nonumber \text{For all}~ \epsilon >0 \text{, }Pr[Y-\mu \ge\epsilon \mu] \le (\frac{e^{\epsilon}}{(1+\epsilon)^{1+\epsilon}})^{\mu}
+\end{align}}
+\begin{proof}
+Set $t>0$, then we have:
+\begin{align}
+    \nonumber Pr[Y-\mu \ge \epsilon \mu] &=Pr[\sum_{i}X_i-\mu \ge \epsilon \mu]\\
+    \nonumber &=Pr[t\sum_{i}X_i \ge t\mu(1+\epsilon)]\\
+    \nonumber &=Pr[e^{t\sum_{i}X_i } \ge e^{t\mu(1+\epsilon)}]
+\end{align}
+By Markov's inequality, we have:
+\begin{align}
+    \nonumber Pr[e^{t\sum_{i}X_i } \ge e^{t\mu(1+\epsilon)}] \le \frac{E[e^{t\sum_{i}X_i }]}{e^{t\mu(1+\epsilon)}}
+\end{align}
+Since $X_i$'s are independent, we have:
+\begin{align}
+    \nonumber E[e^{t\sum_{i}X_i }]=\prod_{i}E[e^{tX_i}]
+\end{align}
+By definition, for each $Pr[X_i=1]=p$, $Pr[X_i=0]=1-p$, and the fact that for all real numbers $x$, $1+x\le e^x$, we have:
+\begin{align}
+    \nonumber E[e^{tX_i}]=e^t\cdot p+e^0 \cdot (1-p)=1+p(e^t-1) \le e^{p(e^t-1)}
+\end{align}
+Then,
+\begin{align}
+    \nonumber \prod_{i}E[e^{tX_i}]\le e^{np(e^t-1)}
+\end{align}
+Thus, we have:
+\begin{align}
+    \nonumber Pr[Y-\mu \ge \epsilon \mu] \le \frac{e^{np(e^t-1)}}{e^{t\mu(1+\epsilon)}}=e^{np(e^t-1)-\mu t(1+\epsilon)}=e^{\mu(e^t-(1+\epsilon)t-1)}
+\end{align}
+Set $g(t)=\mu(e^t-(1+\epsilon)t-1)$. We aim to find the value $t$ that minimizes the function $g(t)$.
+We have $g'(t)=\mu(e^t-(1+\epsilon))$ and $g''(t)=\mu e^t >0$. It follows that function $g(t)$ attains its minimum when $g'(t) = 0$.
+Check that $t>0$, so we can set $t=\ln{(1+\epsilon)}$.
+And $g(\ln{(1+\epsilon)})=\mu(1+\epsilon-(1+\epsilon)\ln{(1+\epsilon)}-1)=\mu(\epsilon-(1+\epsilon)\ln(1+\epsilon))$.
+Thus,
+\begin{align}
+    \nonumber Pr[Y-\mu \ge \epsilon \mu] &\le e^{\mu(\epsilon-(1+\epsilon)\ln(1+\epsilon))}\\
+    \nonumber &=(\frac{e^\epsilon}{e^{(1+\epsilon)\ln(1+\epsilon)}})^{\mu}\\
+    \nonumber &=(\frac{e^\epsilon}{(1+\epsilon)^{1+\epsilon}})^{\mu}
+\end{align}
+\end{proof}
+\noindent\blue{2. \textbf{$n$ Balls into $n$ Bins (Revisited).} 
+Using the Chernoff Bound from the previous question, we can obtain a better bound for the balls and bins problem. 
+Suppose $n$ balls are thrown independently and uniformly at random into $n$ bins. 
+Let $Y_1$ be the number of balls in the first bin. Assume that $n$ is large enough, say $n\ge 100$.\\
+(a) Find a number $N$ in terms of $n$ such that $Pr[Y_1\ge N]\le \frac{1}{n^2}$. 
+Please give the exact form and do not use big $O$ notation for this part of the question.
+}\\
+By definition, $E[Y_1]=\frac{1}{n}\cdot n =1$.
+By Chernoff Bound with large $\epsilon$, we have,
+\begin{align}
+    \nonumber Pr[Y_1\ge 1+\epsilon] \le e^{-\frac{\epsilon^2}{2+\epsilon}}
+\end{align}
+Since we have to satisfy $Pr[Y_1\ge N] \le \frac{1}{n^2}$, we can set $N=1+\epsilon$ and have,
+\begin{align}
+    \nonumber e^{-\frac{\epsilon^2}{2+\epsilon}} &\le \frac{1}{n^2}\\
+    \nonumber -\frac{\epsilon^2}{2+\epsilon} &\le -2\ln n\\
+    \nonumber \frac{\epsilon^2}{2+\epsilon} &\ge 2\ln n\\
+    \nonumber \epsilon^2 -2\ln n \epsilon& -4\ln n \ge 0
+\end{align}
+Since $\ln n >0$ and $\Delta=(2\ln n)^2-4\cdot 1 \cdot (-4\ln n)>0$, we have:
+\begin{align}
+   \nonumber \epsilon &\ge \frac{2\ln n +\sqrt{4(\ln n)^2-4\cdot 1 \cdot (-4\ln n)}}{2}\\
+   \nonumber &=\ln n+ \sqrt{(\ln n)^2+4\ln n}
+\end{align}
+Since $N=1+\epsilon$, we have $N \ge 1+\ln n+ \sqrt{(\ln n)^2+4\ln n}$\\
+\noindent\blue{(b) Show that with probability at least $1-\frac{1}{n}$, no bin contains more than $\Theta(\frac{\log n}{\log\log n})$ balls.}\\
+Let $B_1$ be the event that there exists a bin that with more than $1+\ln n+ \sqrt{(\ln n)^2+4\ln n}$ balls.
+By union bound, we have $Pr[B_1]\le\frac{1}{n^2}\cdot n=\frac{1}{n}$.
+Let $B_2$ be the event that no bin contains more than $1+\ln n+ \sqrt{(\ln n)^2+4\ln n}$ balls.
+Then, $Pr[B_2]\ge 1-\frac{1}{n}$.
+Then I will show that $1+\ln n+ \sqrt{(\ln n)^2+4\ln n}=\Theta(\frac{\log n}{\log\log n})$.
