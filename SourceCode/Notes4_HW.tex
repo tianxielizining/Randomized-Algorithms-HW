@@ -58,27 +58,65 @@ Let $Y_1$ be the number of balls in the first bin. Assume that $n$ is large enou
 (a) Find a number $N$ in terms of $n$ such that $Pr[Y_1\ge N]\le \frac{1}{n^2}$. 
 Please give the exact form and do not use big $O$ notation for this part of the question.
 }\\
-By definition, $E[Y_1]=\frac{1}{n}\cdot n =1$.
-By Chernoff Bound with large $\epsilon$, we have,
+\begin{claim}\label{1}
+    For all $n\ge e^2$, $\ln \ln n -\ln \ln \ln n \ge \frac{\ln \ln n}{2}$.
+\end{claim}
+\begin{proof}
+    Set: $f(x)=lnx$, $x\ge \ln 2$ and $x_1=\ln n$, $x_2=\ln\ln n$, then we have to proof $\ln x_1 \ge 2 \ln x_2$.
+    It suffices to prove that $x_1 \ge (x_2)^2$.
+    Set $g(n)=x_1-(x_2)^2=\ln n- (\ln\ln n)^2$, $n \ge e^2$. Then $g'(n)=\frac{1}{n}(1-\frac{2\ln \ln n}{\ln n})$.
+    Set: $u(n)=\ln n - 2\ln \ln n$, $n \ge e^2$. Then $u'(n)=\frac{1}{x} \cdot (1-\frac{2}{\ln x})$.
+    Since $n\ge e^2$, we have $u'(n)\ge 0$. It follows that function $u(n)$ attains its minimum when $n=e^2$ and $u(e^2)=2-2\ln 2>0$.
+    Then we have $u(n)>0$ for all $n \ge e^2$. Then, it implies that $\frac{2\ln \ln n}{\ln n}<1$ and $1-\frac{2\ln \ln n}{\ln n}>0$.
+    Then  $g'(n)> 0$, which implies that function $g(n)$ attains its minimum when $n=e^2$ and $g(e^2)=2-(\ln 2)^2>0$.
+    Then $x_1 \ge (x_2)^2$ when $n\ge e^2$.
+
+\end{proof}
+\noindent By definition, $E[Y_1]=\frac{1}{n}\cdot n =1$.
+By Chernoff Bound, we have,
 \begin{align}
-    \nonumber Pr[Y_1\ge 1+\epsilon] \le e^{-\frac{\epsilon^2}{2+\epsilon}}
+    \nonumber Pr[Y_1\ge 1+\epsilon] \le \frac{e^\epsilon}{(1+\epsilon)^{1+\epsilon}}
 \end{align}
-Since we have to satisfy $Pr[Y_1\ge N] \le \frac{1}{n^2}$, we can set $N=1+\epsilon$ and have,
+Since we have to satisfy $Pr[Y_1\ge N] \le \frac{1}{n^2}$, we can set $N:=1+\epsilon$ and have,
 \begin{align}
-    \nonumber e^{-\frac{\epsilon^2}{2+\epsilon}} &\le \frac{1}{n^2}\\
-    \nonumber -\frac{\epsilon^2}{2+\epsilon} &\le -2\ln n\\
-    \nonumber \frac{\epsilon^2}{2+\epsilon} &\ge 2\ln n\\
-    \nonumber \epsilon^2 -2\ln n \epsilon& -4\ln n \ge 0
+    \nonumber \frac{e^\epsilon}{(1+\epsilon)^{1+\epsilon}}&\le \frac{1}{n^2}\\
+    \nonumber \frac{e^{N-1}}{N^N}&\le \frac{1}{n^2}\\
+    \nonumber \frac{N^N}{e^{N-1}}&\ge n^2\\
+    \nonumber  \ln (\frac{N^N}{e^{N-1}})&\ge \ln (n^2)\\
+    \nonumber N \ln N - (N-1) &\ge 2\ln n \\
+    \nonumber N(\ln N -1) & \ge 2\ln n +1
 \end{align}
-Since $\ln n >0$ and $\Delta=(2\ln n)^2-4\cdot 1 \cdot (-4\ln n)>0$, we have:
+Set $N:=\frac{\lambda \ln n}{\ln \ln n}$, we need to satisfy:
 \begin{align}
-   \nonumber \epsilon &\ge \frac{2\ln n +\sqrt{4(\ln n)^2-4\cdot 1 \cdot (-4\ln n)}}{2}\\
-   \nonumber &=\ln n+ \sqrt{(\ln n)^2+4\ln n}
+    \nonumber \frac{\lambda \ln n}{\ln \ln n}(\ln (\frac{\lambda \ln n}{\ln \ln n})-1) \ge 2\ln n +1\\
+    \nonumber \frac{\lambda \ln n}{\ln \ln n}(\ln \lambda +\ln\ln n -\ln \ln \ln n -1) \ge 2\ln n +1
 \end{align}
-Since $N=1+\epsilon$, we have $N \ge 1+\ln n+ \sqrt{(\ln n)^2+4\ln n}$\\
+
+%Since $\ln \ln n -\ln \ln \ln n \ge \frac{\ln \ln n}{2}$, 
+By Claim \ref{1},
+we have,
+\begin{align}
+    \nonumber \frac{\lambda \ln n}{\ln \ln n}(\ln \lambda +\ln n -\ln \ln \ln n -1) &\ge \frac{\lambda \ln n}{\ln \ln n}(\ln \lambda -1 +\frac{\ln \ln n}{2})\\
+    \nonumber &=\frac{\lambda \ln n}{\ln \ln n}\cdot \frac{\ln\ln n}{2}+\frac{\lambda \ln n}{\ln \ln n}\cdot(\ln\lambda-1)\\
+    \nonumber &=\frac{\lambda \ln n}{2} +\frac{\lambda \ln n}{\ln \ln n}\cdot(\ln\lambda-1)
+\end{align}
+Set $\lambda \ge e$, then, $\ln\lambda-1 \ge 0$. Thus,
+\begin{align}
+    \nonumber \frac{\lambda \ln n}{\ln \ln n}(\ln \lambda +\ln n -\ln \ln \ln n -1) &\ge \frac{\lambda \ln n}{2}
+\end{align}
+Then we have to satisfy:
+$\frac{\lambda \ln n}{2} \ge 2\ln n +1$ and $\lambda \ge e$ at the same time. So we have:
+\begin{align}
+    \nonumber \lambda \ge \frac{4\ln n +2}{\ln n}
+\end{align}
+Since $N=\frac{\lambda \ln n}{\ln \ln n}$, we have:
+\begin{align}
+    \nonumber N&\ge \frac{4\ln n +2}{\ln n}\cdot \frac{\ln n}{\ln \ln n}\\
+    \nonumber &= \frac{4\ln n +2}{\ln \ln n}
+\end{align}
 \noindent\blue{(b) Show that with probability at least $1-\frac{1}{n}$, no bin contains more than $\Theta(\frac{\log n}{\log\log n})$ balls.}\\
-Let $B_1$ be the event that there exists a bin that with more than $1+\ln n+ \sqrt{(\ln n)^2+4\ln n}$ balls.
+Let $B_1$ be the event that there exists a bin that with more than $\frac{4\ln n +2}{\ln \ln n}$ balls.
 By union bound, we have $Pr[B_1]\le\frac{1}{n^2}\cdot n=\frac{1}{n}$.
-Let $B_2$ be the event that no bin contains more than $1+\ln n+ \sqrt{(\ln n)^2+4\ln n}$ balls.
-Then, $Pr[B_2]\ge 1-\frac{1}{n}$.
-Then I will show that $1+\ln n+ \sqrt{(\ln n)^2+4\ln n}=\Theta(\frac{\log n}{\log\log n})$.
+Let $B_2$ be the event that no bin contains more than $\frac{4\ln n +2}{\ln \ln n}$ balls.
+Then, $Pr[B_2]\ge 1-\frac{1}{n}$.\\
+Since $\frac{4\ln n +2}{\ln \ln n}=\Theta(\frac{\log n}{\log\log n})$, we have that with probability at least $1-\frac{1}{n}$, no bin contains more than $\Theta(\frac{\log n}{\log\log n})$ balls.
