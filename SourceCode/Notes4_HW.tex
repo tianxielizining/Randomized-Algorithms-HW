@@ -51,7 +51,7 @@ Thus,
     \nonumber &=(\frac{e^\epsilon}{(1+\epsilon)^{1+\epsilon}})^{\mu}
 \end{align}
 \end{proof}
-\noindent\blue{2. \textbf{$n$ Balls into $n$ Bins (Revisited).} 
+\noindent \blue{2. \textbf{$n$ Balls into $n$ Bins (Revisited).} 
 Using the Chernoff Bound from the previous question, we can obtain a better bound for the balls and bins problem. 
 Suppose $n$ balls are thrown independently and uniformly at random into $n$ bins. 
 Let $Y_1$ be the number of balls in the first bin. Assume that $n$ is large enough, say $n\ge 100$.\\
@@ -59,17 +59,22 @@ Let $Y_1$ be the number of balls in the first bin. Assume that $n$ is large enou
 Please give the exact form and do not use big $O$ notation for this part of the question.
 }\\
 \begin{claim}\label{1}
-    For all $n\ge e^2$, $\ln \ln n -\ln \ln \ln n \ge \frac{\ln \ln n}{2}$.
+    For all $n\ge e^{e^2}$, $\ln \ln n -\ln \ln \ln n \ge \frac{\ln \ln n}{2}$.
 \end{claim}
 \begin{proof}
-    Set: $f(x)=lnx$, $x\ge \ln 2$ and $x_1=\ln n$, $x_2=\ln\ln n$, then we have to proof $\ln x_1 \ge 2 \ln x_2$.
-    It suffices to prove that $x_1 \ge (x_2)^2$.
-    Set $g(n)=x_1-(x_2)^2=\ln n- (\ln\ln n)^2$, $n \ge e^2$. Then $g'(n)=\frac{1}{n}(1-\frac{2\ln \ln n}{\ln n})$.
-    Set: $u(n)=\ln n - 2\ln \ln n$, $n \ge e^2$. Then $u'(n)=\frac{1}{x} \cdot (1-\frac{2}{\ln x})$.
-    Since $n\ge e^2$, we have $u'(n)\ge 0$. It follows that function $u(n)$ attains its minimum when $n=e^2$ and $u(e^2)=2-2\ln 2>0$.
-    Then we have $u(n)>0$ for all $n \ge e^2$. Then, it implies that $\frac{2\ln \ln n}{\ln n}<1$ and $1-\frac{2\ln \ln n}{\ln n}>0$.
-    Then  $g'(n)> 0$, which implies that function $g(n)$ attains its minimum when $n=e^2$ and $g(e^2)=2-(\ln 2)^2>0$.
-    Then $x_1 \ge (x_2)^2$ when $n\ge e^2$.
+    Let $t=\ln \ln n$, then it turns to proof $t\ge 2\ln t$ when $t\ge 2$.
+    Let $f(t)=t-2\ln t$ where $t\ge 2$.
+    $f'(t)=1-\frac{2}{t}$. Since $t\ge 2$, we have $f'(t)\ge 0$.
+    It follows that function $f(t)$ attains its minimum when $t=2$ and $f(2)=2-2\ln 2>0$.
+    Then, $t\ge 2\ln t$ when $t\ge 2$.
+    %Set: $f(x)=lnx$, $x\ge \ln 2$ and $x_1=\ln n$, $x_2=\ln\ln n$, then we have to proof $\ln x_1 \ge 2 \ln x_2$.
+    %It suffices to prove that $x_1 \ge (x_2)^2$.
+    %Set $g(n)=x_1-(x_2)^2=\ln n- (\ln\ln n)^2$, $n \ge e^2$. Then $g'(n)=\frac{1}{n}(1-\frac{2\ln \ln n}{\ln n})$.
+    %Set: $u(n)=\ln n - 2\ln \ln n$, $n \ge e^2$. Then $u'(n)=\frac{1}{n} \cdot (1-\frac{2}{\ln n})$.
+    %Since $n\ge e^2$, we have $u'(n)\ge 0$. It follows that function $u(n)$ attains its minimum when $n=e^2$ and $u(e^2)=2-2\ln 2>0$.
+    %Then we have $u(n)>0$ for all $n \ge e^2$. Then, it implies that $\frac{2\ln \ln n}{\ln n}<1$ and $1-\frac{2\ln \ln n}{\ln n}>0$.
+    %Then  $g'(n)> 0$, which implies that function $g(n)$ attains its minimum when $n=e^2$ and $g(e^2)=2-(\ln 2)^2>0$.
+    %Then $x_1 \ge (x_2)^2$ when $n\ge e^2$.
 
 \end{proof}
 \noindent By definition, $E[Y_1]=\frac{1}{n}\cdot n =1$.
