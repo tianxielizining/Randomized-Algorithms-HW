@@ -59,14 +59,17 @@ Let $Y_1$ be the number of balls in the first bin. Assume that $n$ is large enou
 Please give the exact form and do not use big $O$ notation for this part of the question.
 }\\
 \begin{claim}\label{1}
-    For all $n\ge e^{e^2}$, $\ln \ln n -\ln \ln \ln n \ge \frac{\ln \ln n}{2}$.
+    For all $n> e$, $\ln \ln n  \ge 2\ln \ln \ln n$.
 \end{claim}
 \begin{proof}
-    Let $t=\ln \ln n$, then it turns to proof $t\ge 2\ln t$ when $t\ge 2$.
-    Let $f(t)=t-2\ln t$ where $t\ge 2$.
-    $f'(t)=1-\frac{2}{t}$. Since $t\ge 2$, we have $f'(t)\ge 0$.
+    Let $t=\ln \ln n$, then it turns to proof $t\ge 2\ln t$ when $t> 0$.
+    Let $f(t)=t-2\ln t$ where $t> 0$.
+    $f'(t)=1-\frac{2}{t}$. 
+    When $t\in (0,2)$, $f'(t)<0$.
+    When $t=2$, $f'(t)=0$.
+    When $t>2$, $f'(t)>0$.
     It follows that function $f(t)$ attains its minimum when $t=2$ and $f(2)=2-2\ln 2>0$.
-    Then, $t\ge 2\ln t$ when $t\ge 2$.
+    Then, $t\ge 2\ln t$ when $t>0$.
     %Set: $f(x)=lnx$, $x\ge \ln 2$ and $x_1=\ln n$, $x_2=\ln\ln n$, then we have to proof $\ln x_1 \ge 2 \ln x_2$.
     %It suffices to prove that $x_1 \ge (x_2)^2$.
     %Set $g(n)=x_1-(x_2)^2=\ln n- (\ln\ln n)^2$, $n \ge e^2$. Then $g'(n)=\frac{1}{n}(1-\frac{2\ln \ln n}{\ln n})$.
