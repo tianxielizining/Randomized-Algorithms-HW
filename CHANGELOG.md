@@ -39,4 +39,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## 2021-02-03
 
 ### Added
-+ homework for notes4
++ homework_1 for notes4
+
+## 2021-02-04
+
+### Added
++ homework_2 for notes4
+
+## 2021-02-06
+### Added
++ homework_1_2 for notes5
+
+

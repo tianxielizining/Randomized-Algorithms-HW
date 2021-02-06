@@ -1,0 +1,72 @@
+\section{Hoeffding's Inequality}
+\noindent 0. \blue{Assume that there is a randomized algorithm $A$ that is suitable for a yes/no problem.
+And algorithm $A$ can return the correct answer with probability $p$($p>0.5$). 
+How to design a randomized algorithm based on $A$ that, with failure probability at most $\delta$? } \\
+\textbf{Algorithm:}\\
+Let $Y$ be the correct answer, and $Y\in\{0,1\}$.\\
+1. Repeat algorithm $A$ for $2n+1$ times and we can get $2n+1$ outputs.
+Denote the $2n+1$ outputs as $X_0,X_1,...,X_{2n}$. 
+For each $i\in [2n+1]$, $X_i\in \{0, 1\}$. \\
+Since the algorithm $A$ can return the correct answer with probability $p$, we have for each $i \in [2n+1]$, $E[X_i=Y]=p$.\\
+2. Let $X$ be the output of the algorithm. If $\frac{\sum_{i=1}^{2n+1}X_i}{2n+1}>\frac{1}{2}$, return $X=1$. Otherwise, return $X=0$.\\
+\textbf{Analysis:}\\
+If $X!=Y$, there are at least $n+1$ $X_i$s such that $X_i!=Y$.
+We can compute the failure probabily $F$ as follows.
+\begin{align}
+    \nonumber F=\sum_{i=0}^{n}{\binom{2n+1}{i} p^i(1-p)^{2n+1-i}}
+\end{align}
+Since the failure probability is at most $\delta$, we have to satisfy $F\le \delta$ and can get $n$.\\
+\noindent 1. \blue{\textbf{Integration by Sampling.}
+Suppose we are given an integrable function 
+$f : [0, 1]\rightarrow [0, M ]$,
+and we wish to estimate the integral $I (f ) := \int_{0}^{1} f (x) \,dx$.
+We only have \textbf{black box access} to the function $f$: 
+this means that we are given a box such that 
+when we provide it with a real number $x$, 
+the box returns the value $f(x)$.
+Moreover, we assume the real computation model. 
+In particular, we assume that storing a real number takes constant space, 
+and basic arithmetic and comparison operator ($\le$) take constant time.
+Suppose we are also given a random number generator \textbf{Rand[0,1] }
+that returns a number uniformly at random from $[0,1]$, 
+and subsequent runs of \textbf{Rand[0,1]} are independent.
+The goal is to design an algorithm that given black box access to a function 
+$f : [0, 1]\rightarrow [0, M ]$ and parameters $0 < \epsilon ,\delta < 1$, 
+return an estimate of $I(f)$ with additive error at most $\epsilon$ 
+and failure probability at most $\delta$.
+\\
+(a) Show that this is not achievable by a deterministic algorithm. 
+In particular, show that for any deterministic algorithm $A$, 
+there is some function $f$ such that the algorithm $A$
+returns an answer with additive error $\frac{M}{2}$ .
+}
+
+\noindent \blue{(b) Using the random generator \textbf{Rand[0,1]}, 
+design a randomized algorithm to achieve the desired goal.
+Give the number of black box accesses to the function $f$ 
+and the number of accesses to \textbf{Rand[0,1]} used by your algorithm.}\\
+The randomized algorithm is as follows.
+\begin{enumerate}
+    \item Use \textbf{Rand[0.1]} for $n$ times and get $n$ random numbers.
+    Here, $n=\lceil \frac{M^2(\ln 2-\ln \delta)}{2\epsilon^2}\rceil $.
+    Denote the $n$ random numbers as $X_0, X_1, ..., X_{n-1}$.
+    \item For each $X_i$, $i\in [n]$, use \textbf{black box access} to get $f(X_i)$.
+    Let $Y=\sum_{i\in n}f(X_i)$.
+    \item Return $\frac{Y}{n}$ as the estimate of $I(f)$.
+\end{enumerate}
+\textbf{Analysis:}\\
+Since \textbf{Rand[0,1]} can generate random number independent,
+$X_1, X_2,..., X_{n-1}$ are independent.
+And then, $f(X_1), f(X_2),..., f(X_{n-1})$ are independent.
+Furthermore, all of the $f(X_i)$s take values from the interval $[0, M]$.
+$Y=\sum_{i\in n}f(X_i)$, by definition, we have $E[\frac{Y}{n}]=I(f)$.
+By Hoeffding's Inequality, we have:
+\begin{align}
+    \nonumber Pr[|\frac{Y}{n}-I(f)|\ge\epsilon]=Pr[|\frac{Y}{n}-E[\frac{Y}{n}]|\ge\epsilon]
+    =Pr[|Y-E[Y]|\ge n\epsilon]\le 2e^{\frac{-2n\epsilon^2}{M^2}}
+\end{align}
+What we need to satisfy is $Pr[|\frac{Y}{n}-I(f)|\ge\epsilon]\le \delta$, then,
+\begin{align}
+    \nonumber 2e^{\frac{-2n\epsilon^2}{M^2}} \le \delta \implies n\ge \frac{M^2(\ln 2-\ln \delta)}{2\epsilon^2}
+\end{align}
+
