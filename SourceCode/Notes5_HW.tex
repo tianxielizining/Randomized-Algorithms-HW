@@ -1,21 +1,39 @@
 \section{Hoeffding's Inequality}
 \noindent 0. \blue{Assume that there is a randomized algorithm $A$ that is suitable for a yes/no problem.
-And algorithm $A$ can return the correct answer with probability $p$($p>0.5$). 
-How to design a randomized algorithm based on $A$ that, with failure probability at most $\delta$? } \\
+And algorithm $A$ can return the correct answer with probability $p\in(\frac{1}{2},1)$. 
+How to design a randomized algorithm based on $A$ with failure probability at most $\delta$? } \\
 \textbf{Algorithm:}\\
-Let $Y$ be the correct answer, and $Y\in\{0,1\}$.\\
-1. Repeat algorithm $A$ for $2n+1$ times and we can get $2n+1$ outputs.
-Denote the $2n+1$ outputs as $X_0,X_1,...,X_{2n}$. 
-For each $i\in [2n+1]$, $X_i\in \{0, 1\}$. \\
-Since the algorithm $A$ can return the correct answer with probability $p$, we have for each $i \in [2n+1]$, $E[X_i=Y]=p$.\\
-2. Let $X$ be the output of the algorithm. If $\frac{\sum_{i=1}^{2n+1}X_i}{2n+1}>\frac{1}{2}$, return $X=1$. Otherwise, return $X=0$.\\
+\begin{enumerate}
+    \item  Repeat algorithm $A$ for $2n+1$ times and we can get $2n+1$ outputs.
+    Denote the $2n+1$ outputs as $X_0,X_1,...,X_{2n}$. Here, $n=\lceil \frac{\frac{-8p\cdot \ln \delta }{(2p-1)^2} -1}{2}\rceil $.
+    \item Let $X$ be the output of the algorithm. 
+    If $\frac{\sum_{i=1}^{2n+1}X_i}{2n+1}>\frac{1}{2}$, return $X=1$. Otherwise, return $X=0$.
+\end{enumerate}
 \textbf{Analysis:}\\
-If $X!=Y$, there are at least $n+1$ $X_i$s such that $X_i!=Y$.
-We can compute the failure probabily $F$ as follows.
+Let $C$ be the correct answer, and $C\in\{0,1\}$.
+For each $i\in [2n+1]$, $X_i\in \{0, 1\}$. 
+For each $i\in [2n+1]$, use $Y_i$ to denote the correctness of $X_i$.
+If $X_i=C$, $Y_i=1$; if $X_i\neq C$, $Y_i=0$. 
+Since the algorithm $A$ can return the correct answer with probability $p$, 
+we have for each $i \in [2n+1]$, $E[Y_i]=p$.
+Let $Z=\sum_{i\in[2n+1]}Y_i$, and then, we have $E[Z]=(2n+1)p$.\\
+The algorithm will fail if and only if $Z$ is lesser than $\frac{1}{2}(2n+1)$. 
+And we have to make sure that the failure probability at most $\delta$, so we have:
 \begin{align}
-    \nonumber F=\sum_{i=0}^{n}{\binom{2n+1}{i} p^i(1-p)^{2n+1-i}}
+    \nonumber  Pr[Z<\frac{1}{2}(2n+1)]\le \delta
 \end{align}
-Since the failure probability is at most $\delta$, we have to satisfy $F\le \delta$ and can get $n$.\\
+By Chernoff Bound, we have:
+\begin{align}
+    \nonumber Pr[Z \le (1-\epsilon) E[Z]]\le e^{-\frac{1}{2}\epsilon^2(2n+1)p}
+\end{align}
+Let $(1-\epsilon) E[Z]= \frac{1}{2}(2n+1)$. Since $E[Z]=(2n+1)p$, we can compute $\epsilon=1-\frac{1}{2p}$.
+Since $p\in (\frac{1}{2},1)$, the $\epsilon \in (0,1) $.
+Thus, we have $Pr[Z \le \frac{1}{2}(2n+1)]\le e^{\frac{-(2p-1)^2(2n+1)}{8p}}$.
+Since $Pr[Z < \frac{1}{2}(2n+1)]\le Pr[Z \le \frac{1}{2}(2n+1)]$ and we have to satisfy $Pr[Z<\frac{1}{2}(2n+1)]\le \delta$, then:
+\begin{align}
+    \nonumber e^{\frac{-(2p-1)^2(2n+1)}{8p}} \le \delta \implies 2n+1 \ge \frac{-8p\cdot \ln \delta }{(2p-1)^2}
+\end{align}
+\\
 \noindent 1. \blue{\textbf{Integration by Sampling.}
 Suppose we are given an integrable function 
 $f : [0, 1]\rightarrow [0, M ]$,
