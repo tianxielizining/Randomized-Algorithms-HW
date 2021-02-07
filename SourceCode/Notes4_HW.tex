@@ -1,9 +1,9 @@
 \section{Chernoff Bound: Measure Concentration}
 \begin{theorem}[Basic Chernoff Bound]
-    Suppose $Y$ is the sum of $n$ independent $\{0,1\}$-random variables $X_i$'s such that for each $i$, $Pr[X_i=1]=p$. 
+    Suppose $Y$ is the sum of $n$ independent $\{0,1\}$-random variables $X_i$'s such that for each $i$, $\Pr[X_i=1]=p$. 
     Let $\mu :=E[Y]=np$. Then, for $0<\epsilon<1$,
     \begin{align}
-       \nonumber Pr[|Y-E[Y]|\le \epsilon E[Y]]\le 2e^{-\frac{1}{3}\epsilon^2np}
+       \nonumber \Pr[|Y-E[Y]|\le \epsilon E[Y]]\le 2\exp({-\frac{1}{3}\epsilon^2np})
     \end{align}
 \end{theorem}
 \subsection{Homework}
@@ -11,51 +11,51 @@
 variables, each having expectation $p$. Let $Y := \sum_{i}X_i$ and $\mu := E[Y]$. Using the method of
 moment generating function, prove the following.
 \begin{align}
-    \nonumber \text{For all}~ \epsilon >0 \text{, }Pr[Y-\mu \ge\epsilon \mu] \le (\frac{e^{\epsilon}}{(1+\epsilon)^{1+\epsilon}})^{\mu}
+    \nonumber \text{For all}~ \epsilon >0 \text{, }\Pr[Y-\mu \ge\epsilon \mu] \le (\frac\exp({\epsilon}){(1+\epsilon)^{1+\epsilon}})^{\mu}
 \end{align}}
 \begin{proof}
 Set $t>0$, then we have:
 \begin{align}
-    \nonumber Pr[Y-\mu \ge \epsilon \mu] &=Pr[\sum_{i}X_i-\mu \ge \epsilon \mu]\\
-    \nonumber &=Pr[t\sum_{i}X_i \ge t\mu(1+\epsilon)]\\
-    \nonumber &=Pr[e^{t\sum_{i}X_i } \ge e^{t\mu(1+\epsilon)}]
+    \nonumber \Pr[Y-\mu \ge \epsilon \mu] &=\Pr[\sum_{i}X_i-\mu \ge \epsilon \mu]\\
+    \nonumber &=\Pr[t\sum_{i}X_i \ge t\mu(1+\epsilon)]\\
+    \nonumber &=\Pr[\exp({t\sum_{i}X_i } )\ge \exp({t\mu(1+\epsilon)})]
 \end{align}
 By Markov's inequality, we have:
 \begin{align}
-    \nonumber Pr[e^{t\sum_{i}X_i } \ge e^{t\mu(1+\epsilon)}] \le \frac{E[e^{t\sum_{i}X_i }]}{e^{t\mu(1+\epsilon)}}
+    \nonumber \Pr[\exp({t\sum_{i}X_i }) \ge \exp({t\mu(1+\epsilon)})] \le \frac{E[\exp({t\sum_{i}X_i })]}{\exp({t\mu(1+\epsilon)})}
 \end{align}
 Since $X_i$'s are independent, we have:
 \begin{align}
-    \nonumber E[e^{t\sum_{i}X_i }]=\prod_{i}E[e^{tX_i}]
+    \nonumber E[\exp({t\sum_{i}X_i })]=\prod_{i}E[\exp({tX_i})]
 \end{align}
-By definition, for each $Pr[X_i=1]=p$, $Pr[X_i=0]=1-p$, and the fact that for all real numbers $x$, $1+x\le e^x$, we have:
+By definition, for each $\Pr[X_i=1]=p$, $\Pr[X_i=0]=1-p$, and the fact that for all real numbers $x$, $1+x\le \exp(x)$, we have:
 \begin{align}
-    \nonumber E[e^{tX_i}]=e^t\cdot p+e^0 \cdot (1-p)=1+p(e^t-1) \le e^{p(e^t-1)}
+    \nonumber E[\exp({tX_i})]=\exp(t)\cdot p+\exp(0) \cdot (1-p)=1+p(\exp(t)-1) \le \exp({p(\exp(t)-1)})
 \end{align}
 Then,
 \begin{align}
-    \nonumber \prod_{i}E[e^{tX_i}]\le e^{np(e^t-1)}
+    \nonumber \prod_{i}E[\exp({tX_i})]\le \exp({np(\exp(t)-1)})
 \end{align}
 Thus, we have:
 \begin{align}
-    \nonumber Pr[Y-\mu \ge \epsilon \mu] \le \frac{e^{np(e^t-1)}}{e^{t\mu(1+\epsilon)}}=e^{np(e^t-1)-\mu t(1+\epsilon)}=e^{\mu(e^t-(1+\epsilon)t-1)}
+    \nonumber \Pr[Y-\mu \ge \epsilon \mu] \le \frac{\exp({np(\exp(t)-1)})}{\exp({t\mu(1+\epsilon)})}=\exp({np(\exp(t)-1)-\mu t(1+\epsilon)})=\exp(\mu(\exp(t)-(1+\epsilon)t-1))
 \end{align}
-Set $g(t)=\mu(e^t-(1+\epsilon)t-1)$. We aim to find the value $t$ that minimizes the function $g(t)$.
-We have $g'(t)=\mu(e^t-(1+\epsilon))$ and $g''(t)=\mu e^t >0$. It follows that function $g(t)$ attains its minimum when $g'(t) = 0$.
+Set $g(t)=\mu(\exp(t)-(1+\epsilon)t-1)$. We aim to find the value $t$ that minimizes the function $g(t)$.
+We have $g'(t)=\mu(\exp(t)-(1+\epsilon))$ and $g''(t)=\mu \exp(t) >0$. It follows that function $g(t)$ attains its minimum when $g'(t) = 0$.
 Check that $t>0$, so we can set $t=\ln{(1+\epsilon)}$.
 And $g(\ln{(1+\epsilon)})=\mu(1+\epsilon-(1+\epsilon)\ln{(1+\epsilon)}-1)=\mu(\epsilon-(1+\epsilon)\ln(1+\epsilon))$.
 Thus,
 \begin{align}
-    \nonumber Pr[Y-\mu \ge \epsilon \mu] &\le e^{\mu(\epsilon-(1+\epsilon)\ln(1+\epsilon))}\\
-    \nonumber &=(\frac{e^\epsilon}{e^{(1+\epsilon)\ln(1+\epsilon)}})^{\mu}\\
-    \nonumber &=(\frac{e^\epsilon}{(1+\epsilon)^{1+\epsilon}})^{\mu}
+    \nonumber \Pr[Y-\mu \ge \epsilon \mu] &\le \exp({\mu(\epsilon-(1+\epsilon)\ln(1+\epsilon))})\\
+    \nonumber &=(\frac{\exp(\epsilon)}{\exp({(1+\epsilon)\ln(1+\epsilon)})})^{\mu}\\
+    \nonumber &=(\frac{\exp(\epsilon)}{(1+\epsilon)^{1+\epsilon}})^{\mu}
 \end{align}
 \end{proof}
 \noindent \blue{2. \textbf{$n$ Balls into $n$ Bins (Revisited).} 
 Using the Chernoff Bound from the previous question, we can obtain a better bound for the balls and bins problem. 
 Suppose $n$ balls are thrown independently and uniformly at random into $n$ bins. 
 Let $Y_1$ be the number of balls in the first bin. Assume that $n$ is large enough, say $n\ge 100$.\\
-(a) Find a number $N$ in terms of $n$ such that $Pr[Y_1\ge N]\le \frac{1}{n^2}$. 
+(a) Find a number $N$ in terms of $n$ such that $\Pr[Y_1\ge N]\le \frac{1}{n^2}$. 
 Please give the exact form and do not use big $O$ notation for this part of the question.
 }\\
 \begin{claim}\label{1}
@@ -70,27 +70,18 @@ Please give the exact form and do not use big $O$ notation for this part of the 
     When $t>2$, $f'(t)>0$.
     It follows that function $f(t)$ attains its minimum when $t=2$ and $f(2)=2-2\ln 2>0$.
     Then, $t\ge 2\ln t$ when $t>0$.
-    %Set: $f(x)=lnx$, $x\ge \ln 2$ and $x_1=\ln n$, $x_2=\ln\ln n$, then we have to proof $\ln x_1 \ge 2 \ln x_2$.
-    %It suffices to prove that $x_1 \ge (x_2)^2$.
-    %Set $g(n)=x_1-(x_2)^2=\ln n- (\ln\ln n)^2$, $n \ge e^2$. Then $g'(n)=\frac{1}{n}(1-\frac{2\ln \ln n}{\ln n})$.
-    %Set: $u(n)=\ln n - 2\ln \ln n$, $n \ge e^2$. Then $u'(n)=\frac{1}{n} \cdot (1-\frac{2}{\ln n})$.
-    %Since $n\ge e^2$, we have $u'(n)\ge 0$. It follows that function $u(n)$ attains its minimum when $n=e^2$ and $u(e^2)=2-2\ln 2>0$.
-    %Then we have $u(n)>0$ for all $n \ge e^2$. Then, it implies that $\frac{2\ln \ln n}{\ln n}<1$ and $1-\frac{2\ln \ln n}{\ln n}>0$.
-    %Then  $g'(n)> 0$, which implies that function $g(n)$ attains its minimum when $n=e^2$ and $g(e^2)=2-(\ln 2)^2>0$.
-    %Then $x_1 \ge (x_2)^2$ when $n\ge e^2$.
-
 \end{proof}
 \noindent By definition, $E[Y_1]=\frac{1}{n}\cdot n =1$.
 By Chernoff Bound, we have,
 \begin{align}
-    \nonumber Pr[Y_1\ge 1+\epsilon] \le \frac{e^\epsilon}{(1+\epsilon)^{1+\epsilon}}
+    \nonumber \Pr[Y_1\ge 1+\epsilon] \le \frac{\exp(\epsilon)}{(1+\epsilon)^{1+\epsilon}}
 \end{align}
-Since we have to satisfy $Pr[Y_1\ge N] \le \frac{1}{n^2}$, we can set $N:=1+\epsilon$ and have,
+Since we have to satisfy $\Pr[Y_1\ge N] \le \frac{1}{n^2}$, we can set $N:=1+\epsilon$ and have,
 \begin{align}
-    \nonumber \frac{e^\epsilon}{(1+\epsilon)^{1+\epsilon}}&\le \frac{1}{n^2}\\
-    \nonumber \frac{e^{N-1}}{N^N}&\le \frac{1}{n^2}\\
-    \nonumber \frac{N^N}{e^{N-1}}&\ge n^2\\
-    \nonumber  \ln (\frac{N^N}{e^{N-1}})&\ge \ln (n^2)\\
+    \nonumber \frac{\exp(\epsilon)}{(1+\epsilon)^{1+\epsilon}}&\le \frac{1}{n^2}\\
+    \nonumber \frac{\exp({N-1})}{N^N}&\le \frac{1}{n^2}\\
+    \nonumber \frac{N^N}{\exp({N-1})}&\ge n^2\\
+    \nonumber  \ln (\frac{N^N}{\exp({N-1})})&\ge \ln (n^2)\\
     \nonumber N \ln N - (N-1) &\ge 2\ln n \\
     \nonumber N(\ln N -1) & \ge 2\ln n +1
 \end{align}
@@ -124,7 +115,7 @@ Since $N=\frac{\lambda \ln n}{\ln \ln n}$, we have:
 \end{align}
 \noindent\blue{(b) Show that with probability at least $1-\frac{1}{n}$, no bin contains more than $\Theta(\frac{\log n}{\log\log n})$ balls.}\\
 Let $B_1$ be the event that there exists a bin that with more than $\frac{4\ln n +2}{\ln \ln n}$ balls.
-By union bound, we have $Pr[B_1]\le\frac{1}{n^2}\cdot n=\frac{1}{n}$.
+By union bound, we have $\Pr[B_1]\le\frac{1}{n^2}\cdot n=\frac{1}{n}$.
 Let $B_2$ be the event that no bin contains more than $\frac{4\ln n +2}{\ln \ln n}$ balls.
-Then, $Pr[B_2]\ge 1-\frac{1}{n}$.\\
+Then, $\Pr[B_2]\ge 1-\frac{1}{n}$.\\
 Since $\frac{4\ln n +2}{\ln \ln n}=\Theta(\frac{\log n}{\log\log n})$, we have that with probability at least $1-\frac{1}{n}$, no bin contains more than $\Theta(\frac{\log n}{\log\log n})$ balls.

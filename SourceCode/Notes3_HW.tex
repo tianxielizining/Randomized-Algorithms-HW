@@ -27,7 +27,7 @@ Get the optimal solution $\{x_j\}$ of LP.
 
 \noindent\textbf{Analysis}\\
 1. The expected size of $C$: Since we independently pick $S_j$ with probability $x_j$, $E[C]=\sum_{j \in [m]}x_j=LP\le OPT$.\\
-2. Feasibility: $C$ may not feasible. The probability that the element $g$ is not included in $C$ is $\prod_{j:g\in S_j}(1-x_j)\le \prod_{j:g\in S_j}(e^{-x}) \le e^{-\sum_{j:g\in S_j}x_j} \le e^{-1}$\\
+2. Feasibility: $C$ may not feasible. The probability that the element $g$ is not included in $C$ is $\prod_{j:g\in S_j}(1-x_j)\le \prod_{j:g\in S_j}(\exp({-x})) \le \exp({-\sum_{j:g\in S_j}x_j}) \le \exp({-1})$\\
 \noindent\textbf{Second attempt}\\
 Repeat the Simple Rounding Procedure $T$ times independently. In particular, we do the following.\\
 1. For $t=1,2,...,T$ do:
@@ -35,18 +35,18 @@ Run the Simple Randomized Procedure to obtain cover $C_t$.\\
 2. Return $\widehat{C}=\cup_{t=1}^TC_t$.\\
 \noindent\textbf{Analysis}\\
 1. The expected size of $\widehat{C}$: $E[\widehat{C}]= E[\cup_{t=1}^TC_t]\le \sum_{t=1}^{T}E[C_t]\le T\cdot OPT$\\
-2. Feasibility: $\widehat{C}$ may not feasible. The probability that the element $g$ is not included in $\widehat{C}$ is at most $e^{-T}$.
+2. Feasibility: $\widehat{C}$ may not feasible. The probability that the element $g$ is not included in $\widehat{C}$ is at most $\exp({-T})$.
 \subsection{Homework}
 We assume that the number of elements in $U$ is large enough, say $n \ge 20$.\\
 \blue{(a) Suppose we repeat the Simple Rounding Procedure for $T := \ln n + \lambda \ln \ln n$ times, where $ \lambda \textgreater 0$ is some number we determine later. Suppose $\widehat{C}$ is the index set of the cover returned from the repeated runs, and we want approximation ratio $\rho$, for some $\rho \textgreater 1$
-which we want as small as possible. Let $B_1$ be the event that $|\widehat{C}|\ge \rho \cdot OPT$. Show that if you set $\rho:=\ln n+2\lambda \ln\ln n +2$, then $Pr[B_1]\le 1-\frac{1}{\ln n}$.}\\
+which we want as small as possible. Let $B_1$ be the event that $|\widehat{C}|\ge \rho \cdot OPT$. Show that if you set $\rho:=\ln n+2\lambda \ln\ln n +2$, then $\Pr[B_1]\le 1-\frac{1}{\ln n}$.}\\
 By Markov's Inequality, we have:
 \begin{align}
-  \nonumber Pr[B_1]=Pr[|\widehat{C}|\ge \rho \cdot OPT]\le \frac{E[|\widehat{C}|]}{\rho \cdot OPT}\le  \frac{T\cdot OPT}{\rho \cdot OPT} = \frac{T}{\rho}
+  \nonumber \Pr[B_1]=\Pr[|\widehat{C}|\ge \rho \cdot OPT]\le \frac{E[|\widehat{C}|]}{\rho \cdot OPT}\le  \frac{T\cdot OPT}{\rho \cdot OPT} = \frac{T}{\rho}
 \end{align}
 Since we set $T := \ln n + \lambda \ln \ln n$ and $\rho:=\ln n+2\lambda \ln\ln n +2$, we have:
 \begin{align}
-  \nonumber Pr[B_1] &\le \frac{\ln n + \lambda \ln \ln n}{\ln n+2\lambda \ln\ln n +2}\\
+  \nonumber \Pr[B_1] &\le \frac{\ln n + \lambda \ln \ln n}{\ln n+2\lambda \ln\ln n +2}\\
   \nonumber &=1-\frac{\lambda\ln\ln n+2}{\ln n + 2 \lambda \ln \ln n +2}\\
   \nonumber &=1-\frac{1}{\ln n}\cdot \frac{\ln n \cdot \lambda \ln \ln n +2\ln n}{\ln n + 2\lambda \ln\ln n +2 }
 \end{align}
@@ -57,40 +57,40 @@ Thus,
   \textgreater \frac{2\lambda \ln \ln n +2\ln n}{2\lambda \ln\ln n+\ln n +2}
   \textgreater 1
 \end{align}
-So, we have $Pr[B_1]\le 1-\frac{1}{\ln n}$.\\
-\blue{(b) Let $B_2$ be the event that there is some element that is not covered by $\widehat{C}$. What value should $\lambda$ take such that the $Pr[B_2]\le \frac{1}{(\ln n)^2}$}\\
-We have shown in Section \ref{rr} that an element $g$ is not covered by $\widehat{C}$ is at most $e^{-T}$.
-By Lemma \ref{union}, we have that $Pr[B_2]\le n\cdot e^{-T}$.
-Since $T := \ln n + \lambda \ln \ln n$ and we have to satisfy  $Pr[B_2]\le \frac{1}{(\ln n)^2}$, we have:
+So, we have $\Pr[B_1]\le 1-\frac{1}{\ln n}$.\\
+\blue{(b) Let $B_2$ be the event that there is some element that is not covered by $\widehat{C}$. What value should $\lambda$ take such that the $\Pr[B_2]\le \frac{1}{(\ln n)^2}$}\\
+We have shown in Section \ref{rr} that an element $g$ is not covered by $\widehat{C}$ is at most $\exp({-T})$.
+By Lemma \ref{union}, we have that $\Pr[B_2]\le n\cdot \exp({-T})$.
+Since $T := \ln n + \lambda \ln \ln n$ and we have to satisfy  $\Pr[B_2]\le \frac{1}{(\ln n)^2}$, we have:
 \begin{align}
   \nonumber &~~~~~~~~n\cdot (\frac{1}{e})^{\ln n + \lambda \ln \ln n} \le \frac{1}{(\ln n)^2}\\
-  \nonumber& \implies n\cdot (\ln n)^2 \le e^{\ln n + \lambda \ln \ln n}\\
+  \nonumber& \implies n\cdot (\ln n)^2 \le \exp({\ln n + \lambda \ln \ln n})\\
   \nonumber& \implies \ln(n\cdot (\ln n)^2)\le \ln n + \lambda \ln \ln n\\
   \nonumber& \implies \ln n +2\ln \ln n \le \ln n + \lambda \ln \ln n\\
    \nonumber& \implies \lambda \ge  2
 \end{align}
 Then we can set $\lambda=2$.\\
-\blue{(c) What is the approximation ratio $\rho$ (in terms of only $n$) of the resulting algorithm? Can you give an upper bound on the failure probability? Failure means either there is some element in $U$ that is not covered or the cover $\widehat{C}$�� is too large.}\\
+\blue{(c) What is the approximation ratio $\rho$ (in terms of only $n$) of the resulting algorithm? Can you give an upper bound on the failure probability? Failure means either there is some element in $U$ that is not covered or the cover $\widehat{C}$ is too large.}\\
 Since $\rho:=\ln n+2\lambda \ln\ln n +2$ and $\lambda := 2$, we have:
 \begin{align}
   \nonumber \rho = \ln n +4\ln\ln n +2
 \end{align}
 By Lemma \ref{union}, we can bound the failure probability as follows:
 \begin{align}
-  \nonumber Pr[B_1 \cup B_2]\le Pr[B_1]+Pr[B_2]\le 1-\frac{1}{\ln n}+\frac{1}{(\ln n)^2}
+  \nonumber \Pr[B_1 \cup B_2]\le \Pr[B_1]+\Pr[B_2]\le 1-\frac{1}{\ln n}+\frac{1}{(\ln n)^2}
 \end{align}
 \blue{(d) Given any arbitrary $0 \textless \delta\textless 1$, how can you obtain the same approximation ratio, but with failure probability at most $\delta$? How many times in total do you have to run the Simple Rounding Procedure?}
 \begin{align}
-  \nonumber Pr[B_1]=Pr[E[|\widehat{C}|]\ge \rho \cdot OPT]\le \frac{T}{\rho}%= \frac{T}{\ln n +4\ln\ln n +2}
+  \nonumber \Pr[B_1]=\Pr[E[|\widehat{C}|]\ge \rho \cdot OPT]\le \frac{T}{\rho}%= \frac{T}{\ln n +4\ln\ln n +2}
 \end{align}
 \begin{align}
-  \nonumber Pr[B_2]\le n\cdot e^{-T}
+  \nonumber \Pr[B_2]\le n\cdot \exp({-T})
 \end{align}
 By  Lemma \ref{union}, we have 
 \begin{align}
-  \nonumber Pr[B_1 \cup B_2]\le Pr[B_1]+Pr[B_2] \le \frac{T}{\rho}+n\cdot e^{-T}
+  \nonumber \Pr[B_1 \cup B_2]\le \Pr[B_1]+\Pr[B_2] \le \frac{T}{\rho}+n\cdot \exp({-T})
 \end{align}
-What we have to satisfy is $Pr[B_1 \cup B_2]\le \delta$, thus, we need:
+What we have to satisfy is $\Pr[B_1 \cup B_2]\le \delta$, thus, we need:
 \begin{align}
-  \nonumber \frac{T}{\rho}+n\cdot e^{-T} \le \delta
+  \nonumber \frac{T}{\rho}+n\cdot \exp({-T}) \le \delta
 \end{align}

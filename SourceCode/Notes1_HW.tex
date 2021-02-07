@@ -1,15 +1,15 @@
 \section{Preliminaries}
-\blue{1. Prove the union bound: Suppose $\{A_i\}_{i=1}^n$ is a collection of events. Then, $Pr[\cup_{i=1}^{n}A_i]\le\sum_{i=1}^{n}Pr[A_i]$.}
+\blue{1. Prove the union bound: Suppose $\{A_i\}_{i=1}^n$ is a collection of events. Then, $\Pr[\cup_{i=1}^{n}A_i]\le\sum_{i=1}^{n}\Pr[A_i]$.}
 \begin{proof}
 Let $t \in [n]$.
 Prove the above by induction on $t$.
-Certainly the inequality holds for the base case where $t=1$, since $Pr[A_1]=Pr[A_1]$.
+Certainly the inequality holds for the base case where $t=1$, since $\Pr[A_1]=\Pr[A_1]$.
 Suppose the inequality holds for $n=t-1$ and if I can prove that the inequality holds for $n=t$ then finish the proof.
 \begin{align}
-    \nonumber Pr[\cup_{i=1}^{n}A_i]&=Pr[\cup_{i=1}^{n-1}A_i\cup A_n]\\
-    \nonumber&= Pr[\cup_{i=1}^{n-1}A_i]+Pr[A_n]-Pr[(\cup_{i=1}^{n-1}A_i)\cap A_n]\\
-    \nonumber&\le \sum_{i=1}^{n-1}Pr[A_i]+Pr[A_n]\\
-    \nonumber&=\sum_{i=1}^{n}Pr[A_i]
+    \nonumber \Pr[\cup_{i=1}^{n}A_i]&=\Pr[\cup_{i=1}^{n-1}A_i\cup A_n]\\
+    \nonumber&= \Pr[\cup_{i=1}^{n-1}A_i]+\Pr[A_n]-\Pr[(\cup_{i=1}^{n-1}A_i)\cap A_n]\\
+    \nonumber&\le \sum_{i=1}^{n-1}\Pr[A_i]+\Pr[A_n]\\
+    \nonumber&=\sum_{i=1}^{n}\Pr[A_i]
 \end{align}
 \end{proof}
 \noindent\blue{2. Prove the linearity of expectation: Suppose for each $1 \le i \le n$, $X_i$ is a random variable and $a_i$ is a real number. Then, $E[\sum_{i=1}^na_iX_i]=\sum_{i=1}^{n}a_iE[X_i]$.}
@@ -24,10 +24,10 @@ For any random variable $X$ and $Y$, $E[X+Y]=E[X]+E[Y]$.
 Prove by definition \ref{def1}.
 $\sum_x$ and $\sum_y$ means the summation is over the range of $X$ and $Y$.
 \begin{align}
-    \nonumber E[X+Y]&=\sum_x\sum_y(x+y)Pr[(X=x)\cap(Y=y)]\\
-    \nonumber&=\sum_x\sum_yxPr[(X=x)\cap(Y=y)]+yPr[(X=x)\cap(Y=y)]\\
-    \nonumber&=\sum_xx\sum_yPr[(X=x)\cap(Y=y)]+\sum_yy\sum_xPr[(X=x)\cap(Y=y)]\\
-    \nonumber&=\sum_xxPr[X=x]+\sum_yyPr[Y=y]\\
+    \nonumber E[X+Y]&=\sum_x\sum_y(x+y)\Pr[(X=x)\cap(Y=y)]\\
+    \nonumber&=\sum_x\sum_yx\Pr[(X=x)\cap(Y=y)]+y\Pr[(X=x)\cap(Y=y)]\\
+    \nonumber&=\sum_xx\sum_y\Pr[(X=x)\cap(Y=y)]+\sum_yy\sum_x\Pr[(X=x)\cap(Y=y)]\\
+    \nonumber&=\sum_xx\Pr[X=x]+\sum_yy\Pr[Y=y]\\
     \nonumber&=\sum_xxp(x)+\sum_yyp(y)\\
     \nonumber&=E[X]+E[Y]
 \end{align}
@@ -57,16 +57,16 @@ By combining Claim \ref{lemma2} and \ref{lemma3}, we have:
 Prove by definition \ref{def1}.
 $\sum_x$ and $\sum_y$ means the summation is over the range of $X$ and $Y$.
 \begin{align}
-    \nonumber E[XY]&=\sum_x\sum_yxyPr[(X=x)\cap(Y=y)]\\
-    \nonumber &=\sum_x\sum_yxyPr[X=x]Pr[Y=y]\\
-    \nonumber&=\sum_xxPr[X=x]\sum_yyPr[Y=y]\\
+    \nonumber E[XY]&=\sum_x\sum_yxy\Pr[(X=x)\cap(Y=y)]\\
+    \nonumber &=\sum_x\sum_yxy\Pr[X=x]\Pr[Y=y]\\
+    \nonumber&=\sum_xx\Pr[X=x]\sum_yy\Pr[Y=y]\\
     \nonumber&=\sum_xxp(x)\sum_yyp(y)\\
     \nonumber&=E[X]E[Y]
 \end{align}
 \end{proof}
 \noindent\blue{4. Let $\phi$ be a $3$-CNF formula with $m$ clauses and $n$ variables. \\
 (a) Let $Y$ be the random variable denoting the number of unsatisfied clauses. Compute $E[Y]$.\\
-(b) Find a suitable upper bound for $Pr[Y\textgreater\frac{3m}{16}]$, and conclude that the randomized algorithm finds an assignment satisfying at least $\frac{13m}{16}$ clauses with probability at least $\frac{1}{3}$.}\\
+(b) Find a suitable upper bound for $\Pr[Y\textgreater\frac{3m}{16}]$, and conclude that the randomized algorithm finds an assignment satisfying at least $\frac{13m}{16}$ clauses with probability at least $\frac{1}{3}$.}\\
 \textbf{Problem description:} There are $n$ Boolean variables. $\phi(x_1,x_2,...,x_n)$ is denoted as $C_1 \vee C_2 \vee...\vee C_m$. Each clause $C_i$ is a disjunction of $3$ literals from $3$ different variables. A literal is either a variable or its negation. A clause is satisfied if at least one of its $3$
 literals evaluates to TRUE. The goal is to find an assignment of the variables so that as many clauses as possible are satisfied.\\
 \textbf{Randomized algorithm:} Independently for each variable, assign its value to be TRUE or FALSE, each with probability $\frac{1}{2}$.\\
@@ -80,15 +80,15 @@ Define $Y_i$ as a random variable which is related to clause $C_i$. $Y_i$ takes 
 \end{align}
 (b)By Markov's inequality, for all $\alpha \textgreater 0$ we have
 \begin{align}
-   \nonumber Pr[Y\ge \alpha]\le \frac{E[Y]}{\alpha}
+   \nonumber \Pr[Y\ge \alpha]\le \frac{E[Y]}{\alpha}
 \end{align}
 If set $\alpha=\frac{3m}{16}$,we have
 \begin{align}
-    \nonumber Pr[Y\ge \frac{3m}{16}]\le \frac{m}{8}\cdot \frac{16}{3m}=\frac{2}{3}
+    \nonumber \Pr[Y\ge \frac{3m}{16}]\le \frac{m}{8}\cdot \frac{16}{3m}=\frac{2}{3}
 \end{align}
 Thus, 
 \begin{align}
-    \nonumber Pr[Y\textgreater \frac{3m}{16}] \le Pr[Y\ge \frac{3m}{16}]\le \frac{2}{3} ~\implies~Pr[Y\le \frac{3m}{16}]\ge \frac{1}{3}
+    \nonumber \Pr[Y\textgreater \frac{3m}{16}] \le \Pr[Y\ge \frac{3m}{16}]\le \frac{2}{3} ~\implies~\Pr[Y\le \frac{3m}{16}]\ge \frac{1}{3}
 \end{align}
 Thus, the randomized algorithm finds an assignment satisfying at least $\frac{13m}{16}$ clauses with probability at least $\frac{1}{3}$.\\
 \blue{5. Let $G=(V, E)$ be a graph. Recall the randomized algorithm mentioned in class for finding a cut $C\subset V$ for the graph $G$, namely, a point $v \in V$ is included in $C$ independently with probability $\frac{1}{2}$. Assume that to make this decision takes $1$ independent random bit for each point.\\
@@ -98,11 +98,11 @@ Let $E(C):=\{\{u,v\}\in E: u\in C , v\in V\setminus C\}$ be the edges in the cut
 \cite{maxcut}\cite{reverse}\\
 (a)
 \begin{align}
-  \nonumber Pr[|E(C)|\le(\frac{1-\epsilon}{2})|E|]=Pr[|E|-|E(C)|\ge |E|-\frac{1-\epsilon}{2}|E|]
+  \nonumber \Pr[|E(C)|\le(\frac{1-\epsilon}{2})|E|]=\Pr[|E|-|E(C)|\ge |E|-\frac{1-\epsilon}{2}|E|]
 \end{align}
 By Markov's inequality, we have:
 \begin{align}
-  \nonumber Pr[|E|-|E(C)|\ge |E|-\frac{1-\epsilon}{2}]\le \frac{E[|E|-|E(C)|]}{|E|-\frac{1-\epsilon}{2}|E|}
+  \nonumber \Pr[|E|-|E(C)|\ge |E|-\frac{1-\epsilon}{2}]\le \frac{E[|E|-|E(C)|]}{|E|-\frac{1-\epsilon}{2}|E|}
 \end{align}
 By Lemma \ref{lemma2}, we have:
 \begin{align}
@@ -110,7 +110,7 @@ By Lemma \ref{lemma2}, we have:
 \end{align}
 Thus,
 \begin{align}
-\nonumber Pr[|E(C)|\le(\frac{1-\epsilon}{2})|E|]\le \frac{\frac{|E|}{2}}{|E|-\frac{1-\epsilon}{2}|E|}=\frac{1}{1+\epsilon}
+\nonumber \Pr[|E(C)|\le(\frac{1-\epsilon}{2})|E|]\le \frac{\frac{|E|}{2}}{|E|-\frac{1-\epsilon}{2}|E|}=\frac{1}{1+\epsilon}
 \end{align}
 (b)The random algorithm is described as follows.\\
 \begin{enumerate}[(i)]
@@ -121,29 +121,29 @@ Thus,
 \textbf{Analysis:}
 By (a), for any $C_i$ we have
 \begin{align}
-    \nonumber Pr[|E(C_i)|\le (\frac{1-\epsilon}{2})\cdot |E|]\le \frac{1}{1+\epsilon}
+    \nonumber \Pr[|E(C_i)|\le (\frac{1-\epsilon}{2})\cdot |E|]\le \frac{1}{1+\epsilon}
 \end{align}
 Since $C_j$ is with the maximum $|E(C_i)|$ among all $C_j$s, we have
 \begin{align}
-    \nonumber Pr[|E(C_j)|\le (\frac{1-\epsilon}{2})\cdot |E|]&=\prod_{i=1}^k Pr[|E(C_i)|\le (\frac{1-\epsilon}{2})\cdot |E|]\\
+    \nonumber \Pr[|E(C_j)|\le (\frac{1-\epsilon}{2})\cdot |E|]&=\prod_{i=1}^k \Pr[|E(C_i)|\le (\frac{1-\epsilon}{2})\cdot |E|]\\
     \nonumber &\le (\frac{1}{1+\epsilon})^k
 \end{align}
-Since for $0\textless \epsilon \textless 1$, $1+\epsilon \ge e^{\frac{\epsilon}{2}}$, we have
+Since for $0\textless \epsilon \textless 1$, $1+\epsilon \ge \exp({\frac{\epsilon}{2}})$, we have
 \begin{align}
-    \nonumber Pr[|E(C_j)|\le (\frac{1-\epsilon}{2})\cdot |E|]&\le e^{-\frac{\epsilon k}{2}}\\
-    \nonumber&=e^{-\frac{\epsilon}{2}(-\frac{2}{\epsilon}\ln \delta)}\\
+    \nonumber \Pr[|E(C_j)|\le (\frac{1-\epsilon}{2})\cdot |E|]&\le \exp({-\frac{\epsilon k}{2}})\\
+    \nonumber&=\exp({-\frac{\epsilon}{2}(-\frac{2}{\epsilon}\ln \delta)})\\
     \nonumber&=\delta
 \end{align}
 \blue{
-6.(a) Suppose $X$ is a discrete random variable that takes only a countable number of non-negative values. Prove that $E[X]=\int_{0}^{\infty}Pr[X\ge t]\, dt$. (If you do not like to deal with infinite support, you may assume $X$ only takes a finite number of values.)\\
-(b) Assume that for all non-negative random variables $X$, $E[X]=\int_{0}^{\infty}Pr[X\ge t]\, dt$. Derive a similar formula for $E[X]$ when $X$ is any real-valued random variable.}\\
+6.(a) Suppose $X$ is a discrete random variable that takes only a countable number of non-negative values. Prove that $E[X]=\int_{0}^{\infty}\Pr[X\ge t]\, dt$. (If you do not like to deal with infinite support, you may assume $X$ only takes a finite number of values.)\\
+(b) Assume that for all non-negative random variables $X$, $E[X]=\int_{0}^{\infty}\Pr[X\ge t]\, dt$. Derive a similar formula for $E[X]$ when $X$ is any real-valued random variable.}\\
 (a) 
 First assume discrete random variable $X$ only takes a finite number $n$ of non-negative values, $x_1, x_2,...,x_n$ with probability $p_{x1},p_{x2},...,p_{xn}$. Note that $\sum_{i=1}^{n}p_{xi}=1$. 
 By definition, $E[X]=\sum_{i=1}^{n}x_ip_{xi}$.
 For simplicity, assume $0\le x_1\textless x_2 \textless ... \textless x_n$.
 Then we can get a piecewise function as follows.
 \begin{equation}
-\nonumber Pr[X\ge t]=\left\{
+\nonumber \Pr[X\ge t]=\left\{
 \begin{array}{rcl}
 1 & & {0\le t \le x_1}\\
 1-p_{x1} & & {x_1 \textless t \le x_2}\\
@@ -156,7 +156,7 @@ Then we can get a piecewise function as follows.
 \end{equation}
 Thus we have:
 \begin{align}
-  \nonumber\int_{0}^{\infty}Pr[X\ge t]\, dt &= (x_1-0)\cdot 1+(x_2-x_1) (1-p_{x1})+(x_3-x_2) (1-\sum_{i=1}^{2}p_{xi})+\\
+  \nonumber\int_{0}^{\infty}\Pr[X\ge t]\, dt &= (x_1-0)\cdot 1+(x_2-x_1) (1-p_{x1})+(x_3-x_2) (1-\sum_{i=1}^{2}p_{xi})+\\
   \nonumber&(x_4-x_3) (1-\sum_{i=1}^{3}p_{xi})+...+(x_n-x_{n-1})(1-\sum_{i=1}^{n-1}p_{xi})+0\cdot \infty\\
   \nonumber&=x_1(1-1+p_{x1})+x_2(1-p_{x1}-(1-\sum_{i=1}^2p_{x_i}))+x_3(1-\sum_{i=1}^2p_{x_i}-(1-\sum_{i=1}^3p_{x_i}))\\
   \nonumber&~~~~+...+x_n(1-\sum_{i=1}^{n-1}p_{x_i}-(1-\sum_{i=1}^np_{x_i}))\\
@@ -164,25 +164,25 @@ Thus we have:
   \nonumber&=E[X]
 \end{align}
 Then consider the situation when discrete random variable $X$ takes infinite number of non-negative values (but the number of values is still countable).
-Assume $X$ can take values $0\le x_1\textless x_2 \textless x_3 \textless ...$ with probability $p_{x1},p_{x2},p_{x3},...$ and $\int_{0}^{\infty}Pr[X=t]\, dt=1$. By definition, $E[X]=\sum_{k=0}^{\infty}kPr[X=k]$ and $Pr[X\ge t]=\sum_{k=t}^{\infty}Pr[X=k]$. Thus, we have:
+Assume $X$ can take values $0\le x_1\textless x_2 \textless x_3 \textless ...$ with probability $p_{x1},p_{x2},p_{x3},...$ and $\int_{0}^{\infty}\Pr[X=t]\, dt=1$. By definition, $E[X]=\sum_{k=0}^{\infty}k\Pr[X=k]$ and $\Pr[X\ge t]=\sum_{k=t}^{\infty}\Pr[X=k]$. Thus, we have:
 \begin{align}
-  \nonumber\int_{0}^{\infty}Pr[X\ge t]\, dt &=\int_{0}^{\infty}\sum_{k=t}^{\infty}Pr[X=k] \, dt\\
-  \nonumber&=\int_{0}^{x_1}\sum_{k=x_1}^{\infty}Pr[X=k] \, dt + \int_{x_1}^{x_2}\sum_{k=x_2}^{\infty}Pr[X=k] \, dt + \int_{x_2}^{x_3}\sum_{k=x_3}^{\infty}Pr[X=k] \, dt +...\\
-  \nonumber&=(x_1-0)\sum_{k=x_1}^{\infty}Pr[X=k]+(x_2-x_1)\sum_{k=x_2}^{\infty}Pr[X=k]+(x_3-x_2)\sum_{k=x_3}^{\infty}Pr[X=k]+...\\
-  \nonumber&=x_1(\sum_{k=x_1}^{\infty}Pr[X=k]-\sum_{k=x_2}^{\infty}Pr[X=k])+x_2(\sum_{k=x_2}^{\infty}Pr[X=k]-\sum_{k=x_3}^{\infty}Pr[X=k])+\\
-  \nonumber&~~~~ x_3(\sum_{k=x_3}^{\infty}Pr[X=k]-\sum_{k=x_2}^{\infty}Pr[X=k])+...\\
-  \nonumber&=x_1Pr[X=x_1]+x_2Pr[X=x_2]+x_3Pr[X=x_3]+...\\
+  \nonumber\int_{0}^{\infty}\Pr[X\ge t]\, dt &=\int_{0}^{\infty}\sum_{k=t}^{\infty}\Pr[X=k] \, dt\\
+  \nonumber&=\int_{0}^{x_1}\sum_{k=x_1}^{\infty}\Pr[X=k] \, dt + \int_{x_1}^{x_2}\sum_{k=x_2}^{\infty}\Pr[X=k] \, dt + \int_{x_2}^{x_3}\sum_{k=x_3}^{\infty}\Pr[X=k] \, dt +...\\
+  \nonumber&=(x_1-0)\sum_{k=x_1}^{\infty}\Pr[X=k]+(x_2-x_1)\sum_{k=x_2}^{\infty}\Pr[X=k]+(x_3-x_2)\sum_{k=x_3}^{\infty}\Pr[X=k]+...\\
+  \nonumber&=x_1(\sum_{k=x_1}^{\infty}\Pr[X=k]-\sum_{k=x_2}^{\infty}\Pr[X=k])+x_2(\sum_{k=x_2}^{\infty}\Pr[X=k]-\sum_{k=x_3}^{\infty}\Pr[X=k])+\\
+  \nonumber&~~~~ x_3(\sum_{k=x_3}^{\infty}\Pr[X=k]-\sum_{k=x_2}^{\infty}\Pr[X=k])+...\\
+  \nonumber&=x_1\Pr[X=x_1]+x_2\Pr[X=x_2]+x_3\Pr[X=x_3]+...\\
  % \nonumber&=x_1p_{x1}+x_2p_{x2}+x_3p_{x3}+...\\
-  \nonumber &=\sum_{k=0}^{\infty}kPr[X=k]\\
+  \nonumber &=\sum_{k=0}^{\infty}k\Pr[X=k]\\
   \nonumber &=E[X]
 \end{align}
 \\
 (b)
 Let $X$ be a continuous real-valued random variable. The probability density function of $X$ is $f(x)$. By definition, $\int_{\mathbb{R}}f(x)\, dx=1$, $E[X]=\int_{\mathbb{R}}xf(x)\, dx$. $E[X]$ can also be written as
-$E[X]=-\int_{-\infty}^{0}Pr[X\le t]\, dt+\int_{0}^{\infty}Pr[X\ge t]\, dt$
+$E[X]=-\int_{-\infty}^{0}\Pr[X\le t]\, dt+\int_{0}^{\infty}\Pr[X\ge t]\, dt$
 \begin{proof}
 \begin{align}
-    \nonumber \int_{0}^{\infty}Pr[X\ge t]\, dt &=\int_{0}^{\infty}
+    \nonumber \int_{0}^{\infty}\Pr[X\ge t]\, dt &=\int_{0}^{\infty}
     \int_{t}^{\infty}f(k)\, dk
     \, dt\\
     \nonumber&=\int_{0}^{\infty}
@@ -193,7 +193,7 @@ $E[X]=-\int_{-\infty}^{0}Pr[X\le t]\, dt+\int_{0}^{\infty}Pr[X\ge t]\, dt$
     \, dx
 \end{align}
 \begin{align}
-    \nonumber -\int_{-\infty}^{0}Pr[X\le t]\, dt &=-\int_{-\infty}^{0}
+    \nonumber -\int_{-\infty}^{0}\Pr[X\le t]\, dt &=-\int_{-\infty}^{0}
     \int_{-\infty}^{t}f(k)\, dk
     \, dt\\
     \nonumber&=-\int_{0}^{-\infty}
@@ -209,6 +209,6 @@ $E[X]=-\int_{-\infty}^{0}Pr[X\le t]\, dt+\int_{0}^{\infty}Pr[X\ge t]\, dt$
 \begin{align}
     \nonumber E[X]&=\int_{\mathbb{R}}xf(x)\, dx\\
     \nonumber &=\int_{-\infty}^{0}xf(x)\, dx+\int_{0}^{\infty}xf(x)\, dx\\
-    \nonumber &=-\int_{-\infty}^{0}Pr[X\le t]\, dt + \int_{0}^{\infty}Pr[X\ge t]\, dt
+    \nonumber &=-\int_{-\infty}^{0}\Pr[X\le t]\, dt + \int_{0}^{\infty}\Pr[X\ge t]\, dt
 \end{align}
 \end{proof}
