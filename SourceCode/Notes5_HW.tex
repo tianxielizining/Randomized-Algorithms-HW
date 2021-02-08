@@ -98,13 +98,15 @@ If $c_1 > \frac{M}{2}$:
     f_1(x)& \text{otherwise}
     \end{cases}
 \end{equation}
-At first, since algorithm $A$ only uses the black box of $f$ as input, 
-for any black box, if algorithm $A$ accesses the black box,
-it always submits the same $x_1$ to the black box.
-Then algorithm $A$ uses $f(x_1)$ to decide whether to access the black box for one more time.
-If the answer is access to the black box, algorithm $A$ decides which real number to be submitted according to $f(x_1)$.
+Since algorithm $A$ is a deterministic algorithm, 
+at first, 
+%, since algorithm $A$ only uses the black box of $f$ as input, 
+for any black box of function $f$, if algorithm $A$ accesses the black box,
+it always submits the same $x_1$ to the black box of function $f$.
+Then algorithm $A$ uses $f(x_1)$ to decide whether to access the black box of function $f$ for one more time.
+If the answer is access to the black box of function $f$, algorithm $A$ decides which real number to be submitted according to $f(x_1)$.
 In conclude, algorithm $A$ uses $f(x_1), f(x_2),...,f(x_i)$ to decide whether $x_{i+1}$ exists and the value of $x_{i+1}$.
-So, for $f_1(x)$ and $f_2(x)$, algorithm $A$ uses the same $n$ points $(x_1,f_1(x_1)),(x_2,f_1(x_2)),...,(x_n,f_1(x_n))$.
+So, for $f_1$ and $f_2$, algorithm $A$ uses the same $n$ points $(x_1,f_1(x_1)),(x_2,f_1(x_2)),...,(x_n,f_1(x_n))$.
 Since algorithm $A$ is a deterministic algorithm, 
 algorithm $A$ returns $c_1$ as the estimate of the integral of $f_2$, which is the same output when input is the black box of $f_1$.
 %the output of algorithm $A$ under the black box of function $f_2$ as input is also $c_1$.
