@@ -58,23 +58,30 @@ In particular, show that for any deterministic algorithm $A$,
 there is some function $f$ such that the algorithm $A$
 returns an answer with additive error $\frac{M}{2}$ .
 }\\
-Since algorithm $A$ is a deterministic algorithm, $A$ is not allowed to access to the black box for infinite times.
 %We first consider the situation that algorithm $A$ does not rely on the black box.
 %Since algorithm $A$ does not rely on the black box, 
 %no matter what the function $f(x)$ is, it always return a constant $c$.
 %If $c\le\frac{M}{2}$, set $f(x)=M$. If $c>\frac{M}{2}$, set $f(x)=0$.
 %Thus the additive error is at least $\frac{M}{2}$.
-Let $f_1(x)$ be the input of algorithm $A$.
-Let $n$ be the number of times that algorithm $A$ accesses to black box.
+Let $f_1:[0, 1]\rightarrow [0, M ]$ be any integrable function.
+Use $f_1$ as an input of algorithm $A$.
+Since algorithm $A$ is a deterministic algorithm, $A$ is not allowed to access to the black box for infinite times.
+%Let $f_1(x)$ be the input of algorithm $A$.
+%Assume $n$ is the number of times that algorithm $A$ accesses to black box of $f_1$.
+Let $x_1, x_2,...,x_n \in [0,1]$ be the $n$ real numbers that are submitted by algorithm $A$ to the black box of $f_1$.
+By definition of \textbf{black box access}, for each $x_i$, $i\in\{1,2,...,n\}$, the black box of $f_1$ returns the value of $f_1(x_i)$.
+%Let $n$ be the number of times that algorithm $A$ accesses to black box of $f_1$.
 %Then we consider the case when algorithm $A$ accesses to black box for finite times, say $n$.
 %Let the black box of $f_1(x)$ be the input of algorithm $A$, and 
-Algorithm $A$ can get the $n$ points from the black box.
-Let $(x_1,y_1),(x_2,y_2),...,(x_n,y_n)$ be the $n$ points. Here, for all $i\in\{1,2,...,n\}$, $y_i=f_1(x_i)$.
-Let $c_1$ be the output of algorithm $A$ under the black box of function $f_1(x)$ as input.
+Then, algorithm $A$ can get $n$ points: $(x_1,f_1(x_1)),(x_2,f_1(x_2)),...,(x_n,f_1(x_n))$.
+%Let $(x_1,y_1),(x_2,y_2),...,(x_n,y_n)$ be the $n$ points. Here, for all $i\in\{1,2,...,n\}$, $y_i=f_1(x_i)$.
+Finally, algorithm $A$ return $c_1$ as the estimate of the integral of $f_1$.\\
+%Let $c_1$ be the output of algorithm $A$ under the black box of function $f_1(x)$ as input.
 %No matter how algorithm $A$ obtains the $x$ coordinates of the $n$ points, 
 %we can always find a function $f_2(x)$ so that algorithm $A$ obtains the same coordinates of the $n$ points.
-%Futhermore, for each $x_i$, $i\in \{1,2,...,n\}$, the output of  black boxes of both $f_1(x)$ and $f_2(x)$ are the same.  
-Construct function $f_2(x)$ as follows.\\
+%Futhermore, for each $x_i$, $i\in \{1,2,...,n\}$, the output of  
+%black boxes of both $f_1(x)$ and $f_2(x)$ are the same.  
+Construct function $f_2:[0, 1]\rightarrow [0, M ]$ as follows. \\
 If $c_1 \le \frac{M}{2}$:
 \begin{equation}
    \nonumber  f_2(x)=
@@ -91,12 +98,14 @@ If $c_1 > \frac{M}{2}$:
     f_1(x)& \text{otherwise}
     \end{cases}
 \end{equation}
-For $f_1(x)$ and $f_2(x)$, algorithm $A$ get the same $n$ points $(x_1,y_1),(x_2,y_2),...,(x_n,y_n)$.
+%No matter how algorithm $A$ select input of black box, 
+For $f_1(x)$ and $f_2(x)$, algorithm $A$ use the same $n$ points $(x_1,f_1(x_1)),(x_2,f_1(x_2)),...,(x_n,f_1(x_n))$.
 Since algorithm $A$ is an deterministic algorithm, 
-the output of algorithm $A$ under the black box of function $f_2(x)$ as input is also $c_1$.
+algorithm $A$ return $c_1$ as the estimate of the integral of $f_2$, which is the same as the estimate of the integral of $f_1$.
+%the output of algorithm $A$ under the black box of function $f_2$ as input is also $c_1$.
 When $c_1 \le \frac{M}{2}$, we have $\int_{0}^{1} f_2(x) \,dx=M$.
 When $c_1 > \frac{M}{2}$, we have $\int_{0}^{1} f_2(x) \,dx=0$.
-Thus, we can always find a $f_2(x)$ so that the additive error $|\int_{0}^{1} f_2(x) \,dx - c_1|$ is at least $\frac{M}{2}$.
+Thus, we can always find a $f_2$ so that the additive error $|\int_{0}^{1} f_2(x) \,dx - c_1|$ is at least $\frac{M}{2}$.
 \\
 \noindent \blue{(b) Using the random generator \textbf{Rand[0,1]}, 
 design a randomized algorithm to achieve the desired goal.
