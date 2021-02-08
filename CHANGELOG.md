@@ -50,4 +50,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 + homework_1_2 for notes5
 
+## 2021-02-07
+### Added
++ homework_0 for notes5
++ homework_1_1 for notes 5
 
+## 2021-02-08
+### Changed
++ homework_1_1 for notes5
