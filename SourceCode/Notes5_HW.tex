@@ -64,7 +64,7 @@ returns an answer with additive error $\frac{M}{2}$ .
 %If $c\le\frac{M}{2}$, set $f(x)=M$. If $c>\frac{M}{2}$, set $f(x)=0$.
 %Thus the additive error is at least $\frac{M}{2}$.
 Let $f_1:[0, 1]\rightarrow [0, M ]$ be any integrable function.
-Use $f_1$ as an input of algorithm $A$.
+Use $f_1$ as an input of any algorithm $A$.
 Since algorithm $A$ is a deterministic algorithm, $A$ is not allowed to access to the black box for infinite times.
 %Let $f_1(x)$ be the input of algorithm $A$.
 %Assume $n$ is the number of times that algorithm $A$ accesses to black box of $f_1$.
@@ -98,8 +98,9 @@ If $c_1 > \frac{M}{2}$:
     f_1(x)& \text{otherwise}
     \end{cases}
 \end{equation}
-%No matter how algorithm $A$ select input of black box, 
-For $f_1(x)$ and $f_2(x)$, algorithm $A$ use the same $n$ points $(x_1,f_1(x_1)),(x_2,f_1(x_2)),...,(x_n,f_1(x_n))$.
+Since algorithm $A$ only use the black box of $f$ as input, 
+for any black box, algorithm $A$ always submit the same real numbers.
+So, for $f_1(x)$ and $f_2(x)$, algorithm $A$ use the same $n$ points $(x_1,f_1(x_1)),(x_2,f_1(x_2)),...,(x_n,f_1(x_n))$.
 Since algorithm $A$ is an deterministic algorithm, 
 algorithm $A$ return $c_1$ as the estimate of the integral of $f_2$, which is the same as the estimate of the integral of $f_1$.
 %the output of algorithm $A$ under the black box of function $f_2$ as input is also $c_1$.
