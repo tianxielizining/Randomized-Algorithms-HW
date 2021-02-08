@@ -15,8 +15,8 @@ For each $i\in [2n+1]$, $X_i\in \{0, 1\}$.
 For each $i\in [2n+1]$, use $Y_i$ to denote the correctness of $X_i$.
 If $X_i=C$, $Y_i=1$; if $X_i\neq C$, $Y_i=0$. 
 Since the algorithm $A$ can return the correct answer with probability $p$, 
-we have for each $i \in [2n+1]$, $E[Y_i]=p$.
-Let $Z=\sum_{i=0}^{2n}Y_i$, and then, we have $E[Z]=(2n+1)p$.\\
+we have for each $i \in [2n+1]$, $\mathbb{E}[Y_i]=p$.
+Let $Z=\sum_{i=0}^{2n}Y_i$, and then, we have $\mathbb{E}[Z]=(2n+1)p$.\\
 The algorithm will fail if and only if $Z$ is lesser than $\frac{1}{2}(2n+1)$. 
 And we have to make sure that the failure probability at most $\delta$, so we have:
 \begin{align}
@@ -24,9 +24,9 @@ And we have to make sure that the failure probability at most $\delta$, so we ha
 \end{align}
 By Chernoff bound, we have:
 \begin{align}
-    \nonumber \Pr[Z \le (1-\epsilon) E[Z]]\le \exp({-\frac{1}{2}\epsilon^2(2n+1)p})
+    \nonumber \Pr[Z \le (1-\epsilon) \mathbb{E}[Z]]\le \exp({-\frac{1}{2}\epsilon^2(2n+1)p})
 \end{align}
-Let $(1-\epsilon) E[Z]= \frac{1}{2}(2n+1)$. Since $E[Z]=(2n+1)p$, we can compute $\epsilon=1-\frac{1}{2p}$.
+Let $(1-\epsilon) \mathbb{E}[Z]= \frac{1}{2}(2n+1)$. Since $\mathbb{E}[Z]=(2n+1)p$, we can compute $\epsilon=1-\frac{1}{2p}$.
 Since $p\in (\frac{1}{2},1)$, the $\epsilon \in (0,1) $.
 Thus, we have $\Pr[Z \le \frac{1}{2}(2n+1)]\le \exp({\frac{-(2p-1)^2(2n+1)}{8p}})$.
 Since we have to satisfy $\Pr[Z\le\frac{1}{2}(2n+1)]\le \delta$, then:
@@ -59,27 +59,28 @@ there is some function $f$ such that the algorithm $A$
 returns an answer with additive error $\frac{M}{2}$ .
 }\\
 Since algorithm $A$ is a deterministic algorithm, $A$ is not allowed to access to the black box for infinite times.
-
-We first consider the situation that algorithm $A$ does not rely on the black box.
-Since algorithm $A$ does not rely on the black box, 
-no matter what the function $f(x)$ is, it always return a constant $c$.
-If $c\le\frac{M}{2}$, set $f(x)=M$. If $c>\frac{M}{2}$, set $f(x)=0$.
-Thus the additive error is at least $\frac{M}{2}$.
-
-Then we consider the case when algorithm $A$ accesses to black box for finite times, say $n$.
-Let the black box of $f_1(x)$ be the input of algorithm $A$, and algorithm $A$ can get the $n$ points from it.
+%We first consider the situation that algorithm $A$ does not rely on the black box.
+%Since algorithm $A$ does not rely on the black box, 
+%no matter what the function $f(x)$ is, it always return a constant $c$.
+%If $c\le\frac{M}{2}$, set $f(x)=M$. If $c>\frac{M}{2}$, set $f(x)=0$.
+%Thus the additive error is at least $\frac{M}{2}$.
+Let $f_1(x)$ be the input of algorithm $A$.
+Let $n$ be the number of times that algorithm $A$ accesses to black box.
+%Then we consider the case when algorithm $A$ accesses to black box for finite times, say $n$.
+%Let the black box of $f_1(x)$ be the input of algorithm $A$, and 
+Algorithm $A$ can get the $n$ points from the black box.
 Let $(x_1,y_1),(x_2,y_2),...,(x_n,y_n)$ be the $n$ points. Here, for all $i\in\{1,2,...,n\}$, $y_i=f_1(x_i)$.
 Let $c_1$ be the output of algorithm $A$ under the black box of function $f_1(x)$ as input.
-No matter how algorithm $A$ obtains the $x$ coordinates of the $n$ points, 
-we can always find a function $f_2(x)$ so that algorithm $A$ obtains the same coordinates of the $n$ points.
-Futhermore, for each $x_i$, $i\in \{1,2,...,n\}$, the output of  black boxes of both $f_1(x)$ and $f_2(x)$ are the same.  
+%No matter how algorithm $A$ obtains the $x$ coordinates of the $n$ points, 
+%we can always find a function $f_2(x)$ so that algorithm $A$ obtains the same coordinates of the $n$ points.
+%Futhermore, for each $x_i$, $i\in \{1,2,...,n\}$, the output of  black boxes of both $f_1(x)$ and $f_2(x)$ are the same.  
 Construct function $f_2(x)$ as follows.\\
 If $c_1 \le \frac{M}{2}$:
 \begin{equation}
    \nonumber  f_2(x)=
     \begin{cases}
     M& x\notin\{x_1,x_2,...,x_n\}\\
-    y_i& x=x_i, i\in\{1,...,n\}
+    f_1(x)& \text{otherwise}
     \end{cases}
 \end{equation}
 If $c_1 > \frac{M}{2}$:
@@ -87,7 +88,7 @@ If $c_1 > \frac{M}{2}$:
    \nonumber  f_2(x)=
     \begin{cases}
     0& x\notin\{x_1,x_2,...,x_n\}\\
-    y_i& x=x_i, i\in\{1,...,n\}
+    f_1(x)& \text{otherwise}
     \end{cases}
 \end{equation}
 For $f_1(x)$ and $f_2(x)$, algorithm $A$ get the same $n$ points $(x_1,y_1),(x_2,y_2),...,(x_n,y_n)$.
@@ -103,27 +104,27 @@ Give the number of black box accesses to the function $f$
 and the number of accesses to \textbf{Rand[0,1]} used by your algorithm.}\\
 The randomized algorithm is as follows.
 \begin{enumerate}
-    \item Use \textbf{Rand[0.1]} for $n$ times and get $n$ random numbers.
+    \item Use \textbf{Rand[0, 1]} for $n$ times and get $n$ random numbers.
     Here, $n=\lceil \frac{M^2(\ln \frac{2}{\delta})}{2\epsilon^2}\rceil $.
-    Denote the $n$ random numbers as $X_0, X_1, ..., X_{n-1}$.
-    \item For each $X_i$, $i\in [n]$, use \textbf{black box access} to get $f(X_i)$.
+    Denote the $n$ random numbers as $X_1, X_2, ..., X_{n}$.
+    \item For each $X_i$, $i\in \{1,2,...,n\}$, use \textbf{black box access} to get $f(X_i)$.
     Let $Y=\sum_{i\in n}f(X_i)$.
     \item Return $\frac{Y}{n}$ as the estimate of $I(f)$.
 \end{enumerate}
 \textbf{Analysis:}\\
 Since \textbf{Rand[0,1]} can generate random number independent,
-$X_1, X_2,..., X_{n-1}$ are independent.
-And then, $f(X_1), f(X_2),..., f(X_{n-1})$ are independent.
+$X_1, X_2,..., X_{n}$ are independent.
+And then, $f(X_1), f(X_2),..., f(X_{n})$ are independent.
 Furthermore, all of the $f(X_i)$s take values from the interval $[0, M]$.
-$Y=\sum_{i\in n}f(X_i)$, by definition, we have $E[\frac{Y}{n}]=I(f)$.
+$Y=\sum_{i\in n}f(X_i)$, by definition, we have $\mathbb{E}[\frac{Y}{n}]=I(f)$.
 By Hoeffding's Inequality, we have:
 \begin{align}
-    \nonumber \Pr[|\frac{Y}{n}-I(f)|\ge\epsilon]=\Pr[|\frac{Y}{n}-E[\frac{Y}{n}]|\ge\epsilon]
-    =\Pr[|Y-E[Y]|\ge n\epsilon]\le 2\exp({\frac{-2n\epsilon^2}{M^2}})
+    \nonumber \Pr[|\frac{Y}{n}-I(f)|\ge\epsilon]=\Pr[|\frac{Y}{n}-\mathbb{E}[\frac{Y}{n}]|\ge\epsilon]
+    =\Pr[|Y-\mathbb{E}[Y]|\ge n\epsilon]\le 2\exp({\frac{-2n\epsilon^2}{M^2}})
 \end{align}
 What we need to satisfy is $\Pr[|\frac{Y}{n}-I(f)|\ge\epsilon]\le \delta$, then,
 \begin{align}
-    \nonumber 2\exp({\frac{-2n\epsilon^2}{M^2}}) \le \delta \implies n\ge \frac{M^2(\ln \frac{2}{\delta})}{2\epsilon^2}
+    \nonumber 2\exp({\frac{-2n\epsilon^2}{M^2}}) \le \delta \implies n\ge \frac{M^2\ln \frac{2}{\delta}}{2\epsilon^2}
 \end{align}
 3.\blue{\textbf{Estimating the (Unknown) Fraction of Red Balls.}
 Suppose a bag contains an unknown number of red balls (assume there is at least one red ball) 
