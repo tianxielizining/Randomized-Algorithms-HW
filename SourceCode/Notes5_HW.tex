@@ -110,7 +110,8 @@ algorithm $A$ returns $c_1$ as the estimate of the integral of $f_2$, which is t
 %the output of algorithm $A$ under the black box of function $f_2$ as input is also $c_1$.
 When $c_1 \le \frac{M}{2}$, we have $\int_{0}^{1} f_2(x) \,dx=M$.
 When $c_1 > \frac{M}{2}$, we have $\int_{0}^{1} f_2(x) \,dx=0$.
-Thus, we can always find a $f_2$ so that the additive error $|\int_{0}^{1} f_2(x) \,dx - c_1|$ is at least $\frac{M}{2}$.
+Thus, we can always find an integrable function 
+$f_2 : [0, 1]\rightarrow [0, M]$ so that the additive error $|\int_{0}^{1} f_2(x) \,dx - c_1|$ is at least $\frac{M}{2}$.
 \\
 \noindent \blue{(b) Using the random generator \textbf{Rand[0,1]}, 
 design a randomized algorithm to achieve the desired goal.
