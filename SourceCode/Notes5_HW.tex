@@ -186,13 +186,13 @@ If $a\in \{1,2,...,n-1\}$:
  \end{equation}
 %let $x_1,x_2,...,x_a,cx_a,x_{a+2},...,x_n$ be the input.
 If $a=n$:
-Let $max_x$ be the maximum integer among $x_1,x_2,...,x_{n-1}$.
+Let $z$ be the maximum integer among $x_1,x_2,...,x_{n-1}$.
 %For all $i< a~~~~$ $y_i=x_i$
 %If $i=a~~~~~~~~~~~$ $y_i=\lfloor \frac{max_x}{c}\rfloor$
 \begin{equation}
     \nonumber  y_i=
      \begin{cases}
-        \lfloor \frac{max_x}{c}\rfloor& i=a\\
+        \lfloor \frac{z}{c}\rfloor& i=a\\
      x_i& \text{otherwise}
      \end{cases}
  \end{equation}
@@ -200,9 +200,9 @@ Let $max_x$ be the maximum integer among $x_1,x_2,...,x_{n-1}$.
 
 Since algorithm $A$ is a deterministic algorithm and it is an online problem, if algorithm $A$ takes $n,y_1,y_2,...,y_n$ as an input, it returns $y_a$.
 If $a\in \{1,2,...,n-1\}$, $y_{a+1}$ is at least $c$ times than $y_a$.
-If $a=n$, let $max_y$ be the maximum integer among $y_1,y_2,...,y_{n-1}$.
-Since for all $i\neq n$, $y_i=x_i$, then we have $max_y=max_x$.
-Thus, we have $max_y$ is at least $c$ times than $y_a$.
+For the case when $a=n$, 
+since for all $i\neq n$, $y_i=x_i$, we have the maximum integer among $y_1,y_2,...,y_{n-1}$ is also $z$.
+Since $y_a=y_n=\lfloor \frac{z}{c}\rfloor$, we have $z$ is at least $c$ times than $y_a$.
 \\
 4.\blue{\textbf{Estimating the (Unknown) Fraction of Red Balls.}
 Suppose a bag contains an unknown number of red balls (assume there is at least one red ball) 
