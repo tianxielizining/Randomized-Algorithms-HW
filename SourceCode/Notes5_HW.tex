@@ -145,30 +145,64 @@ What we need to satisfy is $\Pr[|\frac{Y}{n}-I(f)|\ge\epsilon]\le \delta$, then,
 \end{align}
 3.\blue{Consider an online problem as follows.
 Given a positive integer $n$. 
-Then give $n$ integers $x_1, x_2, ..., x_n$ in turn. 
-What needs to be done is to select an integer from $x_1$ to $x_n$, 
+Then give $n$ positive integers $y_1, y_2, ..., y_n$ in turn. 
+What needs to be done is to select an integer from $y_1$ to $y_n$, 
 and the goal is to make the value of the selected integer as large as possible. 
 Since it is an online problem,
-when  $x_i$ , $i\in\{1,2,...,n\}$ is given, the algorithm of the problem needs to immediately decide whether to choose $x_i$. 
-Once an integer $x_i$ is chosen by an algorithm, the output of the algorithm of the problem is $x_i$.
+when  $y_i$ , $i\in\{1,2,...,n\}$ is given, the algorithm of the problem needs to immediately decide whether to choose $y_i$. 
+If the algorithm of the problem decides to choose $y_i$, the output of the algorithm is $y_i$ and cannot choose $y_t$,$t\neq i$ any more.
+If the algorithm of the problem does not decide to choose $y_i$, the algorithm cannot choose $y_i$ any more.
 Show that for any deterministic algorithm, for any constant $c\ge 1$,
-there exists an input $x_1,x_2,...,x_n$, such that 
-the maximum value of the input is at least $c$ times that of the output of the deterministic algorithm.
-}\\
+there exists an input $n, y_1,y_2,...,y_n$, such that 
+the maximum value among $y_1,y_2,...,y_n$ is at least $c$ times that of the output of the deterministic algorithm.
+}
+
 %Let $x_1,x_2,...,x_n$ be any instance of the online problem.
 Let algorithm $A$ be any deterministic algorithm of the problem.
-Let $x_1,x_2,...,x_n$ be any legal input of algorithm $A$.
+Let $n, x_1,x_2,...,x_n$ be any legal input of algorithm $A$, which means $n, x_1, x_2,..., x_n$ are all positive integers.
 Since algorithm $A$ is a deterministic algorithm and the problem is an online problem, 
-at first when $x_1$ comes, 
-algorithm $A$ need to decide whether to choose $x_1$ immediately only according to the value of $x_1$.
-Once algorithm $A$ decides to choose $x_1$, $A$ must return $x_1$ and cannot choose any integer any more.
-Once algorithm $A$ decides not to choose $x_1$, $A$ can not choose $x_1$ any more.
-In a similar fashion, when $x_i$, $i\in \{1,2,...,n-1\}$ comes, algorithm $A$ decides whether to choose $x_i$ immediately according to $x_1,...,x_i$.
-And when $x_n$ comes, which means that algorithm $A$ does not select any integer and have to choose and return $x_n$.
-Assume that algorithm $A$ returns $x_a$, $a\in \{1,2,...,n\}$ at last.
-We can construct an input so that the maximum value of the input is at least $c$ times that of the output of algorithm $A$ as follows.
-If $a\in \{1,2,...,n-1\}$, let $x_1,x_2,...,x_a,cx_a,x_{a+2},...,x_n$ be the input.
-If $a=n$, let $x_1,x_2,...,x_{n-1},cx_n$ be the input.
+when $x_1$ comes, 
+algorithm $A$ need to decide whether to choose $x_1$ immediately only according to the value of $x_1$ and $n$.
+Once algorithm $A$ decides to choose $x_1$, algorithm $A$ must return $x_1$ and cannot choose any other positive integer $x_t$, $t\neq 1$ any more.
+Once algorithm $A$ decides not to choose $x_1$, algorithm $A$ can not choose $x_1$ any more.
+In a similar fashion, when $x_i$, $i\in \{2,...,n-1\}$ comes, algorithm $A$ decides whether to choose $x_i$ immediately according to $x_1,...,x_i$ and $n$.
+If algorithm $A$ chooses a positive integer $x_t$, $t<i$, algorithm $A$ cannot decide to choose $x_i$.
+If algorithm $A$ selects $x_i$, algorithm $A$ must return $x_i$ and cannot select any other positive integer $x_t$, $t\neq i$ any more.
+If algorithm $A$ does not select $x_i$, algorithm $A$ can not choose $x_i$ any more.
+And when $x_n$ comes, if algorithm $A$ chooses a positive integer $x_t$, $t<n$, algorithm $A$ cannot decide to choose $x_n$.
+If algorithm $A$ does not select any positive integer $x_t$, $t<n$, algorithm $A$ has to choose and return $x_n$.
+
+Assume that algorithm $A$ returns $x_a$, $a\in \{1,2,...,n\}$.
+We can construct another input $n, y_1,y_2,...,y_n$ so that the maximum value of the input is at least $c$ times that of the output of algorithm $A$ as follows.\\
+If $a\in \{1,2,...,n-1\}$:
+%For all $i\le a$ and $i\ge a+2~~~~$ $y_i=x_i$
+%If $i=a+1~~~~~~~~~~~~~~~~~~~~~~~~$ $y_i=cx_a$\\
+\begin{equation}
+    \nonumber  y_i=
+     \begin{cases}
+     cx_{i-1}& i=a+1\\
+     x_i& \text{otherwise}
+     \end{cases}
+ \end{equation}
+%let $x_1,x_2,...,x_a,cx_a,x_{a+2},...,x_n$ be the input.
+If $a=n$:
+Let $max_x$ be the maximum integer among $x_1,x_2,...,x_{n-1}$.
+%For all $i< a~~~~$ $y_i=x_i$
+%If $i=a~~~~~~~~~~~$ $y_i=\lfloor \frac{max_x}{c}\rfloor$
+\begin{equation}
+    \nonumber  y_i=
+     \begin{cases}
+        \lfloor \frac{max_x}{c}\rfloor& i=a\\
+     x_i& \text{otherwise}
+     \end{cases}
+ \end{equation}
+%et $x_1,x_2,...,x_{n-1}, $ be the input.
+
+Since algorithm $A$ is a deterministic algorithm and it is an online problem, if algorithm $A$ takes $n,y_1,y_2,...,y_n$ as an input, it returns $y_a$.
+If $a\in \{1,2,...,n-1\}$, $y_{a+1}$ is at least $c$ times than $y_a$.
+If $a=n$, let $max_y$ be the maximum integer among $y_1,y_2,...,y_{n-1}$.
+Since for all $i\neq n$, $y_i=x_i$, then we have $max_y=max_x$.
+Thus, we have $max_y$ is at least $c$ times than $y_a$.
 \\
 4.\blue{\textbf{Estimating the (Unknown) Fraction of Red Balls.}
 Suppose a bag contains an unknown number of red balls (assume there is at least one red ball) 
