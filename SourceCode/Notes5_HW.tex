@@ -105,7 +105,7 @@ for any black box of function $f$, if algorithm $A$ accesses the black box,
 it always submits the same $x_1$ to the black box of function $f$.
 Then algorithm $A$ uses $f(x_1)$ to decide whether to access the black box of function $f$ for one more time.
 If the answer is access to the black box of function $f$, algorithm $A$ decides which real number to be submitted according to $f(x_1)$.
-In conclude, algorithm $A$ uses $f(x_1), f(x_2),...,f(x_i)$ to decide whether $x_{i+1}$ exists and the value of $x_{i+1}$.
+To conclude, algorithm $A$ uses $f(x_1), f(x_2),...,f(x_i)$ to decide whether $x_{i+1}$ exists and the value of $x_{i+1}$.
 So, for $f_1$ and $f_2$, algorithm $A$ uses the same $n$ points $(x_1,f_1(x_1)),(x_2,f_1(x_2)),...,(x_n,f_1(x_n))$.
 Since algorithm $A$ is a deterministic algorithm, 
 algorithm $A$ returns $c_1$ as the estimate of the integral of $f_2$, which is the same output when input is the black box of $f_1$.
@@ -143,7 +143,34 @@ What we need to satisfy is $\Pr[|\frac{Y}{n}-I(f)|\ge\epsilon]\le \delta$, then,
 \begin{align}
     \nonumber 2\exp({\frac{-2n\epsilon^2}{M^2}}) \le \delta \implies n\ge \frac{M^2\ln \frac{2}{\delta}}{2\epsilon^2}
 \end{align}
-3.\blue{\textbf{Estimating the (Unknown) Fraction of Red Balls.}
+3.\blue{Consider an online problem as follows.
+Given a positive integer $n$. 
+Then give $n$ integers $x_1, x_2, ..., x_n$ in turn. 
+What needs to be done is to select an integer from $x_1$ to $x_n$, 
+and the goal is to make the value of the selected integer as large as possible. 
+Since it is an online problem,
+when  $x_i$ , $i\in\{1,2,...,n\}$ is given, the algorithm of the problem needs to immediately decide whether to choose $x_i$. 
+Once an integer $x_i$ is chosen by an algorithm, the output of the algorithm of the problem is $x_i$.
+Show that for any deterministic algorithm, for any constant $c\ge 1$,
+there exists an input $x_1,x_2,...,x_n$, such that 
+the maximum value of the input is at least $c$ times that of the output of the deterministic algorithm.
+}\\
+%Let $x_1,x_2,...,x_n$ be any instance of the online problem.
+Let algorithm $A$ be any deterministic algorithm of the problem.
+Let $x_1,x_2,...,x_n$ be any legal input of algorithm $A$.
+Since algorithm $A$ is a deterministic algorithm and the problem is an online problem, 
+at first when $x_1$ comes, 
+algorithm $A$ need to decide whether to choose $x_1$ immediately only according to the value of $x_1$.
+Once algorithm $A$ decides to choose $x_1$, $A$ must return $x_1$ and cannot choose any integer any more.
+Once algorithm $A$ decides not to choose $x_1$, $A$ can not choose $x_1$ any more.
+In a similar fashion, when $x_i$, $i\in \{1,2,...,n-1\}$ comes, algorithm $A$ decides whether to choose $x_i$ immediately according to $x_1,...,x_i$.
+And when $x_n$ comes, which means that algorithm $A$ does not select any integer and have to choose and return $x_n$.
+Assume that algorithm $A$ returns $x_a$, $a\in \{1,2,...,n\}$ at last.
+We can construct an input so that the maximum value of the input is at least $c$ times that of the output of algorithm $A$ as follows.
+If $a\in \{1,2,...,n-1\}$, let $x_1,x_2,...,x_a,cx_a,x_{a+2},...,x_n$ be the input.
+If $a=n$, let $x_1,x_2,...,x_{n-1},cx_n$ be the input.
+\\
+4.\blue{\textbf{Estimating the (Unknown) Fraction of Red Balls.}
 Suppose a bag contains an unknown number of red balls (assume there is at least one red ball) 
 and you are only allowed to sample (with replacement) uniformly at random from the bag. 
 Design an algorithm that, given $0<\epsilon,\delta <1$, with failure probability at most $\delta$, 
