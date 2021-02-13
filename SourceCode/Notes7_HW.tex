@@ -1,0 +1,71 @@
+\section{Johnson-Lindenstrauss Lemma: Dimension Reduction}
+\noindent 1. \blue{Suppose $g$ is a random variable with normal distribution $N(0,1)$.
+Prove the following.\\
+(a) For odd $n\ge 1$, $\mathbb{E}[g^n]=0$.\\
+(b) For even $n \ge 2$, $\mathbb{E}[g^n]\ge 1$.
+}
+
+Since $g$ is a random variable having standard normal distribution $N(0,1)$
+the probability density function of $g$ is $\frac{1}{\sqrt{2\pi}}e^{\frac{-x^2}{2}}$ for $x\in \mathbb{R}$.
+By definition of expected value of a continuous random variable, we have:
+\begin{align}
+    \nonumber \mathbb{E}[g^n]=\frac{1}{\sqrt{2\pi}}\int_{-\infty }^{+\infty }x^ne^{\frac{-x^2}{2}}\,dx 
+\end{align}
+
+We first consider the case for odd $n\ge 1$.
+Since $y=e^{\frac{-x^2}{2}}$, $x\in \mathbb{R}$ is an even function
+and for odd $n\ge 1$, $y=x^n$, $x\in \mathbb{R}$  is an odd function, we have $y=x^ne^{\frac{-x^2}{2}}$, $x\in \mathbb{R}$  is an odd function.
+Thus, $\frac{1}{\sqrt{2\pi}}\int_{-\infty }^{+\infty }x^ne^{\frac{-x^2}{2}}\,dx =0$. 
+
+Then consider the case for even $n \ge 2$.
+When $n=2$, $\mathbb{E}[g^2]=\frac{1}{\sqrt{2\pi}}\int_{-\infty }^{+\infty }x^2e^{\frac{-x^2}{2}}\,dx $.
+Let $u(x)=x$, then $u'(x)=1$.
+Let $v(x)=-e^{\frac{-x^2}{2}}$, then $v'(x)=xe^{\frac{-x^2}{2}}$. Use integration by parts, we have:
+\begin{align}
+    \nonumber \mathbb{E}[g^2]&=\frac{1}{\sqrt{2\pi}}\int_{-\infty }^{+\infty }x^2e^{\frac{-x^2}{2}}\,dx\\
+    \nonumber &=\frac{1}{\sqrt{2\pi}}\int_{-\infty }^{+\infty }x\cdot xe^{\frac{-x^2}{2}}\,dx\\
+    \nonumber &=\frac{1}{\sqrt{2\pi}}([x\cdot (-e^{\frac{-x^2}{2}})]_{-\infty}^{+\infty}-\int_{-\infty }^{+\infty }1\cdot (-e^{\frac{-x^2}{2}})\,dx )\\
+    \nonumber &=\frac{1}{\sqrt{2\pi}}([-xe^{\frac{-x^2}{2}}]_{-\infty}^{+\infty}+\int_{-\infty }^{+\infty }e^{\frac{-x^2}{2}}\,dx )
+\end{align}
+By L'Hôpital's rule, we can compute $[-xe^{\frac{-x^2}{2}}]_{-\infty}^{+\infty}$ as follows:
+\begin{align}
+    \nonumber &\lim\limits_{x\to+\infty}   \frac{x}{e^{\frac{x^2}{2}}}=  \lim\limits_{x\to+\infty}\frac{1}{xe^{\frac{x^2}{2}}}=0 \implies \lim\limits_{x\to+\infty}   -\frac{x}{e^{\frac{x^2}{2}}}=0\\
+    \nonumber &\lim\limits_{x\to-\infty}   \frac{-x}{e^{\frac{x^2}{2}}}=\lim\limits_{x\to-\infty}\frac{-1}{xe^{\frac{x^2}{2}}}=0\\
+    \nonumber & [-xe^{\frac{-x^2}{2}}]_{-\infty}^{+\infty}=\lim\limits_{x\to+\infty}\frac{-x}{e^{\frac{x^2}{2}}}   -\lim\limits_{x\to-\infty} \frac{-x}{e^{\frac{x^2}{2}}}=0
+\end{align}
+Compute $\int_{-\infty }^{+\infty }e^{\frac{-x^2}{2}}\,dx $ as follows.
+\begin{align}
+    \nonumber \int_{-\infty }^{+\infty }e^{\frac{-x^2}{2}}\,dx &=\sqrt{(\int_{-\infty }^{+\infty }e^{\frac{-x^2}{2}}\,dx )^2}\\
+    \nonumber &=\sqrt{\int_{-\infty }^{+\infty }e^{\frac{-x^2}{2}}\,dx \int_{-\infty }^{+\infty }e^{\frac{-y^2}{2}}\,dy}\\
+    \nonumber &=\sqrt{\int_{-\infty }^{+\infty }\int_{-\infty }^{+\infty }e^{\frac{-x^2}{2}}e^{\frac{-y^2}{2}}\,dx\,dy}\\
+    \nonumber &=\sqrt{\int_{-\infty }^{+\infty }\int_{-\infty }^{+\infty }e^{\frac{-(x^2+y^2)}{2}}\,dx\,dy}\\
+    \nonumber &=\sqrt{\int_{0}^{2\pi}\int_{0 }^{+\infty }\rho e^{\frac{-\rho^2}{2}}\,d\rho\,d\theta }\\
+    \nonumber &=\sqrt{-2\pi\cdot[e^{\frac{-\rho^2}{2}}]_{0}^{+\infty}}\\
+    \nonumber &=\sqrt{-2\pi\cdot(0-1)}\\
+    \nonumber &=\sqrt{2\pi}
+\end{align}
+Thus,
+\begin{align}
+    \nonumber \mathbb{E}[g^2]=&\frac{1}{\sqrt{2\pi}}([-xe^{\frac{-x^2}{2}}]_{-\infty}^{+\infty}+\int_{-\infty }^{+\infty }e^{\frac{-x^2}{2}}\,dx )=1
+\end{align}
+For even $n > 2$, use integration by parts again.
+Let $f(x)=x^{n-1}$, then $f'(x)=(n-1)x^{n-2}$. Let $g(x)=-e^{\frac{-x^2}{2}} $, then $g'(x)= xe^{\frac{-x^2}{2}}$
+\begin{align}
+    \nonumber \mathbb{E}[g^{n+2}]&=\frac{1}{\sqrt{2\pi}}\int_{-\infty }^{+\infty }x^{n+2}e^{\frac{-x^2}{2}}\,dx\\
+    \nonumber &=\frac{1}{\sqrt{2\pi}}\int_{-\infty }^{+\infty }x^{n+1}\cdot x e^{\frac{-x^2}{2}}\,dx\\
+    \nonumber &=\frac{1}{\sqrt{2\pi}}([x^{n-1}\cdot (-e^{\frac{-x^2}{2}})]_{-\infty}^{+\infty}-\int_{-\infty }^{+\infty }(n-1)x^{n-2}\cdot (-e^{\frac{-x^2}{2}})\,dx )\\
+    \nonumber &=\frac{1}{\sqrt{2\pi}}([-x^{n-1}e^{\frac{-x^2}{2}})]_{-\infty}^{+\infty}+\int_{-\infty }^{+\infty }(n-1)x^{n-2}e^{\frac{-x^2}{2}}\,dx )
+\end{align}
+By L'Hôpital's rule, we can compute $[-x^{n-1}e^{\frac{-x^2}{2}})]_{-\infty}^{+\infty}=0$ in the same way.
+Thus,
+\begin{align}
+    \nonumber \mathbb{E}[g^{n+2}]=\frac{1}{\sqrt{2\pi}}\int_{-\infty }^{+\infty }(n-1)x^{n-2}e^{\frac{-x^2}{2}}\,dx 
+    =(n-1)\mathbb{E}[g^{n}]
+\end{align} 
+Then we have:
+\begin{align}
+    \nonumber \frac{\mathbb{E}[g^{n+2}]}{\mathbb{E}[g^{n}]}=n-1
+\end{align}
+Since $n>2$ and $n$ is even, we have $n-1\ge 3$.
+Then $\mathbb{E}[g^{n+2}]>\mathbb{E}[g^{n}]$.
+We have shown that $\mathbb{E}[g^{2}]=1$, then we have For even $n \ge 2$, $\mathbb{E}[g^n]\ge 1$.

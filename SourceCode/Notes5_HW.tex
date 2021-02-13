@@ -1,5 +1,5 @@
 \section{Hoeffding's Inequality}
-\noindent 0. \blue{Assume that there is a randomized algorithm $A$ that is suitable for a yes/no problem.
+\noindent 1. \blue{Assume that there is a randomized algorithm $A$ that is suitable for a yes/no problem.
 And algorithm $A$ can return the correct answer with probability $p\in(\frac{1}{2},1)$. 
 How to design a randomized algorithm based on $A$ with failure probability at most $\delta$? } \\
 \textbf{Algorithm:}\\
@@ -34,7 +34,7 @@ Since we have to satisfy $\Pr[Z\le\frac{1}{2}(2n+1)]\le \delta$, then:
     \nonumber \exp({\frac{-(2p-1)^2(2n+1)}{8p}}) \le \delta \implies 2n+1 \ge \frac{-8p\cdot \ln \delta }{(2p-1)^2}
 \end{align}
 \\
-\noindent 1. \blue{\textbf{Integration by Sampling.}
+\noindent 2. \blue{\textbf{Integration by Sampling.}
 Suppose we are given an integrable function 
 $f : [0, 1]\rightarrow [0, M ]$,
 and we wish to estimate the integral $I (f ) := \int_{0}^{1} f (x) \,dx$.
