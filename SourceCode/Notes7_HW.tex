@@ -44,6 +44,9 @@ Compute $\int_{-\infty }^{+\infty }e^{\frac{-x^2}{2}}\,dx $ as follows.
     \nonumber &=\sqrt{-2\pi\cdot(0-1)}\\
     \nonumber &=\sqrt{2\pi}
 \end{align}
+We can get the same result by $\frac{1}{\sqrt{2\pi}}e^{\frac{-x^2}{2}}$ is the probability density function of $N(0,1)$.
+$\int_{-\infty }^{+\infty }\frac{1}{\sqrt{2\pi}}e^{\frac{-x^2}{2}}\,dx=1 \implies \int_{-\infty }^{+\infty }e^{\frac{-x^2}{2}}\,dx=\sqrt{2\pi}$.
+
 Thus,
 \begin{align}
     \nonumber \mathbb{E}[g^2]=&\frac{1}{\sqrt{2\pi}}([-xe^{\frac{-x^2}{2}}]_{-\infty}^{+\infty}+\int_{-\infty }^{+\infty }e^{\frac{-x^2}{2}}\,dx )=1
@@ -68,4 +71,8 @@ Then we have:
 \end{align}
 Since $n>2$ and $n$ is even, we have $n-1\ge 3$.
 Then $\mathbb{E}[g^{n+2}]>\mathbb{E}[g^{n}]$.
-We have shown that $\mathbb{E}[g^{2}]=1$, then we have For even $n \ge 2$, $\mathbb{E}[g^n]\ge 1$.
+We have shown that $\mathbb{E}[g^{2}]=1$, then we have For even $n \ge 2$, $\mathbb{E}[g^n]\ge 1$.\\
+2.\blue{Suppose $\gamma _j$'s are independent uniform $\{-1,1\}$-random variables 
+and $g_j$'s are independent random variables, each having normal distribution $N(0,1)$. 
+Suppose $v_j$'s are real numbers, and define $X:=(\sum_{j}\gamma _jv_j)^2$ and $\widehat{X}:=(\sum_{j}g_jv_j)^2$.
+Show that for all integers $n\ge 1$,$E[X^n]\le E[\widehat{X}^n]$.}
