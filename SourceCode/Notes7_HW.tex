@@ -24,14 +24,14 @@ Let $v(x)=-e^{\frac{-x^2}{2}}$, then $v'(x)=xe^{\frac{-x^2}{2}}$. Use integratio
 \begin{align}
     \nonumber \mathbb{E}[g^2]&=\frac{1}{\sqrt{2\pi}}\int_{-\infty }^{+\infty }x^2e^{\frac{-x^2}{2}}\,dx\\
     \nonumber &=\frac{1}{\sqrt{2\pi}}\int_{-\infty }^{+\infty }x\cdot xe^{\frac{-x^2}{2}}\,dx\\
-    \nonumber &=\frac{1}{\sqrt{2\pi}}([x\cdot (-e^{\frac{-x^2}{2}})]_{-\infty}^{+\infty}-\int_{-\infty }^{+\infty }1\cdot (-e^{\frac{-x^2}{2}})\,dx )\\
-    \nonumber &=\frac{1}{\sqrt{2\pi}}([-xe^{\frac{-x^2}{2}}]_{-\infty}^{+\infty}+\int_{-\infty }^{+\infty }e^{\frac{-x^2}{2}}\,dx )
+    \nonumber &=\frac{1}{\sqrt{2\pi}}\left(\left[x\cdot (-e^{\frac{-x^2}{2}})\right]_{-\infty}^{+\infty}-\int_{-\infty }^{+\infty }1\cdot (-e^{\frac{-x^2}{2}})\,dx \right)\\
+    \nonumber &=\frac{1}{\sqrt{2\pi}}\left(\left[-xe^{\frac{-x^2}{2}}\right]_{-\infty}^{+\infty}+\int_{-\infty }^{+\infty }e^{\frac{-x^2}{2}}\,dx \right)
 \end{align}
-By L'Hôpital's rule, we can compute $[-xe^{\frac{-x^2}{2}}]_{-\infty}^{+\infty}$ as follows:
+By L'Hôpital's rule, we can compute $\left[-xe^{\frac{-x^2}{2}}\right]_{-\infty}^{+\infty}$ as follows:
 \begin{align}
     \nonumber &\lim\limits_{x\to+\infty}   \frac{x}{e^{\frac{x^2}{2}}}=  \lim\limits_{x\to+\infty}\frac{1}{xe^{\frac{x^2}{2}}}=0 \implies \lim\limits_{x\to+\infty}   -\frac{x}{e^{\frac{x^2}{2}}}=0\\
     \nonumber &\lim\limits_{x\to-\infty}   \frac{-x}{e^{\frac{x^2}{2}}}=\lim\limits_{x\to-\infty}\frac{-1}{xe^{\frac{x^2}{2}}}=0\\
-    \nonumber & [-xe^{\frac{-x^2}{2}}]_{-\infty}^{+\infty}=\lim\limits_{x\to+\infty}\frac{-x}{e^{\frac{x^2}{2}}}   -\lim\limits_{x\to-\infty} \frac{-x}{e^{\frac{x^2}{2}}}=0
+    \nonumber & \left[-xe^{\frac{-x^2}{2}}\right]_{-\infty}^{+\infty}=\lim\limits_{x\to+\infty}\frac{-x}{e^{\frac{x^2}{2}}}   -\lim\limits_{x\to-\infty} \frac{-x}{e^{\frac{x^2}{2}}}=0
 \end{align}
 Compute $\int_{-\infty }^{+\infty }e^{\frac{-x^2}{2}}\,dx $ as follows.
 \begin{align}
@@ -40,7 +40,7 @@ Compute $\int_{-\infty }^{+\infty }e^{\frac{-x^2}{2}}\,dx $ as follows.
     \nonumber &=\sqrt{\int_{-\infty }^{+\infty }\int_{-\infty }^{+\infty }e^{\frac{-x^2}{2}}e^{\frac{-y^2}{2}}\,dx\,dy}\\
     \nonumber &=\sqrt{\int_{-\infty }^{+\infty }\int_{-\infty }^{+\infty }e^{\frac{-(x^2+y^2)}{2}}\,dx\,dy}\\
     \nonumber &=\sqrt{\int_{0}^{2\pi}\int_{0 }^{+\infty }\rho e^{\frac{-\rho^2}{2}}\,d\rho\,d\theta }\\
-    \nonumber &=\sqrt{-2\pi\cdot[e^{\frac{-\rho^2}{2}}]_{0}^{+\infty}}\\
+    \nonumber &=\sqrt{-2\pi\cdot\left[e^{\frac{-\rho^2}{2}}\right]_{0}^{+\infty}}\\
     \nonumber &=\sqrt{-2\pi\cdot(0-1)}\\
     \nonumber &=\sqrt{2\pi}
 \end{align}
@@ -49,17 +49,17 @@ $\int_{-\infty }^{+\infty }\frac{1}{\sqrt{2\pi}}e^{\frac{-x^2}{2}}\,dx=1 \implie
 
 Thus,
 \begin{align}
-    \nonumber \mathbb{E}[g^2]=&\frac{1}{\sqrt{2\pi}}([-xe^{\frac{-x^2}{2}}]_{-\infty}^{+\infty}+\int_{-\infty }^{+\infty }e^{\frac{-x^2}{2}}\,dx )=1
+    \nonumber \mathbb{E}[g^2]=&\frac{1}{\sqrt{2\pi}}(\left[-xe^{\frac{-x^2}{2}}\right]_{-\infty}^{+\infty}+\int_{-\infty }^{+\infty }e^{\frac{-x^2}{2}}\,dx )=1
 \end{align}
 For even $n > 2$, use integration by parts again.
-Let $f(x)=x^{n-1}$, then $f'(x)=(n-1)x^{n-2}$. Let $g(x)=-e^{\frac{-x^2}{2}} $, then $g'(x)= xe^{\frac{-x^2}{2}}$
+Let $f(x)=x^{n-1}$, then $f'(x)=(n-1)x^{n-2}$. Let $h(x)=-e^{\frac{-x^2}{2}} $, then $h'(x)= xe^{\frac{-x^2}{2}}$
 \begin{align}
     \nonumber \mathbb{E}[g^{n+2}]&=\frac{1}{\sqrt{2\pi}}\int_{-\infty }^{+\infty }x^{n+2}e^{\frac{-x^2}{2}}\,dx\\
     \nonumber &=\frac{1}{\sqrt{2\pi}}\int_{-\infty }^{+\infty }x^{n+1}\cdot x e^{\frac{-x^2}{2}}\,dx\\
-    \nonumber &=\frac{1}{\sqrt{2\pi}}([x^{n-1}\cdot (-e^{\frac{-x^2}{2}})]_{-\infty}^{+\infty}-\int_{-\infty }^{+\infty }(n-1)x^{n-2}\cdot (-e^{\frac{-x^2}{2}})\,dx )\\
-    \nonumber &=\frac{1}{\sqrt{2\pi}}([-x^{n-1}e^{\frac{-x^2}{2}})]_{-\infty}^{+\infty}+\int_{-\infty }^{+\infty }(n-1)x^{n-2}e^{\frac{-x^2}{2}}\,dx )
+    \nonumber &=\frac{1}{\sqrt{2\pi}}\left(\left[x^{n-1}\cdot (-e^{\frac{-x^2}{2}})\right]_{-\infty}^{+\infty}-\int_{-\infty }^{+\infty }(n-1)x^{n-2}\cdot (-e^{\frac{-x^2}{2}})\,dx \right)\\
+    \nonumber &=\frac{1}{\sqrt{2\pi}}\left(\left[-x^{n-1}e^{\frac{-x^2}{2}})\right]_{-\infty}^{+\infty}+\int_{-\infty }^{+\infty }(n-1)x^{n-2}e^{\frac{-x^2}{2}}\,dx \right)
 \end{align}
-By L'Hôpital's rule, we can compute $[-x^{n-1}e^{\frac{-x^2}{2}})]_{-\infty}^{+\infty}=0$ in the same way.
+By L'Hôpital's rule, we can compute $\left[-x^{n-1}e^{\frac{-x^2}{2}}\right]_{-\infty}^{+\infty}=0$ in the same way.
 Thus,
 \begin{align}
     \nonumber \mathbb{E}[g^{n+2}]=\frac{1}{\sqrt{2\pi}}\int_{-\infty }^{+\infty }(n-1)x^{n-2}e^{\frac{-x^2}{2}}\,dx 
@@ -71,8 +71,76 @@ Then we have:
 \end{align}
 Since $n>2$ and $n$ is even, we have $n-1\ge 3$.
 Then $\mathbb{E}[g^{n+2}]>\mathbb{E}[g^{n}]$.
-We have shown that $\mathbb{E}[g^{2}]=1$, then we have For even $n \ge 2$, $\mathbb{E}[g^n]\ge 1$.\\
+We have shown that $\mathbb{E}[g^{2}]=1$, then we have for even $n \ge 2$, $\mathbb{E}[g^n]\ge 1$.\\
 2.\blue{Suppose $\gamma _j$'s are independent uniform $\{-1,1\}$-random variables 
 and $g_j$'s are independent random variables, each having normal distribution $N(0,1)$. 
 Suppose $v_j$'s are real numbers, and define $X:=(\sum_{j}\gamma _jv_j)^2$ and $\widehat{X}:=(\sum_{j}g_jv_j)^2$.
 Show that for all integers $n\ge 1$,$E[X^n]\le E[\widehat{X}^n]$.}
+
+Conside $\mathbb{E}[X^n]$ first.
+Since $\gamma _j$'s are independent uniform $\{-1,1\}$-random variables and by the linearity of expectation,
+we have that for different $i$ and $j$, $\mathbb{E}[\gamma _iv_i\gamma _jv_j]=v_iv_j\mathbb{E}[\gamma _i]\mathbb{E}[\gamma _j]=0$.
+Since $\gamma _j$'s are independent uniform $\{-1,1\}$-random variables, we have for each $i$, $\mathbb{E}[\gamma _i^2v_i^2]=v_i^2\mathbb{E}[\gamma _i^2]=v_i^2$.
+Thus we have:
+\begin{align}
+    \nonumber \mathbb{E}[X^n]=\mathbb{E}[(\sum_j\gamma _jv_j)^{2n}] 
+    =\sum_j v_j^{2n}
+\end{align}
+
+Then consider $\mathbb{E}[\widehat{X}^n]$.
+Let $\widehat{Z}=\sum_{j}g_jv_j$, and then, $\widehat{X}=\widehat{Z}^2$.
+Since $g_j$'s are independent random variables, each having normal distribution $N(0,1)$, 
+we have $g_jv_j$'s are independent random variables, each having normal distribution $N(0,v_j^2)$.
+Then we have $\widehat{Z}$ is an independent random variable which has normal distribution $N(0,\sum_jv_j^2)$.
+Let $\nu ^2=\sum_jv_j^2$, then $\widehat{Z}\sim N(0,\nu ^2)$.
+Since $\widehat{X}=\widehat{Z}^2$, we have $\mathbb{E}[\widehat{X}^n]=\mathbb[\widehat{Z}^{2n}]$.
+Since the probability density function of $\widehat{Z}$ is $\frac{1}{\nu\sqrt{2\pi}}e^{\frac{-x^2}{2\nu ^2}}$ for $x\in \mathbb{R}$,
+by definition of expected value of a continuous random variable, we have:
+\begin{align}
+    \nonumber \mathbb{E}[\widehat{X}^{n}]=\mathbb{E}[\widehat{Z}^{2n}]=\frac{1}{\nu\sqrt{2\pi}}\int_{-\infty }^{+\infty }x^{2n}e^{\frac{-x^2}{2\nu ^2}}\,dx 
+\end{align}
+
+When $n=1$, we have:
+\begin{align}
+    \nonumber \mathbb{E}[\widehat{X}]=\mathbb{E}[\widehat{Z}^{2}]=\frac{1}{\nu\sqrt{2\pi}}\int_{-\infty }^{+\infty }x^{2}e^{\frac{-x^2}{2\nu ^2}}\,dx 
+\end{align}
+
+Let $u(x)=x$, then $u'(x)=1$.
+Let $v(x)=-\nu ^2e^{\frac{-x^2}{2\nu ^2}}$, then $v'(x)=xe^{\frac{-x^2}{2\nu^2}}$. Use integration by parts, we have:
+\begin{align}
+    \nonumber \mathbb{E}[\widehat{X}]=\mathbb{E}[\widehat{Z}^{2}]&=\frac{1}{\nu\sqrt{2\pi}}\int_{-\infty }^{+\infty }x^{2}e^{\frac{-x^2}{2\nu ^2}}\,dx \\
+    \nonumber &=\frac{1}{\nu\sqrt{2\pi}}\int_{-\infty }^{+\infty }x\cdot xe^{\frac{-x^2}{2\nu ^2}}\,dx \\
+    \nonumber &=\frac{1}{\nu\sqrt{2\pi}}\left(\left[x\cdot(-\nu ^2e^{\frac{-x^2}{2\nu ^2}})\right]_{-\infty}^{+\infty}-\int_{-\infty }^{+\infty }1\cdot (-\nu ^2e^{\frac{-x^2}{2\nu ^2}})\,dx \right)\\
+    \nonumber &=\frac{1}{\nu\sqrt{2\pi}}\left(\left[-\nu ^2xe^{\frac{-x^2}{2\nu ^2}})\right]_{-\infty}^{+\infty}+\int_{-\infty }^{+\infty }\nu ^2e^{\frac{-x^2}{2\nu ^2}}\,dx \right)\\
+    \nonumber &=\frac{1}{\nu\sqrt{2\pi}}\int_{-\infty }^{+\infty }\nu ^2e^{\frac{-x^2}{2\nu ^2}}\,dx \\
+    \nonumber &=\nu ^2
+\end{align}
+
+For $n>1$, 
+let $u(x)=x^{2n-1}$, $u'(x)=(2n-1)x^{2n-2}$,
+let $v(x)=-\nu ^2e^{\frac{-x^2}{2\nu ^2}}$, $v'(x)=xe^{\frac{-x^2}{2\nu^2}}$. 
+By integration by parts, we have:
+\begin{align}
+    \nonumber \mathbb{E}[\widehat{X^n}]=\mathbb{E}[\widehat{Z}^{2n}]&=\frac{1}{\nu\sqrt{2\pi}}\int_{-\infty }^{+\infty }x^{2n}e^{\frac{-x^2}{2\nu ^2}}\,dx \\
+    \nonumber &=\frac{1}{\nu\sqrt{2\pi}}\int_{-\infty }^{+\infty }x^{2n-1}\cdot xe^{\frac{-x^2}{2\nu ^2}}\,dx \\
+    \nonumber &=\frac{1}{\nu\sqrt{2\pi}}\left(\left[x^{2n-1}\cdot(-\nu ^2e^{\frac{-x^2}{2\nu ^2}})\right]_{-\infty}^{+\infty}-\int_{-\infty }^{+\infty }(2n-1)x^{2n-2}\cdot (-\nu ^2e^{\frac{-x^2}{2\nu ^2}})\,dx \right)\\
+    \nonumber &=\frac{1}{\nu\sqrt{2\pi}}\left(\left[-\nu ^2x^{2n-1}e^{\frac{-x^2}{2\nu ^2}})\right]_{-\infty}^{+\infty}+(2n-1)\nu ^2\int_{-\infty }^{+\infty }x^{2(n-1)}e^{\frac{-x^2}{2\nu ^2}}\,dx \right)\\
+    \nonumber &=(2n-1)\nu ^2\int_{-\infty }^{+\infty }\frac{1}{\nu\sqrt{2\pi}}x^{2(n-1)}e^{\frac{-x^2}{2\nu ^2}}\,dx \\
+    \nonumber &=(2n-1)\nu ^2 \mathbb{E}[\widehat{Z}^{2(n-1)}] \\
+    \nonumber &=(2n-1)\nu ^2 \mathbb{E}[\widehat{X}^{n-1}]
+\end{align}
+
+Since $n>1$, we have $2n-1>1$.
+Since $\mathbb{E}[\widehat{X}]=\nu ^2=\sum_jv_j^2$ we have, for $n>1$,
+\begin{align}
+    \nonumber \mathbb{E}[\widehat{X^n}]\ge\nu^{2n}=(\sum_jv_j^2)^n\ge\sum_j v_j^{2n}
+\end{align}
+
+We have shown that for $n\ge 1$,
+\begin{align}
+    \nonumber \mathbb{E}[X^n]=\sum_j v_j^{2n}
+\end{align}
+
+Thus, we have, for $n=1$, $\mathbb{E}[X^n]=\mathbb{E}[\widehat{X^n}]$,
+for $n>1$,  $\mathbb{E}[X^n]\le\mathbb{E}[\widehat{X^n}]$.
+Then we have the result that for all integers $n\ge 1$, $\mathbb{E}[X^n]\le\mathbb{E}[\widehat{X^n}]$.
