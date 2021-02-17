@@ -86,9 +86,13 @@ Show that for all integers $n\ge 1$,$E[X^n]\le E[\widehat{X}^n]$.}
     \nonumber &=\mathbb{E}\left[\sum_{k_1+k_2+...+k_m=2n}\binom{2n}{k_1,k_2,...,k_m}\prod_{t=1}^{m}(g_jv_j)^{k_t} \right]\\
     \nonumber &=\sum_{k_1+k_2+...+k_m=2n}\binom{2n}{k_1,k_2,...,k_m}\prod_{t=1}^{m}v_j^{k_t}\mathbb{E}\left[g_j^{k_t}\right]
 \end{align}
-
-Since the fact that for odd $n\ge 1$, $\mathbb{E}[\gamma^n]=\mathbb{E}[g^n]=0$, 
-for even $n\ge 2$, $\mathbb{E}[\gamma^n]\le\mathbb{E}[g^n]$, we have that for all integers $n\ge 1$, $\mathbb{E}[X^n] \le \mathbb{E}[\widehat{X}^n]$.
+Fix non-negative integers $k_1,k_2,...,k_m$, and compare  $\prod_{t=1}^{m}v_j^{k_t}\mathbb{E}\left[\gamma_j^{k_t}\right]$ and $\prod_{t=1}^{m}v_j^{k_t}\mathbb{E}\left[g_j^{k_t}\right]$ as follows.
+If there exites $k_t$, $t\in\{1,2,...,m\}$, such that $k_t$ is odd, and $k_t>=1$, then, $\mathbb{E}[\gamma^{k_t}]=\mathbb{E}[g^k_t]=0$, we have $\prod_{t=1}^{m}v_j^{k_t}\mathbb{E}\left[\gamma_j^{k_t}\right]=\prod_{t=1}^{m}v_j^{k_t}\mathbb{E}\left[g_j^{k_t}\right]=0$.
+Otherwise, for all $k_t$s, $t\in\{1,2,...,m\}$, $k_t$s are even. 
+Since $k_1+k_2+...+k_m=2n$, it's impossible that all $k_t$s, $t\in \{1,2,...,m\}$ are 0.
+For $k_t=0$, we have $\mathbb{E}[\gamma^{k_t}]=\mathbb{E}[g^{k_t}]$.
+For even $k_t\ge 2$, we have $\mathbb{E}[\gamma^{k_t}]\le\mathbb{E}[g^{k_t}]$. 
+Then, $\prod_{t=1}^{m}v_j^{k_t}\mathbb{E}\left[\gamma_j^{k_t}\right]\le \prod_{t=1}^{m}v_j^{k_t}\mathbb{E}\left[g_j^{k_t}\right]$.
 
 \noindent 3.\blue{Suppose $Z$ is a random variable having normal distribution $N(0,\nu^2)$. Compute $\mathbb{E}\left[e^{tZ^2}\right]$. 
 For what values of $t$ is your expression valid?}
@@ -106,10 +110,21 @@ When $t-\frac{1}{2\nu^2}<0\implies t<\frac{1}{2\nu^2}$, we have,
 \end{align}
 Then,
 \begin{align}
-    \nonumber &=\frac{1}{\nu \sqrt{2\pi}}\sqrt{ 2\pi\cdot\frac{\nu^2}{2t\nu^2-1}\left[e^{ (t-\frac{1}{2\nu^2})\rho^2}\right]_{0}^{+\infty} }\\
+    \nonumber \mathbb{E}\left[ e^{tZ^2} \right]&=\frac{1}{\nu \sqrt{2\pi}}\sqrt{ 2\pi\cdot\frac{\nu^2}{2t\nu^2-1}\left[e^{ (t-\frac{1}{2\nu^2})\rho^2}\right]_{0}^{+\infty} }\\
     \nonumber &=\frac{1}{\nu \sqrt{2\pi}}\sqrt{2\pi\cdot\frac{\nu^2}{1-2t\nu^2}}\\
     \nonumber &=(1-2t\nu^2)^{-\frac{1}{2}}
 \end{align}
+When $t-\frac{1}{2\nu^2}>0\implies t>\frac{1}{2\nu^2}$, we have,
+\begin{align}
+    \nonumber \left[e^{ (t-\frac{1}{2\nu^2})\rho^2}\right]_{0}^{+\infty}=+\infty
+\end{align}
+
+Thus we cannot compute $\mathbb{E}\left[ e^{tZ^2} \right]$ when $t-\frac{1}{2\nu^2}>0$.
+
+Since when $t-\frac{1}{2\nu^2}=0 \implies 2t\nu^2-1=0$, which is a  denominator of our expression, $t-\frac{1}{2\nu^2}$ can not be equal to $0$.
+
+In conclution, $\mathbb{E}\left[ e^{tZ^2} \right]=(1-2t\nu^2)^{-\frac{1}{2}}$ when $t<\frac{1}{2\nu^2}$.
+
 4.\blue{In this question, we investigate if Johnson-Lindenstrauss Lemma can preserve area.
 }\\
 \blue{(a)Suppose the distances between three points are preserved with multiplicative error $\epsilon$. 
