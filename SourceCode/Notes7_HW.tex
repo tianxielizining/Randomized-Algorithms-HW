@@ -76,76 +76,43 @@ We have shown that $\mathbb{E}[g^{2}]=1$, then we have for even $n \ge 2$, $\mat
 and $g_j$'s are independent random variables, each having normal distribution $N(0,1)$. 
 Suppose $v_j$'s are real numbers, and define $X:=(\sum_{j}\gamma _jv_j)^2$ and $\widehat{X}:=(\sum_{j}g_jv_j)^2$.
 Show that for all integers $n\ge 1$,$E[X^n]\le E[\widehat{X}^n]$.}
-
-Conside $\mathbb{E}[X^n]$ first.
-Since $\gamma _j$'s are independent uniform $\{-1,1\}$-random variables and by the linearity of expectation,
-we have that for different $i$ and $j$, $\mathbb{E}[\gamma _iv_i\gamma _jv_j]=v_iv_j\mathbb{E}[\gamma _i]\mathbb{E}[\gamma _j]=0$.
-Since $\gamma _j$'s are independent uniform $\{-1,1\}$-random variables, we have for each $i$, $\mathbb{E}[\gamma _i^2v_i^2]=v_i^2\mathbb{E}[\gamma _i^2]=v_i^2$.
-Thus we have:
 \begin{align}
-    \nonumber \mathbb{E}[X]=\mathbb{E}[(\sum_j\gamma _jv_j)^2] 
-    =\sum_j v_j^{2}
+    \nonumber \mathbb{E}[X^n]&=\mathbb{E}\left[\left(\sum_{j=1}^{m}\gamma _jv_j\right)^{2n}\right]\\
+    \nonumber &=\mathbb{E}\left[\sum_{k_1+k_2+...+k_m=2n}\binom{2n}{k_1,k_2,...,k_m}\prod_{t=1}^{m}(\gamma_jv_j)^{k_t} \right]\\
+    \nonumber &=\sum_{k_1+k_2+...+k_m=2n}\binom{2n}{k_1,k_2,...,k_m}\prod_{t=1}^{m}v_j^{k_t}\mathbb{E}\left[\gamma_j^{k_t}\right]
 \end{align}
-For $n>1$
 \begin{align}
-    \nonumber \mathbb{E}[X^n]=\mathbb{E}[(\sum_j\gamma _jv_j)^{2n}] 
-    <(\sum_j v_j)^{2n}
+    \nonumber \mathbb{E}[\widehat{X}^n]&=\mathbb{E}\left[\left(\sum_{j=1}^{m}g_jv_j\right)^{2n}\right]\\
+    \nonumber &=\mathbb{E}\left[\sum_{k_1+k_2+...+k_m=2n}\binom{2n}{k_1,k_2,...,k_m}\prod_{t=1}^{m}(g_jv_j)^{k_t} \right]\\
+    \nonumber &=\sum_{k_1+k_2+...+k_m=2n}\binom{2n}{k_1,k_2,...,k_m}\prod_{t=1}^{m}v_j^{k_t}\mathbb{E}\left[g_j^{k_t}\right]
 \end{align}
 
-Then consider $\mathbb{E}[\widehat{X}^n]$.
-Let $\widehat{Z}=\sum_{j}g_jv_j$, and then, $\widehat{X}=\widehat{Z}^2$.
-Since $g_j$'s are independent random variables, each having normal distribution $N(0,1)$, 
-we have $g_jv_j$'s are independent random variables, each having normal distribution $N(0,v_j^2)$.
-Then we have $\widehat{Z}$ is an independent random variable which has normal distribution $N(0,\sum_jv_j^2)$.
-Let $\nu ^2=\sum_jv_j^2$, then $\widehat{Z}\sim N(0,\nu ^2)$.
-Since $\widehat{X}=\widehat{Z}^2$, we have $\mathbb{E}[\widehat{X}^n]=\mathbb[\widehat{Z}^{2n}]$.
-Since the probability density function of $\widehat{Z}$ is $\frac{1}{\nu\sqrt{2\pi}}e^{\frac{-x^2}{2\nu ^2}}$ for $x\in \mathbb{R}$,
-by definition of expected value of a continuous random variable, we have:
-\begin{align}
-    \nonumber \mathbb{E}[\widehat{X}^{n}]=\mathbb{E}[\widehat{Z}^{2n}]=\frac{1}{\nu\sqrt{2\pi}}\int_{-\infty }^{+\infty }x^{2n}e^{\frac{-x^2}{2\nu ^2}}\,dx 
-\end{align}
+Since the fact that for odd $n\ge 1$, $\mathbb{E}[\gamma^n]=\mathbb{E}[g^n]=0$, 
+for even ‎$n\ge 2$, $\mathbb{E}[\gamma^n]\le\mathbb{E}[g^n]$, we have that for all integers $n\ge 1$, $\mathbb{E}[X^n] \le \mathbb{E}[\widehat{X}^n]$.
 
-When $n=1$, we have:
+\noindent 3.\blue{Suppose $Z$ is a random variable having normal distribution $N(0,\nu^2)$. Compute $\mathbb{E}\left[e^{tZ^2}\right]$. 
+For what values of $t$ is your expression valid?}
 \begin{align}
-    \nonumber \mathbb{E}[\widehat{X}]=\mathbb{E}[\widehat{Z}^{2}]=\frac{1}{\nu\sqrt{2\pi}}\int_{-\infty }^{+\infty }x^{2}e^{\frac{-x^2}{2\nu ^2}}\,dx 
+    \nonumber \mathbb{E}\left[ e^{tZ^2} \right]&=\int_{-\infty }^{+\infty }\frac{1}{\nu \sqrt{2\pi}}e^{tx^2}e^{\frac{-x^2}{2\nu ^2}}\,dx\\
+    \nonumber &=\frac{1}{\nu \sqrt{2\pi}}\int_{-\infty }^{+\infty }e^{tx^2}e^{\frac{-x^2}{2\nu^2}}\,dx\\
+    \nonumber &=\frac{1}{\nu \sqrt{2\pi}}\int_{-\infty }^{+\infty }e^{(t-\frac{1}{2\nu^2})x^2}\,dx\\
+    \nonumber &=\frac{1}{\nu \sqrt{2\pi}}\sqrt{\int_{-\infty }^{+\infty }\int_{-\infty }^{+\infty }e^{(t-\frac{1}{2\nu^2})(x^2+y^2)}\,dx\,dy}\\
+    \nonumber &=\frac{1}{\nu \sqrt{2\pi}}\sqrt{ \int_{0}^{2\pi}\int_{0 }^{+\infty }\rho e^{(t-\frac{1}{2\nu^2})\rho^2}\,d\rho\,d\theta   }\\
+    \nonumber &=\frac{1}{\nu \sqrt{2\pi}}\sqrt{ 2\pi\cdot\frac{\nu^2}{2t\nu^2-1}\left[e^{ (t-\frac{1}{2\nu^2})\rho^2}\right]_{0}^{+\infty} }
 \end{align}
-
-Let $u(x)=x$, then $u'(x)=1$.
-Let $v(x)=-\nu ^2e^{\frac{-x^2}{2\nu ^2}}$, then $v'(x)=xe^{\frac{-x^2}{2\nu^2}}$. Use integration by parts, we have:
+When $t-\frac{1}{2\nu^2}<0\implies t<\frac{1}{2\nu^2}$, we have,
 \begin{align}
-    \nonumber \mathbb{E}[\widehat{X}]=\mathbb{E}[\widehat{Z}^{2}]&=\frac{1}{\nu\sqrt{2\pi}}\int_{-\infty }^{+\infty }x^{2}e^{\frac{-x^2}{2\nu ^2}}\,dx \\
-    \nonumber &=\frac{1}{\nu\sqrt{2\pi}}\int_{-\infty }^{+\infty }x\cdot xe^{\frac{-x^2}{2\nu ^2}}\,dx \\
-    \nonumber &=\frac{1}{\nu\sqrt{2\pi}}\left(\left[x\cdot(-\nu ^2e^{\frac{-x^2}{2\nu ^2}})\right]_{-\infty}^{+\infty}-\int_{-\infty }^{+\infty }1\cdot (-\nu ^2e^{\frac{-x^2}{2\nu ^2}})\,dx \right)\\
-    \nonumber &=\frac{1}{\nu\sqrt{2\pi}}\left(\left[-\nu ^2xe^{\frac{-x^2}{2\nu ^2}})\right]_{-\infty}^{+\infty}+\int_{-\infty }^{+\infty }\nu ^2e^{\frac{-x^2}{2\nu ^2}}\,dx \right)\\
-    \nonumber &=\frac{1}{\nu\sqrt{2\pi}}\int_{-\infty }^{+\infty }\nu ^2e^{\frac{-x^2}{2\nu ^2}}\,dx \\
-    \nonumber &=\nu ^2
+    \nonumber \left[e^{ (t-\frac{1}{2\nu^2})\rho^2}\right]_{0}^{+\infty}=-1
 \end{align}
-
-For $n>1$, 
-let $u(x)=x^{2n-1}$, $u'(x)=(2n-1)x^{2n-2}$,
-let $v(x)=-\nu ^2e^{\frac{-x^2}{2\nu ^2}}$, $v'(x)=xe^{\frac{-x^2}{2\nu^2}}$. 
-By integration by parts, we have:
+Then,
 \begin{align}
-    \nonumber \mathbb{E}[\widehat{X}^n]=\mathbb{E}[\widehat{Z}^{2n}]&=\frac{1}{\nu\sqrt{2\pi}}\int_{-\infty }^{+\infty }x^{2n}e^{\frac{-x^2}{2\nu ^2}}\,dx \\
-    \nonumber &=\frac{1}{\nu\sqrt{2\pi}}\int_{-\infty }^{+\infty }x^{2n-1}\cdot xe^{\frac{-x^2}{2\nu ^2}}\,dx \\
-    \nonumber &=\frac{1}{\nu\sqrt{2\pi}}\left(\left[x^{2n-1}\cdot(-\nu ^2e^{\frac{-x^2}{2\nu ^2}})\right]_{-\infty}^{+\infty}-\int_{-\infty }^{+\infty }(2n-1)x^{2n-2}\cdot (-\nu ^2e^{\frac{-x^2}{2\nu ^2}})\,dx \right)\\
-    \nonumber &=\frac{1}{\nu\sqrt{2\pi}}\left(\left[-\nu ^2x^{2n-1}e^{\frac{-x^2}{2\nu ^2}})\right]_{-\infty}^{+\infty}+(2n-1)\nu ^2\int_{-\infty }^{+\infty }x^{2(n-1)}e^{\frac{-x^2}{2\nu ^2}}\,dx \right)\\
-    \nonumber &=(2n-1)\nu ^2\int_{-\infty }^{+\infty }\frac{1}{\nu\sqrt{2\pi}}x^{2(n-1)}e^{\frac{-x^2}{2\nu ^2}}\,dx \\
-    \nonumber &=(2n-1)\nu ^2 \mathbb{E}[\widehat{Z}^{2(n-1)}] \\
-    \nonumber &=(2n-1)\nu ^2 \mathbb{E}[\widehat{X}^{n-1}]
+    \nonumber &=\frac{1}{\nu \sqrt{2\pi}}\sqrt{ 2\pi\cdot\frac{\nu^2}{2t\nu^2-1}\left[e^{ (t-\frac{1}{2\nu^2})\rho^2}\right]_{0}^{+\infty} }\\
+    \nonumber &=\frac{1}{\nu \sqrt{2\pi}}\sqrt{2\pi\cdot\frac{\nu^2}{1-2t\nu^2}}\\
+    \nonumber &=(1-2t\nu^2)^{-\frac{1}{2}}
 \end{align}
+4.\blue{In this question, we investigate if Johnson-Lindenstrauss Lemma can preserve area.
+}\\
+\blue{(a)Suppose the distances between three points are preserved with multiplicative error $\epsilon$. 
+Is the area of the corresponding triangle also always preserved with multiplicative error $O(\epsilon)$, 
+or even some constant multiplicative error?}
 
-Since $n>1$, we have $2n-1>1$.
-Since $\mathbb{E}[\widehat{X}]=\nu ^2=\sum_jv_j^2$ we have, for $n>1$,
-\begin{align}
-    \nonumber \mathbb{E}[\widehat{X}^n]\ge\nu^{2n}=(\sum_jv_j^2)^n\ge\sum_j v_j^{2n}
-\end{align}
-
-We have shown that for $n\ge 1$,
-\begin{align}
-    \nonumber \mathbb{E}[X^n]=\sum_j v_j^{2n}
-\end{align}
-
-Thus, we have, for $n=1$, $\mathbb{E}[X^n]=\mathbb{E}[\widehat{X}^n]$,
-for $n>1$,  $\mathbb{E}[X^n]\le\mathbb{E}[\widehat{X}^n]$.
-Then we have the result that for all integers $n\ge 1$, $\mathbb{E}[X^n]\le\mathbb{E}[\widehat{X}^n]$.
