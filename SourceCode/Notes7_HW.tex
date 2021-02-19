@@ -97,11 +97,11 @@ Then, $\prod_{t=1}^{m}v_j^{k_t}\mathbb{E}\left[\gamma_j^{k_t}\right]\le \prod_{t
 \noindent 3.\blue{Suppose $Z$ is a random variable having normal distribution $N(0,\nu^2)$. Compute $\mathbb{E}\left[e^{tZ^2}\right]$. 
 For what values of $t$ is your expression valid?}
 \begin{align}
-    \nonumber \mathbb{E}\left[ e^{tZ^2} \right]&=\int_{-\infty }^{+\infty }\frac{1}{\nu \sqrt{2\pi}}e^{tx^2}e^{\frac{-x^2}{2\nu ^2}}\,dx\\
-    \nonumber &=\frac{1}{\nu \sqrt{2\pi}}\int_{-\infty }^{+\infty }e^{tx^2}e^{\frac{-x^2}{2\nu^2}}\,dx\\
-    \nonumber &=\frac{1}{\nu \sqrt{2\pi}}\int_{-\infty }^{+\infty }e^{(t-\frac{1}{2\nu^2})x^2}\,dx\\
-    \nonumber &=\frac{1}{\nu \sqrt{2\pi}}\sqrt{\int_{-\infty }^{+\infty }\int_{-\infty }^{+\infty }e^{(t-\frac{1}{2\nu^2})(x^2+y^2)}\,dx\,dy}\\
-    \nonumber &=\frac{1}{\nu \sqrt{2\pi}}\sqrt{ \int_{0}^{2\pi}\int_{0 }^{+\infty }\rho e^{(t-\frac{1}{2\nu^2})\rho^2}\,d\rho\,d\theta   }
+    \nonumber \mathbb{E}\left[ e^{tZ^2} \right]&=\int_{-\infty }^{+\infty }\frac{1}{\nu \sqrt{2\pi}}e^{tx^2}e^{\frac{-x^2}{2\nu ^2}}\,dx
+    %\nonumber &=\frac{1}{\nu \sqrt{2\pi}}\int_{-\infty }^{+\infty }e^{tx^2}e^{\frac{-x^2}{2\nu^2}}\,dx\\
+    %\nonumber &=\frac{1}{\nu \sqrt{2\pi}}\int_{-\infty }^{+\infty }e^{(t-\frac{1}{2\nu^2})x^2}\,dx\\
+    %\nonumber &=\frac{1}{\nu \sqrt{2\pi}}\sqrt{\int_{-\infty }^{+\infty }\int_{-\infty }^{+\infty }e^{(t-\frac{1}{2\nu^2})(x^2+y^2)}\,dx\,dy}\\
+    %\nonumber &=\frac{1}{\nu \sqrt{2\pi}}\sqrt{ \int_{0}^{2\pi}\int_{0 }^{+\infty }\rho e^{(t-\frac{1}{2\nu^2})\rho^2}\,d\rho\,d\theta   }
     %\nonumber &=\frac{1}{\nu \sqrt{2\pi}}\sqrt{ 2\pi\cdot\frac{\nu^2}{2t\nu^2-1}\left[e^{ (t-\frac{1}{2\nu^2})\rho^2}\right]_{0}^{+\infty} }
 \end{align}
 
@@ -111,25 +111,29 @@ When $t-\frac{1}{2\nu^2}<0\implies t<\frac{1}{2\nu^2}$, we have,
 %\end{align}
 %Then,
 \begin{align}
-    \nonumber \mathbb{E}\left[ e^{tZ^2} \right] &=\frac{1}{\nu \sqrt{2\pi}}\sqrt{ \int_{0}^{2\pi}\int_{0 }^{+\infty }\rho e^{(t-\frac{1}{2\nu^2})\rho^2}\,d\rho\,d\theta   }\\
+    \nonumber \mathbb{E}\left[ e^{tZ^2} \right]&=\int_{-\infty }^{+\infty }\frac{1}{\nu \sqrt{2\pi}}e^{tx^2}e^{\frac{-x^2}{2\nu ^2}}\,dx\\
+    \nonumber &=\frac{1}{\nu \sqrt{2\pi}}\int_{-\infty }^{+\infty }e^{tx^2}e^{\frac{-x^2}{2\nu^2}}\,dx\\
+    \nonumber &=\frac{1}{\nu \sqrt{2\pi}}\int_{-\infty }^{+\infty }e^{(t-\frac{1}{2\nu^2})x^2}\,dx\\
+    \nonumber &=\frac{1}{\nu \sqrt{2\pi}}\sqrt{\int_{-\infty }^{+\infty }\int_{-\infty }^{+\infty }e^{(t-\frac{1}{2\nu^2})(x^2+y^2)}\,dx\,dy}\\
+    \nonumber &=\frac{1}{\nu \sqrt{2\pi}}\sqrt{ \int_{0}^{2\pi}\int_{0 }^{+\infty }\rho e^{(t-\frac{1}{2\nu^2})\rho^2}\,d\rho\,d\theta   }\\
     \nonumber &=\frac{1}{\nu \sqrt{2\pi}}\sqrt{ 2\pi\cdot\frac{\nu^2}{2t\nu^2-1}\left[e^{ (t-\frac{1}{2\nu^2})\rho^2}\right]_{0}^{+\infty} }\\
     \nonumber &=\frac{1}{\nu \sqrt{2\pi}}\sqrt{2\pi\cdot\frac{\nu^2}{1-2t\nu^2}}\\
     \nonumber &=(1-2t\nu^2)^{-\frac{1}{2}}
 \end{align}
 
-When $t-\frac{1}{2\nu^2}>0\implies t>\frac{1}{2\nu^2}$, %we have,
+When $t-\frac{1}{2\nu^2}\ge0\implies t\ge\frac{1}{2\nu^2}$, %we have,
 %\begin{align}
     %\nonumber \left[e^{ (t-\frac{1}{2\nu^2})\rho^2}\right]_{0}^{+\infty}=+\infty
 %\end{align}
 %Thus 
-$\rho e^{(t-\frac{1}{2\nu^2})\rho^2}$ is not integrable on $[0, +\infty )$.% when $t-\frac{1}{2\nu^2}>0$.
+$\frac{1}{\nu \sqrt{2\pi}}e^{tx^2}e^{\frac{-x^2}{2\nu ^2}}$ is not integrable on $(-\infty, +\infty )$.% when $t-\frac{1}{2\nu^2}>0$.
 
-When $t-\frac{1}{2\nu^2}=0 \implies \rho e^{(t-\frac{1}{2\nu^2})\rho^2}=\rho$. $\rho$ is not integrable on $[0, +\infty )$.
+%When $t-\frac{1}{2\nu^2}=0 \implies \rho e^{(t-\frac{1}{2\nu^2})\rho^2}=\rho$. $\rho$ is not integrable on $[0, +\infty )$.
 %Since when $t-\frac{1}{2\nu^2}=0 \implies 2t\nu^2-1=0$, which is a  denominator of our expression, $t-\frac{1}{2\nu^2}$ can not be equal to $0$.
 
 In conclution, $\mathbb{E}\left[ e^{tZ^2} \right]=(1-2t\nu^2)^{-\frac{1}{2}}$ when $t<\frac{1}{2\nu^2}$.
 
-4.\blue{In this question, we investigate if Johnson-Lindenstrauss Lemma can preserve area.
+\noindent4.\blue{In this question, we investigate if Johnson-Lindenstrauss Lemma can preserve area.
 }\\
 \blue{(a)Suppose the distances between three points are preserved with multiplicative error $\epsilon$. 
 Is the area of the corresponding triangle also always preserved with multiplicative error $O(\epsilon)$, 
