@@ -134,8 +134,78 @@ $\frac{1}{\nu \sqrt{2\pi}}e^{tx^2}e^{\frac{-x^2}{2\nu ^2}}$ is not integrable on
 In conclution, $\mathbb{E}\left[ e^{tZ^2} \right]=(1-2t\nu^2)^{-\frac{1}{2}}$ when $t<\frac{1}{2\nu^2}$.
 
 \noindent4.\blue{In this question, we investigate if Johnson-Lindenstrauss Lemma can preserve area.
-}\\
-\blue{(a)Suppose the distances between three points are preserved with multiplicative error $\epsilon$. 
+}
+
+\blue{(a) Suppose the distances between three points are preserved with multiplicative error $\epsilon$. 
 Is the area of the corresponding triangle also always preserved with multiplicative error $O(\epsilon)$, 
 or even some constant multiplicative error?}
 
+The area  of the corresponding triangle is not preserved.
+The area of a triangle is related to not only the size of the side but also the height of the side.
+For example, let $A=(0,100)$, $B=(0,0)$, $C=(1,0)$, $\epsilon=0.01$, we can compute $100<||AC||<101$.
+Let $A^\prime=(0,100)$, $B^\prime=(0,0)$, $C^\prime=(0,-1)$.
+In that setting, we have that $||AB||=||A^\prime B^\prime||=100$, $||BC||=||B^\prime C^\prime||=1$, $||A^\prime C^\prime||=101\implies (1-\epsilon)||AC||<||A^\prime C^\prime||<(1+\epsilon)||AC||$.
+In another word, the distances between the three points are preserved with multiplicative error $\epsilon$.
+However the area turned to be $0$, which means the area  of the corresponding triangle is not preserved.
+
+\blue{(b) Suppose $u$ and $v$ are mutually orthogonal unit vectors. 
+Observe that the vectors $u$ and $v$ together with the origin 
+form a right-angled isosceles triangle with area $\frac{1}{2}$. 
+Suppose the lengths of the triangle are distorted with multiplicative error at most $\epsilon$. 
+What is the multiplicative error for the area of the triangle?}
+
+Let $f$ be the function that can preserve distances between two points with multiplicative error $\epsilon$.
+That is for two points $x$ and $y$, we have:
+\begin{align}
+    \nonumber |||x-y||-||f(x)-f(y)||| \le \epsilon ||x-y|| \implies
+    (1-\epsilon)||x-y||\le||f(x)-f(y)||\le(1+\epsilon)||x-y||
+\end{align}
+Let $\theta=\angle(f(u),f(v))$.
+\begin{align}
+    \nonumber &||f(u)-f(v)||^2=||f(u)||^2+||f(v)||^2-2f(u)\cdot f(v)=||f(u)||^2+||f(v)||^2-2\cos\theta\\
+    \nonumber &\implies 2 \cos\theta =||f(u)||^2+||f(v)||^2-||f(u)-f(v)||^2\\
+    \nonumber &\implies 2 \cos\theta\in (1\pm\epsilon)^2||u||^2+(1\pm\epsilon)^2||v||^2-(1\pm \epsilon)^2||u-v||^2\\
+    \nonumber &\implies 2 \cos\theta\in  2(1\pm\epsilon)^2-2(1\pm \epsilon)^2\\
+    \nonumber &\implies \cos\theta\in (1\pm\epsilon)^2-(1\pm \epsilon)^2\\
+    \nonumber &\implies \cos\theta \in [-4\epsilon,4\epsilon]\\
+    \nonumber &\implies (\cos\theta)^2\le16\epsilon^2
+\end{align}
+
+Let $\epsilon \le \frac{1}{4}$.
+When  $\cos\theta=4\epsilon$, we have $||f(u)||=(1+\epsilon) ||u||$, $||f(v)||=(1+\epsilon) ||v||$, $||f(u)-f(v)||=(1-\epsilon) ||u-v||$.
+When  $\cos\theta=-4\epsilon$, we have $||f(u)||=(1-\epsilon )||u||$, $||f(v)||=(1-\epsilon) ||v||$, $||f(u)-f(v)||=(1+\epsilon) ||u-v||$.
+Since $(\sin\theta)^2+(\cos\theta)^2=1$, we have $\sin\theta \ge \sqrt{1-16\epsilon^2}$.
+
+Let $S^{\prime}$ be the area of the triangle under function $f$, we have:
+$S^{\prime}=||f(u)||||f(v)||sin\theta \ge (1-\epsilon)^2 \cdot \sqrt{1-16\epsilon^2}$, 
+$S^{\prime}=||f(u)||||f(v)||sin\theta \le (1+\epsilon)^2$.
+Let $S$ be the area of original triangle, $S=\frac{1}{2}$.
+Thus we have $||S^{\prime}-S||\le (2\epsilon^2+4\epsilon+1)S$.
+
+\blue{(c) Suppose a set $V$ of $n$ points are given in Euclidean space $\mathbb{R}^n$. 
+Let $0<\epsilon<1$. 
+Give a randomized algorithm that produces a low-dimensional mapping $f:V\rightarrow \mathbb{R}^T$ such that
+the areas of all triangles formed from the $n$ points are preserved with multiplicative error $\epsilon$.
+What is the value $T$ for your mapping? Please give the exact number and do not use big $O$ notation. 
+}
+
+From (a), we can know, although the distances between three points are preserved, the areas of triangle is not preserved.
+The main reason is that we cannot preserve the height of each sides.
+From (b), we know that for right-angled isosceles triangle, if we preserve the distances between three vertices, we can preserve the area of the triangle.
+Then, we can use right-angled isosceles triangle to preserve the height of any triangle as follows.
+For any triangle, w.l.o.g, Suppose the triangle is composed of three points $X,Y,Z$.
+In order to preserve the height of each side, we have to form a right-angled isosceles triangle by letting the height be a right-angled side.
+For each side of the triangle, add two points as follows.
+Use side $XY$ as an example.
+The first point is the projection point of $Z$ on line $XY$, use $P_{XY1}$ to denote the point.
+Use $P_{XY2}$ to denote the second point, there are two constrains for ponit $P_{XY2}$,
+one is that $P_{XY2}$ should on  line $XY$, the other is that $||P_{XY2}-P_{XY1}||=||Z-P_{XY1}||$.
+By the same method, we can find the two points for side $XZ$ and side $YZ$.
+
+Since there are $n$ points, we can use the $n$ points to construct $\binom{n}{3}$ triangles.
+For each side of each triangle, we add two additional points, thus, there are totally $n+6\binom{n}{3}$ points.
+Let $V^{\prime}$ be the set of the $n+6\binom{n}{3}$ points.
+By Johnson-Lindenstrauss Lemma, for any $0<\epsilon<1$, suppose $U$ is a set of $n$ points, 
+we have there exist a mapping $f: U\rightarrow \mathbb{R}^T$, where $T=O(\frac{\log n}{\epsilon^{\prime 2}})$, 
+such that $\sqrt{1-\epsilon^{\prime}}||x-y||<||f(x)-f(y)||<\sqrt{1+\epsilon^{\prime}}||x-y||$.
+Since we have to guarantee the multiplicative error with in $\epsilon$, by (b), we should let $\epsilon^{\prime}=$
