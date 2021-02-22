@@ -140,13 +140,30 @@ In conclution, $\mathbb{E}\left[ e^{tZ^2} \right]=(1-2t\nu^2)^{-\frac{1}{2}}$ wh
 Is the area of the corresponding triangle also always preserved with multiplicative error $O(\epsilon)$, 
 or even some constant multiplicative error?}
 
-The area  of the corresponding triangle is not preserved.
-The area of a triangle is related to not only the size of the side but also the height of the side.
-For example, let $A=(0,100)$, $B=(0,0)$, $C=(1,0)$, $\epsilon=0.01$, we can compute $100<||AC||<101$.
-Let $A^\prime=(0,100)$, $B^\prime=(0,0)$, $C^\prime=(0,-1)$.
-In that setting, we have that $||AB||=||A^\prime B^\prime||=100$, $||BC||=||B^\prime C^\prime||=1$, $||A^\prime C^\prime||=101\implies (1-\epsilon)||AC||<||A^\prime C^\prime||<(1+\epsilon)||AC||$.
-In another word, the distances between the three points are preserved with multiplicative error $\epsilon$.
-However the area turned to be $0$, which means the area  of the corresponding triangle is not preserved.
+The area of the corresponding triangle is not preserved.
+The area of a triangle is related to not only the size of the side but also the height of the corresponding side.
+Although the size of each side is preserved, the height of the corresponding side may turn to $0$.
+Thus the area of the corresponding triangle turns to $0$.
+
+Suppose there are three points $A(1,0)$, $B(0,0)$, $C(0,t)$ in $\mathbb{R}^2$, 
+w.l.o.g, set $t\ge 1$ and the value of $t$ would be chosen later according to the value of $\epsilon$.
+Let $S$ be the area of triangle $ABC$.
+Under that setting, we have, $||AB||=1$, $||BC||=t$, $||AC||=\sqrt{1+t^2}$, $S=\frac{t}{2}$.
+
+Assume after transformation, $A^\prime=(0,-1)$, $B^\prime(0,0)$, $C^\prime(0,t)$.
+Let $S^\prime$ be the area of triangle $A^\prime B^\prime C^\prime$.
+Then we have $||A^\prime B^\prime ||=1$, $||B^\prime C^\prime ||=t$, $||A^\prime C^\prime ||=t+1$, $S^\prime=0$.
+Since the distances between three points are preserved with multiplicative error $\epsilon$ , 
+we have,
+\begin{align}
+    \nonumber ||A^\prime C^\prime||\le (1+\epsilon)||AC||\implies t+1 \le (1+\epsilon) \sqrt{1+t^2}\implies (\epsilon^2+2\epsilon)t^2-2t+(\epsilon^2+2\epsilon)\ge 0
+\end{align}
+If $\Delta<0\implies \epsilon > \sqrt{2}-1$, the only constrain of $t$ is $t\ge 1$.
+Otherwise, 
+since $t\ge1$, we have $t\ge \frac{1+\sqrt{1-(\epsilon^2+2\epsilon)^2}}{\epsilon^2+2\epsilon}$.
+Under the above setting, we have that 
+the distances between the three points are preserved with multiplicative error $\epsilon$,
+the area of the corresponding triangle is not preserved.
 
 \blue{(b) Suppose $u$ and $v$ are mutually orthogonal unit vectors. 
 Observe that the vectors $u$ and $v$ together with the origin 
@@ -154,34 +171,47 @@ form a right-angled isosceles triangle with area $\frac{1}{2}$.
 Suppose the lengths of the triangle are distorted with multiplicative error at most $\epsilon$. 
 What is the multiplicative error for the area of the triangle?}
 
-Let $f$ be the function that can preserve distances between two points with multiplicative error $\epsilon$.
+Let $F$ be any function that can preserve distances between two points with multiplicative error $\epsilon$.
 That is for two points $x$ and $y$, we have:
 \begin{align}
-    \nonumber |||x-y||-||f(x)-f(y)||| \le \epsilon ||x-y|| \implies
-    (1-\epsilon)||x-y||\le||f(x)-f(y)||\le(1+\epsilon)||x-y||
+    \nonumber |||x-y||-||F(x)-F(y)||| \le \epsilon ||x-y|| \implies
+    (1-\epsilon)||x-y||\le||F(x)-F(y)||\le(1+\epsilon)||x-y||
 \end{align}
 Let $\theta=\angle(f(u),f(v))$.
 \begin{align}
-    \nonumber &||f(u)-f(v)||^2=||f(u)||^2+||f(v)||^2-2f(u)\cdot f(v)=||f(u)||^2+||f(v)||^2-2\cos\theta\\
-    \nonumber &\implies 2 \cos\theta =||f(u)||^2+||f(v)||^2-||f(u)-f(v)||^2\\
-    \nonumber &\implies 2 \cos\theta\in (1\pm\epsilon)^2||u||^2+(1\pm\epsilon)^2||v||^2-(1\pm \epsilon)^2||u-v||^2\\
-    \nonumber &\implies 2 \cos\theta\in  2(1\pm\epsilon)^2-2(1\pm \epsilon)^2\\
-    \nonumber &\implies \cos\theta\in (1\pm\epsilon)^2-(1\pm \epsilon)^2\\
-    \nonumber &\implies \cos\theta \in [-4\epsilon,4\epsilon]\\
-    \nonumber &\implies (\cos\theta)^2\le16\epsilon^2
+    \nonumber &||F(u)-F(v)||^2=||F(u)||^2+||F(v)||^2-2F(u)\cdot f(v)\\
+    \nonumber &\implies 2 F(u)\cdot F(v) =||F(u)||^2+||F(v)||^2-||F(u)-F(v)||^2\\
+    \nonumber &\implies 2 F(u)\cdot F(v)\in (1\pm\epsilon)^2||u||^2+(1\pm\epsilon)^2||v||^2-(1\pm \epsilon)^2||u-v||^2\\
+    \nonumber &\implies 2 F(u)\cdot F(v)\in  2(1\pm\epsilon)^2-2(1\pm \epsilon)^2\\
+    \nonumber &\implies F(u)\cdot F(v)\in (1\pm\epsilon)^2-(1\pm \epsilon)^2\\
+    \nonumber &\implies F(u)\cdot F(v) \in [-4\epsilon,4\epsilon]\\
+    \nonumber &\implies ||F(u)||||F(v)|| \cos \theta \in [-4\epsilon,4\epsilon]\\
+    \nonumber &\implies \cos \theta \in \left[\frac{-4\epsilon}{||F(u)||||F(v)||},\frac{4\epsilon}{||F(u)||||F(v)||}\right]\\
+    \nonumber &\implies (\cos \theta)^2 \le \frac{16\epsilon^2}{||F(u)||^2||F(v)||^2}
 \end{align}
-
-Let $\epsilon \le \frac{1}{4}$.
-When  $\cos\theta=4\epsilon$, we have $||f(u)||=(1+\epsilon) ||u||$, $||f(v)||=(1+\epsilon) ||v||$, $||f(u)-f(v)||=(1-\epsilon) ||u-v||$.
-When  $\cos\theta=-4\epsilon$, we have $||f(u)||=(1-\epsilon )||u||$, $||f(v)||=(1-\epsilon) ||v||$, $||f(u)-f(v)||=(1+\epsilon) ||u-v||$.
-Since $(\sin\theta)^2+(\cos\theta)^2=1$, we have $\sin\theta \ge \sqrt{1-16\epsilon^2}$.
+We should ensure that $\frac{4\epsilon}{||F(u)||||F(v)||}\le1 \implies \epsilon \le \frac{||F(u)||||F(v)||}{4}$.
+Since $(1-\epsilon) ||u||\le||F(u)||\le (1+\epsilon) ||u||$, $(1-\epsilon) ||v||\le||F(v)||\le (1+\epsilon) ||v||$,
+we should let $ \epsilon \le \frac{(1-\epsilon)^2}{4}\implies \epsilon \in (0,3-2\sqrt{2}]$.
+%When  $\cos\theta=4\epsilon$, we have $||f(u)||=(1+\epsilon) ||u||$, $||f(v)||=(1+\epsilon) ||v||$, $||f(u)-f(v)||=(1-\epsilon) ||u-v||$.
+%When  $\cos\theta=-4\epsilon$, we have $||f(u)||=(1-\epsilon )||u||$, $||f(v)||=(1-\epsilon) ||v||$, $||f(u)-f(v)||=(1+\epsilon) ||u-v||$.
+Since $(\sin\theta)^2+(\cos\theta)^2=1$ and the fact that $\theta\le\pi$, we have $\sin\theta \ge \sqrt{1-\frac{16\epsilon^2}{||F(u)||^2||F(v)||^2}}$.
 
 Let $S^{\prime}$ be the area of the triangle under function $f$, we have:
-$S^{\prime}=||f(u)||||f(v)||sin\theta \ge (1-\epsilon)^2 \cdot \sqrt{1-16\epsilon^2}$, 
-$S^{\prime}=||f(u)||||f(v)||sin\theta \le (1+\epsilon)^2$.
-Let $S$ be the area of original triangle, $S=\frac{1}{2}$.
-Thus we have $||S^{\prime}-S||\le (2\epsilon^2+4\epsilon+1)S$.
+\begin{align}
+    \nonumber S^{\prime}=\frac{1}{2}||F(u)||||F(v)||\sin\theta &\ge \frac{1}{2}||F(u)||||F(v)||\cdot \sqrt{1-\frac{16\epsilon}{||F(u)||^2||F(v)||^2}}\\
+    \nonumber &=\frac{1}{2}\sqrt{||F(u)||^2||F(v)||^2-16\epsilon^2}\\
+    \nonumber &\ge \frac{1}{2}\sqrt{(1-\epsilon)^4-16\epsilon^2}\\
+    \nonumber S^{\prime}=\frac{1}{2}||F(u)||||F(v)||\sin\theta &\le \frac{1}{2}(1+\epsilon)^2
+\end{align}
 
+Let $S$ be the area of original triangle, $S=\frac{1}{2}$.
+Then we have 
+when $S^{\prime}\le S$, $S-S^{\prime}\le (1-\sqrt{(1-\epsilon)^4-16\epsilon^2})S$,
+otherwise, $S^{\prime}-S \le ((1+\epsilon)^2-1)S$.
+Thus we have:
+\begin{align}
+    \nonumber |S^{\prime}-S|\le S \cdot \max(1-\sqrt{(1-\epsilon)^4-16\epsilon^2}, (1+\epsilon)^2-1)=(1-\sqrt{(1-\epsilon)^4-16\epsilon^2})S
+\end{align}
 \blue{(c) Suppose a set $V$ of $n$ points are given in Euclidean space $\mathbb{R}^n$. 
 Let $0<\epsilon<1$. 
 Give a randomized algorithm that produces a low-dimensional mapping $f:V\rightarrow \mathbb{R}^T$ such that
@@ -189,23 +219,94 @@ the areas of all triangles formed from the $n$ points are preserved with multipl
 What is the value $T$ for your mapping? Please give the exact number and do not use big $O$ notation. 
 }
 
-From (a), we can know, although the distances between three points are preserved, the areas of triangle is not preserved.
-The main reason is that we cannot preserve the height of each sides.
-From (b), we know that for right-angled isosceles triangle, if we preserve the distances between three vertices, we can preserve the area of the triangle.
-Then, we can use right-angled isosceles triangle to preserve the height of any triangle as follows.
-For any triangle, w.l.o.g, Suppose the triangle is composed of three points $X,Y,Z$.
-In order to preserve the height of each side, we have to form a right-angled isosceles triangle by letting the height be a right-angled side.
-For each side of the triangle, add two points as follows.
-Use side $XY$ as an example.
+From (a), we can know, although the distances between three points are preserved, the areas of triangle may not be preserved.
+The main reason is that we cannot preserve the height of each sides. In another word, there is a small angle in the triangle, we cannot preserve the angle and the angle turns to $0^{\circ}$, which causes the area turns to $0$.
+From (b), we know that for a specific right-angled isosceles triangle, if we preserve the distances between three vertices, we can preserve the area of the triangle.
+
+By the same method of question (b), we can get that for any right-angled isosceles triangle, if we preserve the distances between three vertices, we can preserve the area of the triangle.
+The process is as follows.
+W.l.o.g, let points $A$,$B$,$C$ be three vertices of a right-angled isosceles triangle, let angle $A$ be the right angle.
+Let $||A-B||=h$, $||A-C||=h$, $||B-C||=\sqrt{2}h$ where $h>0$.
+%Use vector $u$ to denote side $AB$, use vector $v$ to denote side $AC$.
+Let $F$ be any function that can preserve distances between two points with multiplicative error $\epsilon^{\prime}$.
+That is for two points $x$ and $y$, we have:
+\begin{align}
+    \nonumber |||x-y||-||F(x)-F(y)||| \le \epsilon^{\prime} ||x-y|| \implies
+    (1-\epsilon^{\prime})||x-y||\le||F(x)-F(y)||\le(1+\epsilon^{\prime})||x-y||
+\end{align}
+\begin{align}
+    \nonumber &||F(B)-F(C)||^2=||F(A)-F(B)||^2+||F(A)-F(C)||^2-2||F(A)-F(B)||||F(A)-F(C)||\cos A \\
+    \nonumber &\implies 2||F(A)-F(B)||||F(A)-F(C)||\cos A =||F(A)-F(B)||^2+||F(A)-F(C)||^2-||F(B)-F(C)||^2\\
+    \nonumber &\implies 2 ||F(A)-F(B)||||F(A)-F(C)||\cos A\in (1\pm\epsilon^{\prime})^2||A-B||^2+(1\pm\epsilon^{\prime})^2||A-C||^2-(1\pm \epsilon^{\prime})^2||B-C||^2\\
+    \nonumber &\implies 2 ||F(A)-F(B)||||F(A)-F(C)||\cos A\in  (2(1\pm\epsilon^{\prime})^2-2(1\pm \epsilon^{\prime})^2)h^2\\
+    \nonumber &\implies ||F(A)-F(B)||||F(A)-F(C)||\cos A\in ((1\pm\epsilon^{\prime})^2-(1\pm \epsilon^{\prime})^2)h^2\\
+    \nonumber &\implies ||F(A)-F(B)||||F(A)-F(C)||\cos A \in [-4\epsilon^{\prime} h^2,4\epsilon^{\prime} h^2]\\
+    \nonumber &\implies \cos A \in \left[\frac{-4\epsilon^{\prime}h^2}{||F(A)-F(B)||||F(A)-F(C)||},\frac{4\epsilon^{\prime}h^2}{||F(A)-F(B)||||F(A)-F(C)||}\right]\\
+    \nonumber &\implies (\cos A)^2 \le \frac{16\epsilon^{\prime 2}h^4}{||F(A)-F(B)||^2||F(A)-F(C)||^2}
+\end{align}
+
+We should ensure that $\frac{4\epsilon^{\prime}h^2}{||F(A)-F(B)||||F(A)-F(C)||}\le1 \implies \epsilon^{\prime} \le \frac{||F(A)-F(B)||||F(A)-F(C)||}{4h^2}$.
+Since $(1-\epsilon^{\prime}) ||A-B||\le||F(A)-F(B)||\le (1+\epsilon^{\prime}) ||A-B||$, $(1-\epsilon^{\prime}) ||A-C||\le||F(A)-F(C)||\le (1+\epsilon^{\prime}) ||A-C||$,
+we should let $ \epsilon^{\prime} \le \frac{(1-\epsilon^{\prime})^2h^2}{4h^2}\implies \epsilon^{\prime} \in (0,3-2\sqrt{2}]$.
+Since $(\sin A)^2+(\cos A)^2=1$ and the fact that $A\le\pi$, we have $\sin A \ge \sqrt{1- \frac{16\epsilon^{\prime 2}h^4}{||F(A)-F(B)||^2||F(A)-F(C)||^2}}$.
+Let $S^{\prime}$ be the area of the triangle under function $f$, we have:
+\begin{align}
+    \nonumber S^{\prime}&=\frac{1}{2}||F(A)-F(B)||||F(A)-F(C)||\sin A \\
+    \nonumber &\ge \frac{1}{2}||F(A)-F(B)||||F(A)-F(C)||\cdot \sqrt{1- \frac{16\epsilon^{\prime 2}h^4}{||F(A)-F(B)||^2||F(A)-F(C)||^2}}\\
+    \nonumber &=\frac{1}{2}\sqrt{||F(A)-F(B)||^2||F(A)-F(C)||^2-16\epsilon^{\prime 2}h^4}\\
+    \nonumber &\ge \frac{1}{2}\sqrt{(1-\epsilon^{\prime})^4h^4-16\epsilon^{\prime 2}h^4}\\
+    \nonumber &=\frac{1}{2}h^2\sqrt{(1-\epsilon^{\prime})^4-16\epsilon^{\prime 2}}\\
+    \nonumber S^{\prime}&=\frac{1}{2}||F(u)||||F(v)||\sin A \le \frac{1}{2}(1+\epsilon^{\prime})^2h^2
+\end{align}
+
+Let $S$ be the area of original triangle, $S=\frac{1}{2}h^2$.
+Then we have 
+when $S^{\prime}\le S$, $S-S^{\prime}\le (1-\sqrt{(1-\epsilon^{\prime})^4-16\epsilon^{\prime 2}})S$,
+otherwise, $S^{\prime}-S \le ((1+\epsilon^{\prime})^2-1)S$.
+Thus we have:
+\begin{align}
+    \nonumber |S^{\prime}-S|\le S \cdot \max(1-\sqrt{(1-\epsilon^{\prime})^4-16\epsilon^{\prime 2}}, (1+\epsilon^{\prime})^2-1)=(1-\sqrt{(1-\epsilon^{\prime})^4-16\epsilon^{\prime 2}})S
+\end{align}
+
+
+For any triangle, w.l.o.g, suppose the triangle is composed of three points $X,Y,Z$.
+%In order to preserve the height of each side, we have to form a right-angled isosceles triangle by letting the height be a right-angled side.
+Use triangle $XYZ$ to construct a right-angled isosceles triangle as follows. 
+The main idea is to add at most two points to triangle $XYZ$.
+Arbitrarily choose a side of the triangle, add two points as follows.
+Suppose we choose side $XY$.
 The first point is the projection point of $Z$ on line $XY$, use $P_{XY1}$ to denote the point.
 Use $P_{XY2}$ to denote the second point, there are two constrains for ponit $P_{XY2}$,
 one is that $P_{XY2}$ should on  line $XY$, the other is that $||P_{XY2}-P_{XY1}||=||Z-P_{XY1}||$.
-By the same method, we can find the two points for side $XZ$ and side $YZ$.
+There are two points that can satisfy the two constrains, choose one of the two points arbitrarily.
+Thus triangle $ZP_{XY1}P_{XY2}$ is a right-angled isosceles triangle.
+And the area of triangle $ZP_{XY1}P_{XY2}$ is preserved. 
+Furthermore, triangle $ZP_{XY1}P_{XY2}$ and triangle $XYZ$ are in the same plane.
 
-Since there are $n$ points, we can use the $n$ points to construct $\binom{n}{3}$ triangles.
-For each side of each triangle, we add two additional points, thus, there are totally $n+6\binom{n}{3}$ points.
-Let $V^{\prime}$ be the set of the $n+6\binom{n}{3}$ points.
-By Johnson-Lindenstrauss Lemma, for any $0<\epsilon<1$, suppose $U$ is a set of $n$ points, 
-we have there exist a mapping $f: U\rightarrow \mathbb{R}^T$, where $T=O(\frac{\log n}{\epsilon^{\prime 2}})$, 
-such that $\sqrt{1-\epsilon^{\prime}}||x-y||<||f(x)-f(y)||<\sqrt{1+\epsilon^{\prime}}||x-y||$.
-Since we have to guarantee the multiplicative error with in $\epsilon$, by (b), we should let $\epsilon^{\prime}=$
+Since the fact that if two triangles lie in the same plane in $\mathbb{R}^n$, 
+then under a linear mapping their areas have the same multiplicative error.
+The next step is to find a linear mapping $f:\mathbb{R}^n\rightarrow\mathbb{R}^T$, which can preserve the distances between any two points with multiplicative error $\epsilon^{\prime}$.
+For any point $x=(x_0,x_1,...,x_{n-1})$, suppose $f(x):=(f_i(x))_{i\in T}$. For each non-negative integer $j< n$, suppose $\gamma_j \in \{-1, +1\}$ is a uniform random
+bit such that $\gamma$'s are independent. Let $f_i(x)=\frac{1}{\sqrt{T}}\sum_{j}\gamma_jx_j$.
+By the proof of Johnson-Lindenstrauss lemma, $f$ can preserve the distances between any two points with multiplicative error $\epsilon^{\prime}$.
+Furthermore, $f$ is a linear mapping. Since triangle $ZP_{XY1}P_{XY2}$ and triangle $XYZ$ are in the same plane,
+the area of triangle $ZP_{XY1}P_{XY2}$ and triangle $XYZ$ under $f$ have the same multiplicative error.
+We have proved that triangle $ZP_{XY1}P_{XY2}$ is preserved by multiplicative error, thus triangle $XYZ$ is also preserved by multiplicative error.
+If we add at most another two points to all triangles that the $n$ points can construct, 
+then all triangles fromed from the $n$ points are preserved. 
+Since there are $n$ points, we can use the $n$ points to construct at most $\binom{n}{3}$ triangles.
+Thus, the totally number of points is at most $n+2\binom{n}{3}$.
+
+By Johnson-Lindenstrauss lemma, for any $0<\epsilon^{\prime\prime}<1$, suppose $U$ is a set of $n^{\prime\prime}$ points in Euclidean space $\mathbb{R}^{n\prime \prime}$.
+Let $T=\lceil \frac{12\ln2n^{\prime\prime 2}}{\epsilon^{\prime\prime 2}} \rceil$ where $n^{\prime\prime}$ is the number of points. 
+Mapping $f: U\rightarrow \mathbb{R}^T$,
+can ensure $(1-\epsilon^{\prime\prime})||x-y||^2<||f(x)-f(y)||^2<(1+\epsilon^{\prime\prime})||x-y||^2$.
+Since for small $\epsilon^{\prime\prime}$, $(1+\epsilon^{\prime\prime})^2=1+\Theta(\epsilon^{\prime\prime})$, $(1-\epsilon^{\prime\prime})^2=1-\Theta(\epsilon^{\prime\prime})$,
+it follows that the squared of the distances are preserved if and only if the distances themselves are.
+We have proved that 
+if the distances between any two points is preserved by $\epsilon^{\prime}$, the area of any triangle is preserved by $1-\sqrt{(1-\epsilon^{\prime})^4-16\epsilon^{\prime 2}}$.
+%Then, if the distances between any two points is preserved by $\sqrt{1-\epsilon^{\prime\prime}}$,
+%the area of any triangle is preserved by $1-\sqrt{(1-\sqrt{1-\epsilon^{\prime\prime}})^4-16(1-\epsilon^{\prime\prime})}$.
+Since we have to guarantee  multiplicative error of the area of triangles with in $\epsilon$, 
+we should let  $1-\sqrt{(1-\epsilon^{\prime\prime})^4-16\epsilon^{\prime\prime 2}}=\epsilon \implies \epsilon^{\prime\prime}=$.
+Then $T=\lceil \frac{12\ln(2\cdot (n+2\binom{n}{3})^2)  }{\epsilon^{\prime\prime 2}} \rceil$.
