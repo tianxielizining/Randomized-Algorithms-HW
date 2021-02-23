@@ -145,14 +145,17 @@ The area of a triangle is related to not only the size of the side but also the 
 Although the size of each side is preserved, the height of the corresponding side may turn to $0$.
 Thus the area of the corresponding triangle turns to $0$.
 
-Suppose there are three points $A(1,0)$, $B(0,0)$, $C(0,t)$ in $\mathbb{R}^2$, 
+Suppose there is a triangle $ABC$ and $||AB||=1$, $||BC||=t$, $||AC||=\sqrt{1+t^2}$, 
 w.l.o.g, set $t\ge 1$ and the value of $t$ would be chosen later according to the value of $\epsilon$.
-Let $S$ be the area of triangle $ABC$.
-Under that setting, we have, $||AB||=1$, $||BC||=t$, $||AC||=\sqrt{1+t^2}$, $S=\frac{t}{2}$.
+Let $S$ be the area of triangle $ABC$, then $S=\frac{t}{2}$.
 
-Assume after transformation, $A^\prime=(0,-1)$, $B^\prime(0,0)$, $C^\prime(0,t)$.
-Let $S^\prime$ be the area of triangle $A^\prime B^\prime C^\prime$.
-Then we have $||A^\prime B^\prime ||=1$, $||B^\prime C^\prime ||=t$, $||A^\prime C^\prime ||=t+1$, $S^\prime=0$.
+Let $A^{\prime}B^{\prime}C^{\prime}$ be the triangle after transformation.
+Assume after transformation, 
+$||A^\prime B^\prime ||=1$, $||B^\prime C^\prime ||=t$, $||A^\prime C^\prime ||=t+1$. 
+Here, $A^{\prime}$, $B^\prime$, $C^\prime$ are in the same line.
+%$A^\prime=(0,-1)$, $B^\prime(0,0)$, $C^\prime(0,t)$.
+Let $S^\prime$ be the area of triangle $A^\prime B^\prime C^\prime$,
+then we have $S^\prime=0$.
 Since the distances between three points are preserved with multiplicative error $\epsilon$ , 
 we have,
 \begin{align}
@@ -164,6 +167,27 @@ since $t\ge1$, we have $t\ge \frac{1+\sqrt{1-(\epsilon^2+2\epsilon)^2}}{\epsilon
 Under the above setting, we have that 
 the distances between the three points are preserved with multiplicative error $\epsilon$,
 the area of the corresponding triangle is not preserved.
+
+\noindent\textbf{Another approach: }
+Suppose there is a triangle $ABC$ and $||BC||=a$, $||AC||=b$, $||AB||=c$ where $a$, $b$, and $c$ are positive real numbers.
+Since $ABC$ is a triangle, we can have, $a+b>c$.
+%Let $S$ be the area of triangle $ABC$, then,
+%\begin{align}
+ %   \nonumber S=\sqrt{\frac{a+b+c}{2}\cdot \frac{a+b-c}{2}\cdot \frac{a-b+c}{2}\cdot \frac{-a+b+c}{2}}
+%end{align}
+Let $A^{\prime}B^{\prime}C^{\prime}$ be the triangle after transformation.
+Suppose after transformation,  $||B^\prime C^\prime ||=a^\prime$, $||A^\prime C^\prime ||=b^\prime$, $||A^\prime B^\prime ||=c^\prime$. 
+Since the distances between three points are preserved with multiplicative error $\epsilon$, we have
+\begin{align}
+    \nonumber (1-\epsilon)a &\le a^{\prime}\le (1+\epsilon)a\\
+    \nonumber (1-\epsilon)b &\le b^{\prime}\le (1+\epsilon)b\\
+    \nonumber (1-\epsilon)c &\le c^{\prime}\le (1+\epsilon)c
+\end{align} 
+%Let $S^{\prime}$ be the area of triangle $A^{\prime}B^{\prime}C^{\prime}$.
+If $a+b-c \le 3\epsilon$ and after transformation, $a^{\prime}=a-\epsilon$, $b^{\prime}=b-\epsilon$, $c^{\prime}=c+\epsilon$,
+then we have,
+$a^\prime+b^\prime-c^\prime=a+b-c-3\epsilon \le 0 \implies a^\prime+b^\prime\le c^\prime$, which means $A^{\prime}B^{\prime}C^{\prime}$ is not a triangle.
+Thus we cannot preserve the area of triangle $ABC$.
 
 \blue{(b) Suppose $u$ and $v$ are mutually orthogonal unit vectors. 
 Observe that the vectors $u$ and $v$ together with the origin 
@@ -179,12 +203,12 @@ That is for two points $x$ and $y$, we have:
 \end{align}
 Let $\theta=\angle(f(u),f(v))$.
 \begin{align}
-    \nonumber &||F(u)-F(v)||^2=||F(u)||^2+||F(v)||^2-2F(u)\cdot f(v)\\
-    \nonumber &\implies 2 F(u)\cdot F(v) =||F(u)||^2+||F(v)||^2-||F(u)-F(v)||^2\\
-    \nonumber &\implies 2 F(u)\cdot F(v)\in (1\pm\epsilon)^2||u||^2+(1\pm\epsilon)^2||v||^2-(1\pm \epsilon)^2||u-v||^2\\
-    \nonumber &\implies 2 F(u)\cdot F(v)\in  2(1\pm\epsilon)^2-2(1\pm \epsilon)^2\\
-    \nonumber &\implies F(u)\cdot F(v)\in (1\pm\epsilon)^2-(1\pm \epsilon)^2\\
-    \nonumber &\implies F(u)\cdot F(v) \in [-4\epsilon,4\epsilon]\\
+    \nonumber &||F(u)-F(v)||^2=||F(u)||^2+||F(v)||^2-2\langle F(u), F(v)\rangle\\
+    \nonumber &\implies 2\langle F(u), F(v)\rangle =||F(u)||^2+||F(v)||^2-||F(u)-F(v)||^2\\
+    \nonumber &\implies 2\langle F(u), F(v)\rangle\in (1\pm\epsilon)^2||u||^2+(1\pm\epsilon)^2||v||^2-(1\pm \epsilon)^2||u-v||^2\\
+    \nonumber &\implies 2\langle F(u), F(v)\rangle\in  2(1\pm\epsilon)^2-2(1\pm \epsilon)^2\\
+    \nonumber &\implies \langle F(u), F(v)\rangle\in (1\pm\epsilon)^2-(1\pm \epsilon)^2\\
+    \nonumber &\implies \langle F(u), F(v)\rangle \in [-4\epsilon,4\epsilon]\\
     \nonumber &\implies ||F(u)||||F(v)|| \cos \theta \in [-4\epsilon,4\epsilon]\\
     \nonumber &\implies \cos \theta \in \left[\frac{-4\epsilon}{||F(u)||||F(v)||},\frac{4\epsilon}{||F(u)||||F(v)||}\right]\\
     \nonumber &\implies (\cos \theta)^2 \le \frac{16\epsilon^2}{||F(u)||^2||F(v)||^2}
@@ -212,6 +236,19 @@ Thus we have:
 \begin{align}
     \nonumber |S^{\prime}-S|\le S \cdot \max(1-\sqrt{(1-\epsilon)^4-16\epsilon^2}, (1+\epsilon)^2-1)=(1-\sqrt{(1-\epsilon)^4-16\epsilon^2})S
 \end{align}
+Since 
+\begin{align}
+    \nonumber 1-\sqrt{(1-\epsilon)^4-16\epsilon^2} 
+    &= 1-\sqrt{\epsilon^4-4\epsilon^3+6\epsilon^2-4\epsilon+1-16\epsilon^2}\\
+    \nonumber &\le 1-\sqrt{-4\epsilon^2+6\epsilon^2-4\epsilon+1-16\epsilon^2}\\
+    \nonumber &= 1-\sqrt{-14\epsilon^2-4\epsilon+1}
+\end{align}
+After the above transformation, we should let $\epsilon \in (0,\frac{3\sqrt{2}-2}{14}]$.
+Then we can conclude that 
+\begin{align}
+    \nonumber |S^{\prime}-S|\le (1-\sqrt{-14\epsilon^2-4\epsilon+1})S
+\end{align}
+
 \blue{(c) Suppose a set $V$ of $n$ points are given in Euclidean space $\mathbb{R}^n$. 
 Let $0<\epsilon<1$. 
 Give a randomized algorithm that produces a low-dimensional mapping $f:V\rightarrow \mathbb{R}^T$ such that
@@ -219,9 +256,15 @@ the areas of all triangles formed from the $n$ points are preserved with multipl
 What is the value $T$ for your mapping? Please give the exact number and do not use big $O$ notation. 
 }
 
-From (a), we can know, although the distances between three points are preserved, the areas of triangle may not be preserved.
-The main reason is that we cannot preserve the height of each sides. In another word, there is a small angle in the triangle, we cannot preserve the angle and the angle turns to $0^{\circ}$, which causes the area turns to $0$.
-From (b), we know that for a specific right-angled isosceles triangle, if we preserve the distances between three vertices, we can preserve the area of the triangle.
+%From (a), we can know, although the distances between three points are preserved, the areas of triangle may not be preserved.
+%The main reason is that we cannot preserve the height of each sides. In another word, there is a small angle in the triangle, we cannot preserve the angle and the angle turns to $0^{\circ}$, which causes the area turns to $0$.
+%From (b), we know that for a specific right-angled isosceles triangle, if we preserve the distances between three vertices, we can preserve the area of the triangle.
+The main idea is as follows:
+First prove that for any right-angled isosceles triangle, if the distances between three vertices are preserved, the area of the triangle is preserved.
+Second, for any triangle that fromed by the $n$ points, find a right-angled isosceles triangle such that the two triangles are in the same plane.
+Then find a linear mapping that can preserve the distances between any points.
+Since the fact that if two triangles lie in the same plane in $\mathbb{R}^n$, 
+then under a linear mapping their areas have the same multiplicative error, we can conclude that the areas of all the triangles are preserved.
 
 By the same method of question (b), we can get that for any right-angled isosceles triangle, if we preserve the distances between three vertices, we can preserve the area of the triangle.
 The process is as follows.
@@ -267,7 +310,18 @@ Thus we have:
 \begin{align}
     \nonumber |S^{\prime}-S|\le S \cdot \max(1-\sqrt{(1-\epsilon^{\prime})^4-16\epsilon^{\prime 2}}, (1+\epsilon^{\prime})^2-1)=(1-\sqrt{(1-\epsilon^{\prime})^4-16\epsilon^{\prime 2}})S
 \end{align}
-
+Since 
+\begin{align}
+    \nonumber 1-\sqrt{(1-\epsilon^{\prime})^4-16\epsilon^{\prime 2}} 
+    &= 1-\sqrt{\epsilon^{\prime 4}-4\epsilon^{\prime 3}+6\epsilon^{\prime 2}-4\epsilon^{\prime}+1-16\epsilon^{\prime 2}}\\
+    \nonumber &\le 1-\sqrt{-4\epsilon^{\prime 2}+6\epsilon^{\prime 2}-4\epsilon^{\prime}+1-16\epsilon^{\prime 2}}\\
+    \nonumber &= 1-\sqrt{-14\epsilon^{\prime 2}-4\epsilon^{\prime}+1}
+\end{align}
+After the above transformation, we should let $\epsilon^{\prime} \in (0,\frac{3\sqrt{2}-2}{14}]$.
+Then we can conclude that 
+\begin{align}
+    \nonumber |S^{\prime}-S|\le (1-\sqrt{-14\epsilon^{\prime 2}-4\epsilon^{\prime}+1})S
+\end{align}
 
 For any triangle, w.l.o.g, suppose the triangle is composed of three points $X,Y,Z$.
 %In order to preserve the height of each side, we have to form a right-angled isosceles triangle by letting the height be a right-angled side.
@@ -281,14 +335,17 @@ one is that $P_{XY2}$ should on  line $XY$, the other is that $||P_{XY2}-P_{XY1}
 There are two points that can satisfy the two constrains, choose one of the two points arbitrarily.
 Thus triangle $ZP_{XY1}P_{XY2}$ is a right-angled isosceles triangle.
 And the area of triangle $ZP_{XY1}P_{XY2}$ is preserved. 
-Furthermore, triangle $ZP_{XY1}P_{XY2}$ and triangle $XYZ$ are in the same plane.
+It is a fact that a line and a point not on that line can determine a unique plane.
+Use $L$ to denote the plane that is determined by point $Z$ and line $XY$.
+Since $P_{XY1}$ and $P_{XY2}$ are on line $XY$, we can get 
+triangle $ZP_{XY1}P_{XY2}$ and triangle $XYZ$ are in the same plane $L$.
 
 Since the fact that if two triangles lie in the same plane in $\mathbb{R}^n$, 
 then under a linear mapping their areas have the same multiplicative error.
 The next step is to find a linear mapping $f:\mathbb{R}^n\rightarrow\mathbb{R}^T$, which can preserve the distances between any two points with multiplicative error $\epsilon^{\prime}$.
 For any point $x=(x_0,x_1,...,x_{n-1})$, suppose $f(x):=(f_i(x))_{i\in T}$. For each non-negative integer $j< n$, suppose $\gamma_j \in \{-1, +1\}$ is a uniform random
 bit such that $\gamma$'s are independent. Let $f_i(x)=\frac{1}{\sqrt{T}}\sum_{j}\gamma_jx_j$.
-By the proof of Johnson-Lindenstrauss lemma, $f$ can preserve the distances between any two points with multiplicative error $\epsilon^{\prime}$.
+By the proof of Johnson-Lindenstrauss lemma, for small $\epsilon^{\prime}$, $f$ can preserve the distances between any two points with multiplicative error $\epsilon^{\prime}$.
 Furthermore, $f$ is a linear mapping. Since triangle $ZP_{XY1}P_{XY2}$ and triangle $XYZ$ are in the same plane,
 the area of triangle $ZP_{XY1}P_{XY2}$ and triangle $XYZ$ under $f$ have the same multiplicative error.
 We have proved that triangle $ZP_{XY1}P_{XY2}$ is preserved by multiplicative error, thus triangle $XYZ$ is also preserved by multiplicative error.
@@ -297,16 +354,25 @@ then all triangles fromed from the $n$ points are preserved.
 Since there are $n$ points, we can use the $n$ points to construct at most $\binom{n}{3}$ triangles.
 Thus, the totally number of points is at most $n+2\binom{n}{3}$.
 
-By Johnson-Lindenstrauss lemma, for any $0<\epsilon^{\prime\prime}<1$, suppose $U$ is a set of $n^{\prime\prime}$ points in Euclidean space $\mathbb{R}^{n\prime \prime}$.
+By Johnson-Lindenstrauss lemma, for any $0<\epsilon^{\prime\prime}<1$, suppose $U$ is a set of $n^{\prime\prime}$ points in Euclidean space $\mathbb{R}^{n^{\prime \prime}}$.
 Let $T=\lceil \frac{12\ln2n^{\prime\prime 2}}{\epsilon^{\prime\prime 2}} \rceil$ where $n^{\prime\prime}$ is the number of points. 
 Mapping $f: U\rightarrow \mathbb{R}^T$,
-can ensure $(1-\epsilon^{\prime\prime})||x-y||^2<||f(x)-f(y)||^2<(1+\epsilon^{\prime\prime})||x-y||^2$.
-Since for small $\epsilon^{\prime\prime}$, $(1+\epsilon^{\prime\prime})^2=1+\Theta(\epsilon^{\prime\prime})$, $(1-\epsilon^{\prime\prime})^2=1-\Theta(\epsilon^{\prime\prime})$,
-it follows that the squared of the distances are preserved if and only if the distances themselves are.
+can ensure $(1-\epsilon^{\prime\prime})||x-y||^2\le||f(x)-f(y)||^2\le(1+\epsilon^{\prime\prime})||x-y||^2$.
+%Since for small $\epsilon^{\prime\prime}$, $(1+\epsilon^{\prime\prime})^2=1+\Theta(\epsilon^{\prime\prime})$, $(1-\epsilon^{\prime\prime})^2=1-\Theta(\epsilon^{\prime\prime})$,
+%it follows that the squared of the distances are preserved if and only if the distances themselves are.
+\begin{align}
+    \nonumber &(1-\epsilon^{\prime\prime})||x-y||^2\le||f(x)-f(y)||^2\le (1+\epsilon^{\prime\prime})||x-y||^2\\
+    \nonumber &\implies \sqrt{1-\epsilon^{\prime\prime}}||x-y||\le||f(x)-f(y)||\le \sqrt{1+\epsilon^{\prime\prime}}||x-y||\\
+    \nonumber &\implies (\sqrt{1-\epsilon^{\prime\prime}}-1)||x-y||\le ||f(x)-f(y)||-||x-y||\le (\sqrt{1+\epsilon^{\prime\prime}}-1)||x-y||\\
+    \nonumber &\implies |||f(x)-f(y)||-||x-y|||\le \max( 1- \sqrt{1-\epsilon^{\prime\prime}},\sqrt{1+\epsilon^{\prime\prime}}-1 )||x-y||\\
+    \nonumber &\implies |||f(x)-f(y)||-||x-y|||\le ( 1- \sqrt{1-\epsilon^{\prime\prime}})||x-y||
+\end{align}
 We have proved that 
-if the distances between any two points is preserved by $\epsilon^{\prime}$, the area of any triangle is preserved by $1-\sqrt{(1-\epsilon^{\prime})^4-16\epsilon^{\prime 2}}$.
-%Then, if the distances between any two points is preserved by $\sqrt{1-\epsilon^{\prime\prime}}$,
-%the area of any triangle is preserved by $1-\sqrt{(1-\sqrt{1-\epsilon^{\prime\prime}})^4-16(1-\epsilon^{\prime\prime})}$.
+if the distances between any two points is preserved by $\epsilon^{\prime}$, the area of any triangle is preserved by $1-\sqrt{-14\epsilon^{\prime 2}-4\epsilon^{\prime}+1}$.
+Then, if the distances between any two points is preserved by $1- \sqrt{1-\epsilon^{\prime\prime}}$, $\epsilon^{\prime\prime} \in \left(0,1-\left(1-\frac{3\sqrt{2}-2}{14}\right)^2\right]$, 
+the area of any triangle is preserved by $1-\sqrt{14\epsilon^{\prime\prime}+32(1-\epsilon^{\prime\prime})^{\frac{1}{2}}-31}\le 1-\sqrt{14\epsilon^{\prime\prime}+32(1-\epsilon^{\prime\prime})-31}=1-\sqrt{1-18\epsilon^{\prime\prime}}$.
+After the above transformation, we should let $\epsilon^{\prime\prime} \in (0,\frac{1}{18}]$.
 Since we have to guarantee  multiplicative error of the area of triangles with in $\epsilon$, 
-we should let  $1-\sqrt{(1-\epsilon^{\prime\prime})^4-16\epsilon^{\prime\prime 2}}=\epsilon \implies \epsilon^{\prime\prime}=$.
-Then $T=\lceil \frac{12\ln(2\cdot (n+2\binom{n}{3})^2)  }{\epsilon^{\prime\prime 2}} \rceil$.
+we should let  $1-\sqrt{1-18\epsilon^{\prime\prime}}=\epsilon \implies \epsilon^{\prime\prime}=\frac{2\epsilon-\epsilon^2}{18}$ 
+then we can ensure that $\epsilon^{\prime\prime} \in (0,\frac{1}{18}]$.
+Then $T=\Bigg\lceil \frac{12\ln\left(2\cdot \left(n+2\binom{n}{3}\right)^2\right)  }{\epsilon^{\prime \prime 2}} \Bigg\rceil$, where $\epsilon^{\prime\prime}=\frac{2\epsilon-\epsilon^2}{18}$.
