@@ -38,7 +38,7 @@ Run the Simple Randomized Procedure to obtain cover $C_t$.\\
 2. Feasibility: $\widehat{C}$ may not feasible. The probability that the element $g$ is not included in $\widehat{C}$ is at most $\exp({-T})$.
 \subsection{Homework}
 We assume that the number of elements in $U$ is large enough, say $n \ge 20$.\\
-\blue{(a) Suppose we repeat the Simple Rounding Procedure for $T := \ln n + \lambda \ln \ln n$ times, where $ \lambda \textgreater 0$ is some number we determine later. Suppose $\widehat{C}$ is the index set of the cover returned from the repeated runs, and we want approximation ratio $\rho$, for some $\rho \textgreater 1$
+\blue{(a) Suppose we repeat the Simple Rounding Procedure for $T := \ln n + \lambda \ln \ln n$ times, where $ \lambda > 0$ is some number we determine later. Suppose $\widehat{C}$ is the index set of the cover returned from the repeated runs, and we want approximation ratio $\rho$, for some $\rho > 1$
 which we want as small as possible. Let $B_1$ be the event that $|\widehat{C}|\ge \rho \cdot OPT$. Show that if you set $\rho:=\ln n+2\lambda \ln\ln n +2$, then $\Pr[B_1]\le 1-\frac{1}{\ln n}$.}\\
 By Markov's Inequality, we have:
 \begin{align}
@@ -50,12 +50,12 @@ Since we set $T := \ln n + \lambda \ln \ln n$ and $\rho:=\ln n+2\lambda \ln\ln n
   \nonumber &=1-\frac{\lambda\ln\ln n+2}{\ln n + 2 \lambda \ln \ln n +2}\\
   \nonumber &=1-\frac{1}{\ln n}\cdot \frac{\ln n \cdot \lambda \ln \ln n +2\ln n}{\ln n + 2\lambda \ln\ln n +2 }
 \end{align}
-Since $n\ge 20$, we have $\ln n \textgreater 2$, then $2\ln n \textgreater 2+\ln n$.
+Since $n\ge 20$, we have $\ln n > 2$, then $2\ln n > 2+\ln n$.
 Thus,
 \begin{align}
   \nonumber \frac{\ln n \cdot \lambda \ln \ln n +2\ln n}{\ln n + 2\lambda \ln\ln n +2 }
-  \textgreater \frac{2\lambda \ln \ln n +2\ln n}{2\lambda \ln\ln n+\ln n +2}
-  \textgreater 1
+  > \frac{2\lambda \ln \ln n +2\ln n}{2\lambda \ln\ln n+\ln n +2}
+  > 1
 \end{align}
 So, we have $\Pr[B_1]\le 1-\frac{1}{\ln n}$.\\
 \blue{(b) Let $B_2$ be the event that there is some element that is not covered by $\widehat{C}$. What value should $\lambda$ take such that the $\Pr[B_2]\le \frac{1}{(\ln n)^2}$}\\
@@ -79,7 +79,7 @@ By Lemma \ref{union}, we can bound the failure probability as follows:
 \begin{align}
   \nonumber \Pr[B_1 \cup B_2]\le \Pr[B_1]+\Pr[B_2]\le 1-\frac{1}{\ln n}+\frac{1}{(\ln n)^2}
 \end{align}
-\blue{(d) Given any arbitrary $0 \textless \delta\textless 1$, how can you obtain the same approximation ratio, but with failure probability at most $\delta$? How many times in total do you have to run the Simple Rounding Procedure?}
+\blue{(d) Given any arbitrary $0 < \delta < 1$, how can you obtain the same approximation ratio, but with failure probability at most $\delta$? How many times in total do you have to run the Simple Rounding Procedure?}
 \begin{align}
   \nonumber \Pr[B_1]=\Pr[E[|\widehat{C}|]\ge \rho \cdot OPT]\le \frac{T}{\rho}%= \frac{T}{\ln n +4\ln\ln n +2}
 \end{align}

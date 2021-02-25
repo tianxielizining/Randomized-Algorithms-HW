@@ -12,7 +12,7 @@ We will give a randomized algorithm and a deterministic algorithm in the followi
 Suppose for each $1 \le i \le n$, $X_i$ is a random variable and $a_i$ is a real number. Then, $E[\sum_{i=1}^na_iX_i]=\sum_{i=1}^{n}a_iE[X_i]$.
 \end{lemma}
 \begin{lemma}\label{gp}
-Given a geometric progression with first term $a \textgreater 0$ and common ratio $r \ge 2$, for every $n$, the sum of the first $n$ terms is less than the ($n+1$)-th term.
+Given a geometric progression with first term $a > 0$ and common ratio $r \ge 2$, for every $n$, the sum of the first $n$ terms is less than the ($n+1$)-th term.
 %\begin{align}
  %  \nonumber \sum_{k=1}^{n}ar^{k-1} textless ar^{n}
 %\end{align}
@@ -36,7 +36,7 @@ For every $n$, the sum of the first $n$ terms is $\sum_{k=1}^{n}ar^{k-1}$ and th
 \end{align}
 Thus, 
 \begin{align}
-    \nonumber \sum_{k=1}^{n}ar^{k-1}\le ar^{n}-a \textless ar^{n}
+    \nonumber \sum_{k=1}^{n}ar^{k-1}\le ar^{n}-a < ar^{n}
 \end{align} 
 \end{proof}
 \begin{lemma}[\textbf{union bound}]\label{union}
@@ -59,54 +59,54 @@ Let $X$ be the number of edges in $G_{n,p}$. Let $Y_i$ be the number of length-$
 For each cycle of length $l$ or less, pick one edge and remove it.
 Then we can find an $n$-vertex graph with no cycles of length $l$ or less that has at least $Z:=X-Y$ edges.By the method mentioned above of constructing graph $G_{n,p}$, we have $E[X]=\tbinom{n}{2}p$, $var[X]=\tbinom{n}{2}p(1-p)$, $E[Y_i]=\binom{n}{i}\frac{(i-1)!}{2}p^i$. By Lemma \ref{linearity}, we have $E[Y]=\sum_{i=3}^{l}E[Y_i]$.
 \begin{claim}
-$E[Y]\textless (np)^l$
+$E[Y]<(np)^l$
 \end{claim}
 \begin{proof}
 \begin{align}
 \nonumber E[Y]&=\sum_{i=3}^{l} \binom{n}{i}\frac{(i-1)!}{2}p^i\\
 \nonumber &=\sum_{i=3}^{l} \frac{n!}{i!(n-i)!}\cdot\frac{(i-1)!}{2}p^i\\
 \nonumber &=\sum_{i=3}^{l} \frac{n!}{(n-i)!}\cdot\frac{1}{2i}p^i\\
-\nonumber &\textless \sum_{i=3}^{l}n^i\cdot\frac{1}{2i}p^i\\
+\nonumber &<\sum_{i=3}^{l}n^i\cdot\frac{1}{2i}p^i\\
 \nonumber &\le \frac{1}{6} \sum_{i=3}^{l}(np)^i
 \end{align}
 Since $p \ge \frac{2}{n}$, we have $np\ge 2$.
 By Lemma \ref{gp}, we have:
 \begin{align}
-    \nonumber E[Y]& \textless   \frac{1}{6}\sum_{i=3}^{l}(np)^i \\
-    \nonumber & \textless \frac{1}{6}\sum_{i=1}^{l}(np)^i \\
-    \nonumber & \textless \frac{1}{3}(np)^l\\
-    \nonumber & \textless (np)^l
+    \nonumber E[Y]& <  \frac{1}{6}\sum_{i=3}^{l}(np)^i \\
+    \nonumber & < \frac{1}{6}\sum_{i=1}^{l}(np)^i \\
+    \nonumber & < \frac{1}{3}(np)^l\\
+    \nonumber & < (np)^l
 \end{align}
 \end{proof}
 Suppose we can show the following:
 \begin{enumerate}
-    \item For some $\alpha \textgreater 0$, $\Pr[X\textless E[X]-\alpha] \textless \frac{1}{2}$
-    \item For some $\beta \textgreater 0$, $\Pr[Y \textgreater \beta]\textless \frac{1}{2}$
+    \item For some $\alpha > 0$, $\Pr[X< E[X]-\alpha] <\frac{1}{2}$
+    \item For some $\beta > 0$, $\Pr[Y > \beta]< \frac{1}{2}$
 \end{enumerate}
-By Lemma \ref{union}, we have that with non-zero probability neither events happen, that is $\Pr[(X\ge E[X]-\alpha)\cap (Y \le \beta)]\textgreater 0$. Then it shows that there exists an $n$-vertex graph with no cycles of length $l$ or less that has at least $E[X]-\alpha-\beta$ edges. 
+By Lemma \ref{union}, we have that with non-zero probability neither events happen, that is $\Pr[(X\ge E[X]-\alpha)\cap (Y \le \beta)]> 0$. Then it shows that there exists an $n$-vertex graph with no cycles of length $l$ or less that has at least $E[X]-\alpha-\beta$ edges. 
 Then we will show how to bound $E[X]-\alpha-\beta$.
-Choose an appropriate value of $p$ such that $E[X] \ge 2E[Y]$. Since $E[X]=\tbinom{n}{2}p$ and $E[Y]\textless (np)^l$, we have to satisfy $\tbinom{n}{2}p \ge 2(np)^l$. Thus, $p\le  \sqrt[l-1]{\frac{1-\frac{1}{n}}{4n^{l-2}}}$. Since $l\ge 3$, $n\ge 2^{l+2}$ and $p\ge \frac{2}{n}$, we can set $p:=\sqrt[l-1]{\frac{1}{8n^{l-2}}}$. Check that $E[X]=\Theta (n^\frac{l}{l-1})$.% Since $E[X] \ge 2E[Y]$ and $E[Y]\le (np)^l$, we have $E[Y]=O(n^\frac{l}{l-1})$.
+Choose an appropriate value of $p$ such that $E[X] \ge 2E[Y]$. Since $E[X]=\tbinom{n}{2}p$ and $E[Y]<(np)^l$, we have to satisfy $\tbinom{n}{2}p \ge 2(np)^l$. Thus, $p\le  \sqrt[l-1]{\frac{1-\frac{1}{n}}{4n^{l-2}}}$. Since $l\ge 3$, $n\ge 2^{l+2}$ and $p\ge \frac{2}{n}$, we can set $p:=\sqrt[l-1]{\frac{1}{8n^{l-2}}}$. Check that $E[X]=\Theta (n^\frac{l}{l-1})$.% Since $E[X] \ge 2E[Y]$ and $E[Y]\le (np)^l$, we have $E[Y]=O(n^\frac{l}{l-1})$.
 
-For $\alpha \textgreater 0$, by 
+For $\alpha > 0$, by 
 %Lemma \ref{Chebyshev}
 Chebyshev's inequality
 , we have:
 \begin{align}
-    \nonumber \Pr[X\textless E[X]-\alpha]&\le \Pr[|X-E[X]|\textgreater \alpha]\\ 
+    \nonumber \Pr[X< E[X]-\alpha]&\le \Pr[|X-E[X]|> \alpha]\\ 
     \nonumber &\le \frac{var[X]}{\alpha^2}\\
     \nonumber &=\frac{\tbinom{n}{2}p(1-p)}{\alpha^2}
 \end{align}
-What we need is to satisfy $\Pr[X\textless E[X]-\alpha] \textless \frac{1}{2}$, so $\frac{\tbinom{n}{2}p(1-p)}{\alpha^2}\le \frac{1}{2} $. Thus $\alpha \ge \sqrt{2\tbinom{n}{2}p(1-p)}$. We can set $\alpha = \sqrt{2\tbinom{n}{2}p}=\Theta(n^{\frac{l}{2l-2}})$.
+What we need is to satisfy $\Pr[X< E[X]-\alpha] < \frac{1}{2}$, so $\frac{\tbinom{n}{2}p(1-p)}{\alpha^2}\le \frac{1}{2} $. Thus $\alpha \ge \sqrt{2\tbinom{n}{2}p(1-p)}$. We can set $\alpha = \sqrt{2\tbinom{n}{2}p}=\Theta(n^{\frac{l}{2l-2}})$.
 
-For $\beta \textgreater 0$, by 
+For $\beta > 0$, by 
 %Lemma \ref{Markov}
 Markov's inequality
 , we have: 
 \begin{align}
-    \nonumber \Pr[Y \textgreater \beta] &\le \frac{E[Y]}{\beta}\\
+    \nonumber \Pr[Y >\beta] &\le \frac{E[Y]}{\beta}\\
     \nonumber & \le \frac{(np)^l}{\beta} 
 \end{align}
-Since we have to satisfy $\Pr[Y \textgreater \beta]\textless \frac{1}{2}$, we have $\frac{(np)^l}{\beta} \le \frac{1}{2}$. Thus $\beta \ge 2(np)^l$. We can set $\beta = 2(np)^l = \Theta (n^{\frac{l}{l-1}})$.
+Since we have to satisfy $\Pr[Y > \beta]< \frac{1}{2}$, we have $\frac{(np)^l}{\beta} \le \frac{1}{2}$. Thus $\beta \ge 2(np)^l$. We can set $\beta = 2(np)^l = \Theta (n^{\frac{l}{l-1}})$.
 Then,
 \begin{align}
     \nonumber E[X]-\alpha-\beta = \Theta (n^\frac{l}{l-1}) - \Theta(n^{\frac{l}{2l-2}}) - \Theta (n^{\frac{l}{l-1}})=\Omega (n^{1+\frac{1}{l-1}})

@@ -1,0 +1,52 @@
+\section{$\epsilon$-Nets, VC-dimension}
+\noindent \blue{
+\textbf{1. VC-dimension of Axis-aligned rectangles.}
+\\(a) Prove that no $5$ points on the plane $\mathbb{R}^2$ can be shattered by the class $C$ of axis-aligned
+rectangles (that map points inside a rectangle $1$ and otherwise $0$).
+}
+\begin{proof}
+    Use $S$ to denote any set of $5$ distinct points on the plane $\mathbb{R}^2$. 
+    Let $x_{\max}$ be the maximum $x$-coordinate among the $5$ points and 
+    let $x_{\min}$ be the minimum $x$-coordinate among the $5$ points.
+    Use $y_{\max}$ to denote the maximum $y$-coordinate among the $5$ points and
+    use $y_{\min}$ to denote the minimum $y$-coordinate among the $5$ points.
+    There are at most $4$ points and at least $2$ points that contribute to  $x_{\max}$, $x_{\min}$, $y_{\max}$ and $y_{\min}$.
+    Use $U$ to denote the set of the points that contribute to  $x_{\max}$, $x_{\min}$, $y_{\max}$ and $y_{\min}$.
+    Obviously, $U\subsetneq S$. 
+    Since $U$ is the set of points that contribute to  $x_{\max}$, $x_{\min}$, $y_{\max}$ and $y_{\min}$,
+    if a axis-aligned rectangle contions all points in set $U$, it must contion all points in $S$.
+    Then for set $U$, there is no such axis-aligned rectangle can satisfy the two constrains at the same time:
+    \begin{enumerate}
+        \item For each point in set $U$, the point is inside the axis-aligned rectangle.
+        \item  For each point in set $S$ but not in set $U$, the point is not inside the axis-aligned rectangle.
+    \end{enumerate}
+
+    Thus, no $5$ points on the plane $\mathbb{R}^2$ can be shattered by the class $C$ of axis-aligned
+    rectangles.
+\end{proof}
+\noindent \blue{
+(b) Compute the VC-dimension of the class $C_k$ of $k$-dimension axis-aligned rectangles in $\mathbb{R}^k$.
+In particular, you need to find a number $d$ such that there exist $d$ points in $\mathbb{R}^k$ that can be shattered by the $C_k$, and
+prove that any $d+1$ points in $\mathbb{R}^k$ cannot be shattered by $C_k$.}\\
+The VC-dimension of the class $C_k$ of $k$-dimension axis-aligned rectangles in $\mathbb{R}^k$ is $2k$.
+\begin{proof}
+    Use $S_k$ to denote any set of $2k+1$ distinct points in $\mathbb{R}^k$.
+    Use set $U_k$ to denote the set of points that can contribute the maximum or minimum value in each dimension among points in set $S_k$.
+    Obviously, $|U_k|\in[2,2k]$ and $U_k\subsetneq S_k$.
+    Since $U_k$ is the set of points that can contribute the maximum or minimum value in each dimension,
+    if a $k$-dimension axis-aligned rectangle contions all points in set $U_k$, it must contion all points in $S_k$.
+    Then for set $U_k$, there is no such $k$-dimension axis-aligned rectangle can satisfy the two constrains at the same time:
+    \begin{enumerate}
+        \item For each point in set $U_k$, the point is inside the $k$-dimension axis-aligned rectangle.
+        \item  For each point in set $S_k$ but not in set $U_k$, the point is not inside the $k$-dimension axis-aligned rectangle.
+    \end{enumerate}
+
+    Thus, no $2k+1$ points in $\mathbb{R}^k$ can be shattered by the class $C_k$ of $k$-dimension axis-aligned rectangles.
+\end{proof}
+\noindent \blue{2. \textbf{Conditional Expectation.}\\
+Suppose $Y:\Omega\rightarrow\mathbb{R}$ is a random variable and
+$W:\Omega\rightarrow\mathcal{U}$ is a random object 
+defined on the same probability space $(\Omega, \mathcal{F},Pr)$.
+Prove that $\mathbb{E}[Y]=\mathbb{E}[\mathbb{E}[Y|W]]$.
+You may assume that both $\Omega$ and $\mathcal{U}$ are finite.
+}
