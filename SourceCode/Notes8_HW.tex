@@ -4,18 +4,31 @@
 \\(a) Prove that no $5$ points on the plane $\mathbb{R}^2$ can be shattered by the class $C$ of axis-aligned
 rectangles (that map points inside a rectangle $1$ and otherwise $0$).
 }
+\begin{definition}
+    Given a set $X$ and a class $C$ of boolean function on $X$, 
+    a subset $S \subset X$ is said to be shattered by $C$, 
+    if for all subsets $U$ of $S$, there exists $f\in C$ such that for all 
+    $x\in U$, $f(x) = 1$ and for all $x\in S \setminus U$, $f(x)=0$.
+\end{definition}
+In this problem, $X:=\mathbb{R}^k$, $C:=C_k$ is the class where each function 
+corresponds to an $k$-dimension axis-aligned rectangle that labels each point inside it $1$ and otherwise $0$.
+For a set $S_k$ which is a subset of $X$ that is said to be shattered by $C_k$,
+if for all subsets $U_k$ of $S_k$, there exists a $k$-dimension axis-aligned rectangle such that for each point in 
+$U_k$, the point is inside the $k$-dimension axis-aligned rectangle 
+and for each point in set $S_k$ but not in set $U_k$, the point is not inside the  $k$-dimension axis-aligned rectangle.
+
 \begin{proof}
-    Use $S$ to denote any set of $5$ distinct points on the plane $\mathbb{R}^2$. 
+    Use $S_2$ to denote any set of $5$ distinct points on the plane $\mathbb{R}^2$. 
     Let $x_{\max}$ be the maximum $x$-coordinate among the $5$ points and 
     let $x_{\min}$ be the minimum $x$-coordinate among the $5$ points.
     Use $y_{\max}$ to denote the maximum $y$-coordinate among the $5$ points and
     use $y_{\min}$ to denote the minimum $y$-coordinate among the $5$ points.
     There are at most $4$ points and at least $2$ points that contribute to  $x_{\max}$, $x_{\min}$, $y_{\max}$ and $y_{\min}$.
-    Use $U$ to denote the set of the points that contribute to  $x_{\max}$, $x_{\min}$, $y_{\max}$ and $y_{\min}$.
-    Obviously, $U\subsetneq S$. 
-    Since $U$ is the set of points that contribute to  $x_{\max}$, $x_{\min}$, $y_{\max}$ and $y_{\min}$,
-    if a axis-aligned rectangle contions all points in set $U$, it must contion all points in $S$.
-    Then for set $U$, there is no such axis-aligned rectangle can satisfy the two constrains at the same time:
+    Use $U_2$ to denote the set of the points that contribute to  $x_{\max}$, $x_{\min}$, $y_{\max}$ and $y_{\min}$.
+    Obviously, $U_2\subsetneq S_2$. 
+    Since $U_2$ is the set of points that contribute to  $x_{\max}$, $x_{\min}$, $y_{\max}$ and $y_{\min}$,
+    if a 2-dimension axis-aligned rectangle contions all points in set $U_2$, it must contion all points in $S_2$.
+    Then for set $U_2$, there is no such 2-dimension axis-aligned rectangle can satisfy the two constrains at the same time:
     \begin{enumerate}
         \item For each point in set $U$, the point is inside the axis-aligned rectangle.
         \item  For each point in set $S$ but not in set $U$, the point is not inside the axis-aligned rectangle.
@@ -30,6 +43,24 @@ In particular, you need to find a number $d$ such that there exist $d$ points in
 prove that any $d+1$ points in $\mathbb{R}^k$ cannot be shattered by $C_k$.}\\
 The VC-dimension of the class $C_k$ of $k$-dimension axis-aligned rectangles in $\mathbb{R}^k$ is $2k$.
 \begin{proof}
+    \noindent
+    \begin{enumerate}
+        \item  There exists $2k$ points in $\mathbb{R}^k$ that can be shattered by the $C_k$.
+        
+    A possible set of the $2k$ points is as follows and use $S^\prime_k$ to denote it.
+    \begin{align}
+        \nonumber S^\prime_k=&\{(1,0,0,...,0),(-1,0,0,...0),(0,1,0,...0),(0,-1,0,...,0),\\
+        \nonumber &(0,0,1,...,0),(0,0,-1,...,0),...,(0,0,0,...,1),(0,0,0,...,-1)\}
+    \end{align}
+
+    Use $U^\prime_k$ to denote any subset of $S^\prime_k$.
+    Since any point in $S^\prime_k$ can provide the minimum or maximum value in a dimension,
+    for  each subset $U^\prime_k$ of $S^\prime_k$, we can always find a $k$-dimension axis-aligned rectangle such that 
+    all points in $U^\prime_k$ are inside the $k$-dimension axis-aligned rectangle and 
+    all points in set $S^\prime_k$ but not in set $U^\prime_k$ are not inside the $k$-dimension axis-aligned rectangle.
+    Thus we have that there exist $2k$ points in $\mathbb{R}^k$ that can be shattered by the $C_k$.
+    \item Any $2k+1$ points in $\mathbb{R}^k$ cannot be shattered by $C_k$.
+
     Use $S_k$ to denote any set of $2k+1$ distinct points in $\mathbb{R}^k$.
     Use set $U_k$ to denote the set of points that can contribute the maximum or minimum value in each dimension among points in set $S_k$.
     Obviously, $|U_k|\in[2,2k]$ and $U_k\subsetneq S_k$.
@@ -42,6 +73,10 @@ The VC-dimension of the class $C_k$ of $k$-dimension axis-aligned rectangles in 
     \end{enumerate}
 
     Thus, no $2k+1$ points in $\mathbb{R}^k$ can be shattered by the class $C_k$ of $k$-dimension axis-aligned rectangles.
+\end{enumerate}
+   
+By definition, the VC-dimension of $(X, C)$ is the maximum cardinality of a subset $S \subseteq X$ that is shattered by $C$.
+Hence, in this problem, the VC-dimension of the class $C_k$ of $k$-dimension axis-aligned rectangles in $\mathbb{R}^k$ is $2k$.
 \end{proof}
 \noindent \blue{2. \textbf{Conditional Expectation.}\\
 Suppose $Y:\Omega\rightarrow\mathbb{R}$ is a random variable and
