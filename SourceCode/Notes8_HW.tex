@@ -85,3 +85,81 @@ defined on the same probability space $(\Omega, \mathcal{F},Pr)$.
 Prove that $\mathbb{E}[Y]=\mathbb{E}[\mathbb{E}[Y|W]]$.
 You may assume that both $\Omega$ and $\mathcal{U}$ are finite.
 }
+
+$\mathbb{E}[Y|W]:\mathcal{U}\rightarrow \mathbb{R}$ is a function that for $u\in \mathcal{U}$, $\mathbb{E}[Y|W](u):=\mathbb{E}[Y|W=u]$.
+
+The expected value of the random variable $\mathbb{E}[Y|W]$ is a function
+of $W$ and takes on the value $\mathbb{E}[Y|W=u]$ when $W=u$.
+Then,
+\begin{align}
+    \nonumber \mathbb{E}[\mathbb{E}[Y|W]]=\sum_u{\mathbb{E}[Y|W=u]\Pr[W=u]}
+\end{align}
+
+Since $\mathbb{E}[Y]=\sum_u \mathbb{E}[Y|W=u]\Pr[W=u]$, we have $\mathbb{E}[Y]=\mathbb{E}[\mathbb{E}[Y|W]]$.\\
+\blue{
+3.\textbf{Using $\epsilon$-Net for learning.} Suppose $X$ is a set with some underlying distribution $D$ 
+and $C$ is a class of boolean functions on $X$, and the VC-dimension of $(X, C)$ is $d$.
+Moreover, suppose there is some function $f_0\in C$ that corresponds to some classifier that we wish to learn.  
+The model we have is that we can sample a random $x\in X$ and ask for the value $f_0(x)$.
+After seeing $m$ such samples $S$ in $X$, we pick a function $f_1\in C$ that agrees with $f_0$ on $S$.
+The hope is that $f_1$ and $f_0$ would agree on most points in $X$ (according to distribution $D$).}
+\\\blue{(a) Define another class $C^{\prime}$ of boolean functions on $X$ such that if $S$ is an $\epsilon$-net under $C^{\prime}$, 
+and $f\in C$ is a function that disagrees with $f_0$ on more than $\epsilon$ fraction 
+(weighted according to $D$) of points in $X$, then there exists some $x\in S$ such that $f(x)\neq f_0(x)$.
+Prove  the VC-dimension of $(X,C^\prime)$ for the class $C^{\prime}$ that you have constructed. 
+}\\
+Let $F$ be a class of boolean functions on $X$ satisfies that 
+\begin{enumerate}
+    \item $F\subset C$
+    \item  For each $f\in F$, $f$ is a function that disagrees with $f_0$ on more than $\epsilon$ fraction of points in $X$.
+    \item  For each $f\in C\setminus F$, $f$ is not a function that disagrees with $f_0$ on more than $\epsilon$ fraction of points in $X$.
+\end{enumerate}
+Construct $C^{\prime}$ according to $F$ as follows.
+Initially, set $C^{\prime}=\emptyset$.
+For each $f\in F$, construct a new boolean function $f^{\prime}(x)=f(x)\oplus f_0(x)$ and $C^{\prime}=C^{\prime}\cup f^{\prime}$.
+\\\textbf{Correctness: }Since $S$ is an $\epsilon$-net under $C^{\prime}$ and for each $f^{\prime}\in C^{\prime}$, $\mathbb{E}_X[f^{\prime}]\ge \epsilon$, by the definition of $\epsilon$-net, we have there exists $x\in S$ such that $f^{\prime}=1$.
+Since $f^{\prime}(x)=f(x)\oplus f_0(x)$, we have that there exists some $x\in S$ such that $f(x)\neq f_0(x)$.
+\\
+~\\The VC-dimension of $(X, C^{\prime})$ is $d$.
+\begin{proof}
+    Since the VC-dimension of $(X, C)$ is $d$, by the definition of VC-dimension, we have that:  
+    \begin{enumerate}
+        \item There exists a subset $S_d$ such that $|S_d|=d$ and for all subsets $U_d$ of $S_d$, there exists $f\in C$ such that for all $x\in U_d$, $f(x)=1$ and for all $x\in S_d\setminus U_d$, $f(x)=0$.
+        \item There is not a subset $S_{d+1}$ such that $|S_{d+1}|=d+1$ and for all subsets $U_{d+1}$ of $S_{d+1}$, there exists $f\in C$ such that for all $x\in U_{d+1}$, $f(x)=1$ and for all $x\in S_{d+1}\setminus U_{d+1}$, $f(x)=0$.
+    \end{enumerate}
+    The relationship between $f(x)$, $f_0(x)$ and $f^{\prime}(x)$ is that if $f(x)==f_0(x)$, $f^{\prime}(x)=0$; otherwise $f^{\prime}(x)=1$.
+    Order all the elements in $S_d$ in any order and denote the elements as $x_1,x_2,x_3,\cdots,x_d$.
+    For any subset of $S_d$, $U_d$, there exists  $f\in C$ such that for all $x\in U_d$, $f(x)=1$ and for all $x\in S_d\setminus U_d$, $f(x)=0$, 
+    In another word, there exists $2^d$ $f$ such that 
+    \begin{align}
+        \nonumber f^0(x_1),f^0(x_2),f^0(x_3),\cdots, f^0(x_d)&=&0,0,0,...0\\
+        \nonumber f^1(x_1),f^1(x_2),f^1(x_3),\cdots, f^1(x_d)&=&1,0,0,...0\\
+        \nonumber f^2(x_1),f^2(x_2),f^2(x_3),\cdots, f^2(x_d)&=&0,1,0,...0\\
+        \nonumber \cdots &=& \cdots\\
+        \nonumber f^{2^d-1}(x_1),f^{2^d-1}(x_2),f^{2^d-1}(x_3),\cdots, f^{2^d-1}(x_d)&=&1,1,1,...1
+    \end{align}
+    For any $f_0(x_i)$, since the fact that if $f(x_i)==f_0(x_i)$, $f^{\prime}(x_i)=0$; otherwise $f^{\prime}(x_i)=1$,
+    we have that there also exists $2^d$ $f^{\prime}$ such that 
+    \begin{align}
+        \nonumber f^{\prime 0}(x_1),f^{\prime 0}(x_2),f^{\prime 0}(x_3),\cdots, f^{\prime 0}(x_d)&=&0,0,0,...0\\
+        \nonumber f^{\prime 1}(x_1),f^{\prime 1}(x_2),f^{\prime 1}(x_3),\cdots, f^{\prime 1}(x_d)&=&1,0,0,...0\\
+        \nonumber f^{\prime 2}(x_1),f^{\prime 2}(x_2),f^{\prime 2}(x_3),\cdots, f^{\prime 2}(x_d)&=&0,1,0,...0\\
+        \nonumber \cdots &=& \cdots\\
+        \nonumber f^{\prime 2^d-1}(x_1),f^{\prime 2^d-1}(x_2),f^{\prime 2^d-1}(x_3),\cdots, f^{\prime 2^d-1}(x_d)&=&1,1,1,...1
+    \end{align}
+    We have that for set $S_d$, for all subsets $U_d$ of $S_d$, there exists $f^{\prime} \in C$ such that for all $x\in U_d$, $f^{\prime}(x) =1$ and for all $x\in S_d\setminus U_d$, $f^{\prime}(x)=0$.
+    By using the same method, we have that there is not a subset $S_{d+1}$ such that $|S_{d+1}|=d+1$ and for all subsets $U_{d+1}$ of $S_{d+1}$, there exists $f^{\prime}\in C$ such that for all $x\in U_{d+1}$, $f^{\prime}(x)=1$ and for all $x\in S_{d+1}\setminus U_{d+1}$, $f^{\prime}(x)=0$.
+    Therefore, we have the result that the VC-dimension of $(X, C^{\prime})$ is $d$.
+\end{proof}
+\noindent\blue{(b) How many samples are enough such that with probability at least $1-\delta$ the function $f_1$ returned disagrees with $f_0$ on at most $\epsilon$ weighted fraction of points in $X$?}
+\\
+Construct $C^{\prime}$ as above and by (a), we have the VC-dimension of $(X, C^{\prime})$ is $d$.
+The problem is transformed into finding the minimum sample times $m$ and construct $S$ such that $S$ is an 
+$\epsilon$-net under $C^{\prime}$ with probability at least $1-\delta$.
+The probability that $S$ is not an $\epsilon$-net after smapling $m$ times is at most $\delta$.
+By Sauer's Lemma, let $S$ be a subset of $X$ of size $m$, then the cardinality of the projection $C(S)$ is at most $\binom{m}{\le d}$.
+Let $A$ be the event that $\mathbb{E}_X[f]\le \epsilon$ and there is not a $x\in S$ such that $f^{\prime}(x)=1$.
+\begin{align}
+    \nonumber \Pr\left[A\right]\le \binom{m}{\le d}\left(1-\epsilon\right)^m \le \binom{m}{\le d}e^{-\epsilon m}\le \left(\frac{em}{d}\right)^d e^{-\epsilon m}\le \delta
+\end{align} 
+
