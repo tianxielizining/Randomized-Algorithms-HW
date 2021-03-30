@@ -1,0 +1,32 @@
+\section{Lovasz Local Lemma, Job Shop Scheduling}
+\noindent \blue{
+\textbf{1. Calculation Involving $log^*$.} 
+In this question, you are asked to complete the details of some calculations.
+}
+
+\blue{
+    (a) \textbf{Deriving $K_f$.}
+    Suppose $f(t):=6\ln{(36t^4)}$. Derive a constant $K_f>0$ such that $f(t)\ge t$ implies that $t\le K_f$.
+}
+
+\blue{
+    (b) Suppose $k:=\min\{i: f^{(i)}(T)\le K_f \}$. Prove that $k=O(\log* T)$.
+}
+\begin{proof}
+    
+\end{proof}
+\noindent \blue{
+\textbf{2. Packet Routing in a Graph.} We describe a problem that is closely related to job shop scheduling.\\
+\textbf{Problem Instance.} Suppose $G=(V,E)$ is a directed graph. We are given $m$ source-sink pairs $\{(s_j,t_j):j\in[m]\}$.
+We wish to send one data packet from each source to its corresponding sink.
+    \begin{itemize}
+        \item For each $j\in[m]$, a packet must be sent from $s_j$ to $t_j$ via some specific path $P_j$.
+        Each path $P_j$ is simple: this means each (directed) edge appears at most once in $P_j$.
+        \item It takes one unit of time for a data packet to be sent through a directed edge. An edge can only allow at most $1$ data packet to be sent at any time.
+    \end{itemize}
+}
+
+\noindent \blue{
+    \textbf{Goal.} Schedule the packets to be sent in the graph so that the $makespan$, which is the time for the last packet to arrive at its sink, is minimized.
+    Show that the packet routing problem can be reduced to the job shop scheduling problem. In particular, given an instance of the packet routing problem, construct an instance of the job shop scheduling problem such that there exists a packet schedule with makespan $T$ iff there exists a job shop schedule with makespan $T$.
+}

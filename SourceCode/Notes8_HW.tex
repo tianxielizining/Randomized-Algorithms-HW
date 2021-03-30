@@ -156,10 +156,10 @@ Since $f^{\prime}(x)=f(x)\oplus f_0(x)$, we have that there exists some $x\in S$
 Construct $C^{\prime}$ as above and by (a), we have the VC-dimension of $(X, C^{\prime})$ is $d$.
 The problem is transformed into finding the minimum sample times $m$ and construct $S$ such that $S$ is an 
 $\epsilon$-net under $C^{\prime}$ with probability at least $1-\delta$.
-The probability that $S$ is not an $\epsilon$-net after smapling $m$ times is at most $\delta$.
-By Sauer's Lemma, let $S$ be a subset of $X$ of size $m$, then the cardinality of the projection $C(S)$ is at most $\binom{m}{\le d}$.
-Let $A$ be the event that $\mathbb{E}_X[f]\le \epsilon$ and there is not a $x\in S$ such that $f^{\prime}(x)=1$.
-\begin{align}
-    \nonumber \Pr\left[A\right]\le \binom{m}{\le d}\left(1-\epsilon\right)^m \le \binom{m}{\le d}e^{-\epsilon m}\le \left(\frac{em}{d}\right)^d e^{-\epsilon m}\le \delta
-\end{align} 
+The probability that $S$ is not an $\epsilon$-net after sampling $m$ times is at most $\delta$.
+Let $C^{\prime}_\epsilon:=\{f\in C^{\prime}: E_x[f]\ge \epsilon\}$.
+For $f\in C^{\prime}_\epsilon$, the probability that a point sampled form $X$ would be labelled $1$ is at least $\epsilon$.
+The failure probability that all points in $S$ are labelled $0$ under $S$ is at most $(1-\epsilon)^m\le e^{-\epsilon m}$. 
+The probability that the set $S$ fails for some $f\in C^{\prime}_\epsilon$ is at most $|C^{\prime}_\epsilon|e^{-\epsilon m}\le |C^{\prime}|e^{-\epsilon m}\le \delta$, which implies $m\le \frac{1}{\epsilon}(\ln |C^{\prime}|+\ln \frac{1}{\delta})$.
+$f_1$ is constructed as follows, after sampling $m$ times from $X$ and construct $S$, pick a function $f_1$ from $C$ such that for all $x\in S$, $f_1(x)\neq f_0(x)$.
 

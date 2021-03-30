@@ -1,0 +1,246 @@
+\section{Probabilistic Method, Randomized Algorithms}
+\blue{
+\textbf{$\epsilon$-Sample for $(X,C)$ with VC-dimension $d$.} 
+Suppose $X$ is a set and $C$ is a collection of boolean functions such that $(X,C)$ has VC-dimension $d$.
+In this question, we derive a sufficient number $m$ of independent random samples from $X$ with distribution $D$ 
+such that the resulting bag $S$ is an $\epsilon$-sample under class $C$ of boolean functions with probability at least $1-\delta$.
+}
+
+\blue{(a) \textbf{Introducing Extra Randomness. }
+Suppose we sample $2m$ copies independently from $X$ to form the bag $W$. 
+Then, we pick $m$ copies out of $W$ at random to form $S$. In other words, $W$ can be view as a tuple in $X^{2m}$, and we pick $m$ distinct coordinates at random and use them to form $S$.\\
+Let $A$ be the event that there exists some $f\in C$ such that $|\mathbb{E}_X[f]-\text{Avg}_S[f]|>\epsilon$.\\
+Let $B$ be the event that there exists some $f\in C$ such that $|\mathbb{E}_X[f]-\text{Avg}_S[f]|>\epsilon$ and $|\text{Avg}_W[f]-\text{Avg}_S[f]|>\frac{\epsilon}{4}$.\\
+Prove that $\Pr[A]\le 2\Pr[B]$.
+}
+\begin{proof}
+    By the definition of event $A$ and event $B$, we have that $A\subseteq B$.
+    Then we have $A\cap B =B$.
+    Since $\Pr[B]=\Pr[A\cap B]=\Pr [A]\Pr[B|A]$,
+    if we can show that $\Pr[B|A]\ge \frac{1}{2}$, which implies $\Pr[\overline{B}|A]< \frac{1}{2}$, we have 
+    $\Pr[B]=\Pr [A]\Pr[B|A]\ge \frac{1}{2}\Pr [A]$, which implies $\Pr[A]\le 2\Pr[B]$.
+    Thus, it suffices to show that $\Pr[\overline{B}|A]< \frac{1}{2}$.
+    %Since $\Pr[\overline{B}|A]=\mathbb{E}[\Pr[\overline{B}|A,S]]$, we show an upper bound for the probability conditioned on the random object $S$.
+    Observe that given $A$, the event $\overline{B}$ implies that there is some $f_0\in C$ such that 
+    $|\mathbb{E}_X[f_0]-\text{Avg}_S[f_0]|>\epsilon$ and $|\text{Avg}_W[f_0]-\text{Avg}_S[f_0]|\le\frac{\epsilon}{4}$.
+    \begin{align}
+        \nonumber \left| \text{Avg}_W[f_0]-\text{Avg}_S[f_0]\right|\le\frac{\epsilon}{4} &\implies \left|\frac{\sum_{x\in W}f_0(x)}{2m}-\frac{\sum_{x\in S}f_0(x)}{m}\right|\le\frac{\epsilon}{4}\\
+        \nonumber &\implies \left|\frac{\sum_{x\in W}f_0(x)}{m}-\frac{2\sum_{x\in S}f_0(x)}{m}\right|\le\frac{\epsilon}{2}\\
+        \nonumber &\implies \left|\frac{\sum_{x\in W\setminus S}f_0(x)}{m}-\frac{\sum_{x\in S}f_0(x)}{m}\right|\le\frac{\epsilon}{2}\\
+        \nonumber &\implies \left|\text{Avg}_{W\setminus S}[f_0]-\text{Avg}_S[f_0]\right|\le\frac{\epsilon}{2}
+    \end{align}
+    Since $|\mathbb{E}_X[f_0]-\text{Avg}_S[f_0]|>\epsilon$, we have $|\mathbb{E}_X[f_0]-\text{Avg}_{W\setminus S}[f_0]|>\frac{\epsilon}{2}$.
+    Thus, we have: 
+    \begin{align}
+        \nonumber \Pr\left[\overline{B}|A\right]&=\Pr\left[|\mathbb{E}_X[f_0]-\text{Avg}_{W\setminus S}[f_0]|>\frac{\epsilon}{2}\right]\\
+        \nonumber &=\Pr\left[\left|\mathbb{E}_X[f_0]-\frac{\sum_{x\in W \setminus S}f_0(x)}{m}\right|>\frac{\epsilon}{2}\right]\\
+        \nonumber &=\Pr\left[\left|m\mathbb{E}_X[f_0]-\sum_{x\in W \setminus S}f_0(x)\right|>m\cdot \frac{\epsilon}{2}\right]\\
+        \nonumber &\le 2\exp\left(-2m\cdot \left(\frac{\epsilon}{2}\right)^2\right)
+    \end{align}
+    The last inequality holds because of Hoeffding's inequality.
+    If we set $m>\frac{2\ln4}{\epsilon^2}$, we can have $\Pr\left[\overline{B}|A\right]<\frac{1}{2}$.
+\end{proof}
+\blue{
+(b) \textbf{Conditional Probability.} For $f\in C$, define $B_f$ to be the event that 
+$|\mathbb{E}_x[f]-\text{Avg}_S[f]|>\epsilon$ and $|\text{Avg}_W[f]-\text{Avg}_S[f]|>\frac{\epsilon}{4}$. (Hence, $B=\cup_fB_f$. )
+Fix $f \in C$. Define $H_f$ to be the event that $|\text{Avg}_W[f]-\text{Avg}_S[f]|>\frac{\epsilon}{4}$. 
+Then, clearly $B_f \subseteq H_f$, and so $\Pr[B_f|W]\le \Pr[H_f|W]$. We analyze $\Pr[H_f|W]$.
+Suppose $P_{\max}:=\max_{f\in C}\Pr[H_f|W]$. Prove that $\Pr[B]\le \left(\frac{2em}{d}\right)^d\cdot P_{\max}$.
+}
+\begin{proof}
+    Use $C(W)$ to denote the projection of $C$ on $W$.
+    Since $(X,C)$ has VC-dimension $d$, it follows that $|C(W)|\le (\frac{2em}{d})^d$.
+    Since $B=\cup_{f\in C(W)} B_f$ and $\Pr[B_f|W]\le \Pr[H_f|W]$, we have:
+    \begin{align}
+        \nonumber \Pr[B|W]\le \Pr[\cup_{f\in C(W)}B_f|W]\le \sum_{f \in C(W)}\Pr[B_f|W] \le \sum_{f \in C(W)}\Pr[H_f|W]\le \left(\frac{2em}{d}\right)^d P_{\max}
+    \end{align}
+    Here, $P_{\max}:=\max_{f\in C(W)}\Pr[H_f|W]$.
+    Using conditional probability, we have $\Pr[B]=\mathbb{E}[\Pr[B|W]]$, thus, $\Pr[B]\le \left(\frac{2em}{d}\right)^d\cdot P_{\max}$.
+\end{proof}
+\blue{
+(c) \textbf{Bounding $P_{\max}$.} After $W$ and $f$ are fixed, we know precisely how many copies in $W$ are marked $1$ by $f$. Let this number be $L$.
+The only randomness left is the choice of $S$ among $W$. Recall that $S$ is formed from $W$ by choosing $m$ copies from the $2m$ copies in $W$.
+We can order the objects in $W$ in an arbitrary list, and assign one by one whether each object is in $S$ in the following way: 
+Suppose when object $a$ is considered, there are already $x$ objects assigned to $S$ and $y$ objects assigned to $W\setminus S$.
+Then object $a$ is assigned to $S$ with probability $\frac{m-x}{(m-x)+(m-y)}$ and to $W\setminus S$ with probability $\frac{m-y}{(m-x)+(m-y)}$.
+}
+
+\blue{
+    i. Suppose the $L$ objects marked $1$ are being considered first.
+    For $1\le i \le L$, let $u_i$ be the variable that takes value $1$ if the $i$th object is assigned to $S$ and $-1$ if it is assigned to $W\setminus S$.
+    Define $U_i:=\sum_{j=1}^i u_j$. Compute the probability that the $(i+1)$st object is assigned to $S$ in terms of $i$ and $U_i$.
+    What does it mean when $U_i>0$? When $U_i>0$, what happens to this probability? Are the $u_i$'s independent?
+}
+
+$U_i>0$ means that the number of objects in $S$ is greater than that in $W\setminus S$ after considering the first $i$ objects.
+When the $(i+1)$st object is considered, use $x$ to denote the number of objects in $S$ and use $y$ to denote the number of objects in $W \setminus S$.
+Then we have $x+y=i$ and $x-y=U_i$, which imply that $x=\frac{i+U_i}{2}$, $y=\frac{i-U_i}{2}$.
+Thus, the probability that the $(i+1)$st object is assigned to $S$ is $\frac{m-x}{(m-x)+(m-y)}=\frac{m-\frac{i-U_i}{2}}{2m-i}=\frac{2m-i-U_i}{4m-2i}$.
+When $U_i>0$, the probability that the $(i+1)$st object is assigned to $S$ is less that $\frac{1}{2}$, which means the probability that the $(i+1)$st object is assigned to $W\setminus S$ is greater than the $(i+1)$st object is assigned to $S$.
+The $u_i$'s are not independent. The probability that the $i$th object is assigned to $S$ is depend on the assignments of the first $i-1$ objects.
+
+\blue{
+    ii. Find an expression $\beta$ in terms of $\epsilon$ and $m$ such that $|\text{Avg}_W[f]-\text{Avg}_S[f]|>\frac{\epsilon}{4}$ iff $U_L^2>\beta$.
+}
+Let $x$ be the number of objects in $S$ of after considering the $L$ objects.
+Let $y$ be the number of objects in $W \setminus S$ of after considering the $L$ objects.
+We have: $x+y=L$ and $x-y=U_L$, which imply $x=\frac{L+U_L}{2}$.
+Then we have $\text{Avg}_W[f]=\frac{L}{2m}$, $\text{Avg}_S[f]=\frac{L+U_L}{2m}$.
+$|\text{Avg}_W[f]-\text{Avg}_S[f]|>\frac{\epsilon}{4} \implies |\frac{U_L}{2m}|>\frac{\epsilon}{4} \implies U_L^2>\frac{\epsilon^2 m^2}{4}$.
+Thus, $\beta=\frac{\epsilon^2 m^2}{4}$.
+
+\blue{
+    iii. We saw that the $u_i$'s are not independent. This makes the analysis difficult. Hence, we would like to compare the $u_i$'s with another collection of independent random variables. 
+    For each $1\le i \le L$, we define independent random variable $\gamma_i$ that takes values in $\{-1,1\}$ uniformly, i.e., each value with probability $\frac{1}{2}$.
+    Define $Y_i:=\sum_{1\le j\le i}\gamma_j$.
+    Observe that we would like $U_L^2$ to be small. Can you explain intuitively why $Y_L^2$ is more likely to be larger than $U_L^2$?
+    Prove that $\mathbb{E}[U_L^2]\le \mathbb{E}[Y_L^2]$. 
+}
+\begin{proof}
+    Prove the above by induction on $i$. Certainly, since
+    $\mathbb{E}[Y_1^2]=\mathbb{E}[U_1^2]=1$, the inequality holds for $i=1$.
+    When $i+1\le L\le 2m$, we have:
+    \begin{align}
+        \nonumber \mathbb{E}[Y_{i+1}^2]&=\mathbb{E}[(Y_i+\gamma_{i+1})^2]\\
+        \nonumber &=\mathbb{E}[Y_i^2+\gamma_{i+1}^2+2Y_i\gamma_{i+1}]\\
+        \nonumber &=\mathbb{E}[Y_i^2]+\mathbb{E}[\gamma_{i+1}^2]+2\mathbb{E}[Y_i\gamma_{i+1}]\\
+        \nonumber &=\mathbb{E}[Y_i^2]+1+2(\Pr[\gamma_{i+1}=1]\cdot Y_i+\Pr[\gamma_{i+1}=-1]\cdot(-Y_i))\\
+        \nonumber &=\mathbb{E}[Y_i^2]+1+2\left(\frac{1}{2}\cdot Y_i+\frac{1}{2}\cdot(-Y_i)\right)\\
+        \nonumber &=\mathbb{E}[Y_i^2]+1   
+    \end{align}
+    \begin{align}
+        \nonumber \mathbb{E}[U_{i+1}^2]&=\mathbb{E}[(U_i+u_{i+1})^2]\\
+        \nonumber &=\mathbb{E}[U_i^2+u_{i+1}^2+2Y_iu_{i+1}]\\
+        \nonumber &=\mathbb{E}[U_i^2]+\mathbb{E}[u_{i+1}^2]+2\mathbb{E}[Y_iu_{i+1}]\\
+        \nonumber &=\mathbb{E}[U_i^2]+1+2(\Pr[u_{i+1}=1]\cdot U_i+\Pr[u{i+1}=-1]\cdot(-U_i))\\
+        \nonumber &=\mathbb{E}[Y_i^2]+1+2U_i(\Pr[u_{i+1}=1]-\Pr[u{i+1}=-1])\\
+        \nonumber &=\mathbb{E}\left[Y_i^2\right]+1+2U_i\left(\frac{2m-i-U_i}{4m-2i}-\frac{2m-i+U_i}{4m-2i}\right)\\
+        \nonumber &=\mathbb{E}\left[Y_i^2\right]+1+2U_i\cdot \frac{-2U_i}{4m-2i}\\
+        \nonumber &=\mathbb{E}\left[Y_i^2\right]+1-\frac{2U_i^2}{2m-i}
+    \end{align}
+    Thus, we have $\mathbb{E}[U_L^2]\le \mathbb{E}[Y_L^2]$. 
+\end{proof}
+\blue{
+    iv. Let $t$ be a real number. Prove that $\mathbb{E}[\exp(tU_L^2)]\le \mathbb{E}[\exp(tY_L^2)]$.
+}
+\begin{proof}
+    \begin{align}
+        \nonumber \mathbb{E}[e^{tU_L^2}]=\mathbb{E}[\sum_{r\ge 0}\frac{(tU_L^2)^r}{r!}]=\sum_{r\ge 0}\frac{t^r}{r!}\mathbb{E}[U_L^{2r}]\\
+        \nonumber \mathbb{E}[e^{tY_L^2}]=\mathbb{E}[\sum_{r\ge 0}\frac{(tY_L^2)^r}{r!}]=\sum_{r\ge 0}\frac{t^r}{r!}\mathbb{E}[Y_L^{2r}]
+    \end{align}
+    For any non-negative integer $r\ge0$, if we can prove $\mathbb{E}[U_L^{2r}]\le \mathbb{E}[Y_L^{2r}]$, then we have $\mathbb{E}[\exp(tU_L^2)]\le \mathbb{E}[\exp(tY_L^2)]$.
+    Use the same method as question iv.
+    \begin{align}
+        \nonumber \mathbb{E}[Y_{i+1}^{2r}]&=\mathbb{E}[(Y_i+\gamma_{i+1})^2r]\\
+        \nonumber &=\mathbb{E}\left[\sum_{j=0}^{2r}\binom{2r}{j}Y_i^j\gamma_{i+1}^{2r-j}\right]\\
+        \nonumber &=\sum_{j=0}^{2r}\binom{2r}{j}\mathbb{E}\left[Y_i^j\gamma_{i+1}^{2r-j}\right]\\
+        \nonumber &=\sum_{j=0}^{2r}\binom{2r}{j}Y_i^j\left(\Pr\left[\gamma_{i+1}=1\right]+(-1)^{2r-j}\Pr\left[\gamma_{i+1}=-1\right]\right)\\ 
+        \nonumber &=\sum_{j=0}^{2r}\binom{2r}{j}Y_i^j\left(\frac{1}{2}+(-1)^{2r-j}\frac{1}{2}\right)
+    \end{align}
+    \begin{align}
+        \nonumber \mathbb{E}[U_{i+1}^{2r}]&=\mathbb{E}[(U_i+u_{i+1})^2r]\\
+        \nonumber &=\mathbb{E}\left[\sum_{j=0}^{2r}\binom{2r}{j}U_i^ju_{i+1}^{2r-j}\right]\\
+        \nonumber &=\sum_{j=0}^{2r}\binom{2r}{j}\mathbb{E}\left[U_i^ju_{i+1}^{2r-j}\right]\\
+        \nonumber &=\sum_{j=0}^{2r}\binom{2r}{j}U_i^j\left(\Pr\left[u_{i+1}=1\right]+(-1)^{2r-j}\Pr\left[u_{i+1}=-1\right]\right)\\
+        \nonumber &=\sum_{j=0}^{2r}\binom{2r}{j}U_i^j\left(\frac{2m-i-U_i}{4m-2i}+(-1)^{2r-j}\frac{2m-i+U_i}{4m-2i}\right)
+    \end{align}
+    When $2r-j$ is non-negative odd, which implies $j+1$ is non-negative even, we have:
+    \begin{align}
+        \nonumber &\binom{2r}{j}Y_i^j\left(\frac{1}{2}+(-1)^{2r-j}\frac{1}{2}\right)=0\\
+        \nonumber &\binom{2r}{j}U_i^j\left(\frac{2m-i-U_i}{4m-2i}+(-1)^{2r-j}\frac{2m-i+U_i}{4m-2i}\right)=\binom{2r}{j}U_i^j\cdot \frac{-2U_i}{4m-2i}=-\binom{2r}{j}\frac{U_i^{j+1}}{2m-i}<0
+    \end{align}
+    When $2r-j$ is non-negative even, we have:
+    \begin{align}
+        \nonumber &\binom{2r}{j}Y_i^j\left(\frac{1}{2}+(-1)^{2r-j}\frac{1}{2}\right)=\binom{2r}{j}Y_i^j\\
+        \nonumber &\binom{2r}{j}U_i^j\left(\frac{2m-i-U_i}{4m-2i}+(-1)^{2r-j}\frac{2m-i+U_i}{4m-2i}\right)=\binom{2r}{j}U_i^j
+    \end{align}
+    When $i=1$, for any non-negative integer $t$, we have $\mathbb{E}[Y_1^t]=\mathbb{E}[U_1^t]$, then by above, we have for any non-negative integer $r\ge 0$,  $\mathbb{E}[U_L^{2r}]\le \mathbb{E}[Y_L^{2r}]$, 
+    then we have, $\mathbb{E}[\exp(tU_L^2)]\le \mathbb{E}[\exp(tY_L^2)]$.
+
+\end{proof}
+\blue{
+    v. By considering moment generating functions, prove an upper bound for $\Pr[U_L^2>\beta]$, and conclude that $P_{\max}\le 2\exp(-\frac{\epsilon ^2m}{32})$.
+}
+\begin{proof}
+    Let $t$ be a positive real number.
+    By question $ii$, $\beta=\frac{\epsilon^2m^2}{4}$.
+    \begin{align}
+        \nonumber \Pr[U_L^2>\beta]=\Pr[U_L^2>\beta]=\Pr[tU_L^2>t\beta]=\Pr[e^{tU_L^2}>e^{t\beta}]\le\frac{\mathbb{E}[\exp({tU_L^2})]}{e^{t\beta}}
+    \end{align}
+    The last inequality holds by Markov's inequality. Since by question $iv$, we have $\mathbb{E}[\exp(tU_L^2)]\le \mathbb{E}[\exp(tY_L^2)]$, then:
+    \begin{align}
+        \nonumber \Pr[U_L^2>\beta]\le \frac{\mathbb{E}[\exp({tY_L^2})]}{e^{t\beta}}
+    \end{align}
+    By the lecture on Johnson-Lindenstrauss lemma, we have for $t<\frac{1}{2L}$, $\mathbb{E}[\exp({tY_L^2})]\le (1-2tL)^{-\frac{1}{2}}$, then:
+    \begin{align}
+        \nonumber \Pr[U_L^2>\beta]\le \frac{(1-2tL)^{-\frac{1}{2}}}{e^{\beta t}}
+    \end{align}
+    For $0<t<\frac{1}{2L}$, let 
+    \begin{align}
+        \nonumber f(t)=\frac{(1-2tL)^{-\frac{1}{2}}}{e^{\beta t}}=\frac{(1-2tL)^{-\frac{1}{2}}}{e^{\frac{\epsilon^2m^2t}{4}}}
+    \end{align}
+    Then, 
+    \begin{align}
+        \nonumber &f^{\prime}(t)=e^{\frac{-\epsilon^2m^2t}{4}}\left( L(1-2Lt)^{-\frac{3}{2}}-\frac{\epsilon^2m^2}{4}(1-2Lt)^{-\frac{1}{2}} \right)\\
+        \nonumber &f^{\prime}(t)<0 \implies  t\in \left(0,\frac{1}{2L}-\frac{2}{\epsilon^2m^2}\right)\\
+        \nonumber &f^{\prime}(t)=0 \implies  t=\frac{1}{2L}-\frac{2}{\epsilon^2m^2}\\
+        \nonumber &f^{\prime}(t)>0 \implies  t\in \left(\frac{1}{2L}-\frac{2}{\epsilon^2m^2}, \frac{1}{2L}\right)
+    \end{align} 
+    Thus, 
+    \begin{align}
+        \nonumber f(t)\ge f\left(\frac{1}{2L}-\frac{2}{\epsilon^2m^2}\right)=\left( \frac{4L}{\epsilon^2m^2e} \right)^{-\frac{1}{2}}\cdot e^{-\frac{\epsilon^2m^2}{8L}}
+    \end{align}
+    Then,
+    \begin{align}
+        \nonumber \Pr[U_L^2>\beta] \le \left( \frac{4L}{\epsilon^2m^2e} \right)^{-\frac{1}{2}}\cdot e^{-\frac{\epsilon^2m^2}{8L}}
+    \end{align}
+    For, $0\le L \le 2m$, let 
+    \begin{align}
+        \nonumber g(L)=\left( \frac{4L}{\epsilon^2m^2e} \right)^{-\frac{1}{2}}\cdot e^{-\frac{\epsilon^2m^2}{8L}}
+    \end{align}
+    Then,
+    \begin{align}
+        \nonumber &g^{\prime}(L)=e^{\frac{-\epsilon^2m^2}{8L}}\cdot\left( \frac{-2}{\epsilon^2m^2e}\cdot \left(\frac{4L}{\epsilon^2m^2e}\right)^{-\frac{3}{2}} +\frac{\epsilon^2m^2}{8L^2}\left(\frac{4L}{\epsilon^2m^2e}^{-\frac{1}{2}}\right) \right)\\
+        \nonumber &\text{When~} \frac{\epsilon^2m^2}{4}\le 2m \implies \epsilon^2m\le 8 \\
+        \nonumber &g^{\prime}(L)>0 \implies L\in\left[0, \frac{\epsilon^2m^2}{4}\right)\\
+        \nonumber &g^{\prime}(L)=0 \implies L=\frac{\epsilon^2m^2}{4}\\    
+        \nonumber &g^{\prime}(L)<0 \implies L\in\left( \frac{\epsilon^2m^2}{4},2m\right] \\
+        \nonumber &\text{When~} \frac{\epsilon^2m^2}{4}> 2m \implies \epsilon^2m> 8 \\
+        \nonumber &g^{\prime}(L)>0 \implies L\in\left[0, 2m\right]
+    \end{align}
+    Thus, when $\epsilon^2m\le 8$
+    \begin{align}
+        \nonumber g(L)\le g\left(\frac{\epsilon^2m^2}{4}\right)= 1 \le 2\exp\left( -\frac{\epsilon ^2m}{32} \right)
+    \end{align}
+    when $\epsilon^2m> 8$
+    \begin{align}
+        \nonumber g(L)\le g\left(2m\right)= \left( \frac{8}{\epsilon^2me} \right)^{-\frac{1}{2}}\cdot \exp\left( -\frac{\epsilon ^2m}{16} \right)
+    \end{align}
+    Let $x=\epsilon^2m$, since when $x>8$, $h(x)=2\exp\left( -\frac{x}{32} \right)- \left( \frac{8}{ex} \right)^{-\frac{1}{2}}\cdot \exp\left( -\frac{x}{16} \right)> 0$, we have $\Pr[U_L^2>\beta]\le 2\exp\left( -\frac{\epsilon^2m}{32} \right)$.
+    Thus, $P_{\max}=\max_{f\in C}\Pr[H_f|W]\le \max_{f\in C}\Pr[H_f]\le \Pr[U_L^2>\beta]\le 2\exp\left( -\frac{\epsilon^2m}{32} \right)$
+\end{proof}
+\blue{
+    (d) \textbf{Wrapping Everything Up.} Prove that if $m\ge\max\{\frac{64}{\epsilon^2}\ln\frac{4}{\delta}, \frac{256d}{\epsilon^2}\ln\frac{16e}{\epsilon}\}$, then with probability at least $1-\delta$, 
+    the bag $S$ is an $\epsilon$-sample for $X$ under class $C$. 
+}
+\begin{proof}
+    By (c), we have that $\Pr[A]\le 2(\frac{2em}{d})^d\cdot 2\exp( -\frac{\epsilon^2m}{32})=4(\frac{2em}{d})^d\cdot\exp( -\frac{\epsilon^2m}{32})$,
+    we now show that this is at most $\delta$ when $m\ge\max\{\frac{64}{\epsilon^2}\ln\frac{4}{\delta}, \frac{256d}{\epsilon^2}\ln\frac{16e}{\epsilon}\}$.
+    Observe that the required result is equivalent to 
+    \begin{align}
+       \nonumber  \frac{\epsilon^2m}{32} \le d\ln \frac{2em}{d} + \ln \frac{4}{\delta}
+    \end{align}
+    From the choice of $m$, we have
+    \begin{align}
+        \nonumber \frac{\epsilon^2m}{64}\ge \ln\frac{4}{\delta}
+    \end{align}
+    It suffices to check that 
+    \begin{align}
+        \nonumber \frac{\epsilon^2m}{64}\ge d\ln \frac{2em}{d}
+    \end{align}
+    Putting $m= \frac{256d}{\epsilon^2}\ln\frac{16e}{\epsilon}$, this is equivalent to 
+    \begin{align}
+        \nonumber \ln \frac{16e}{\epsilon} \le \frac{128e^3}{\epsilon^2}
+    \end{align}
+    the above is certainly true since $\frac{16e}{\epsilon}\ge 16$, which implies $\ln \frac{16e}{\epsilon} \le \frac{16e}{\epsilon} \le\frac{16e}{\epsilon}\cdot \frac{e}{\epsilon} \cdot \le \frac{128e^3}{\epsilon^2} $
+\end{proof}

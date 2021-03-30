@@ -1,0 +1,58 @@
+\section{Differential Privacy and Applications}
+\noindent \blue{
+\textbf{1. Properties of Symmetric Geometric Distribution.} 
+Let $\alpha >1$, and let $gamma$ be a random variable sampled from 
+the symmetric geometric distribution $\text{Geom}(\alpha)$, i.e., 
+$\Pr[\gamma=k]=\frac{\alpha-1}{\alpha+1}\cdot \alpha^{-|k|}$.
+Prove that}
+
+\blue{(a) $\mathbb{E}[\gamma]=0$}
+
+\blue{(b) $var[\gamma]=\frac{2\alpha}{(1-\alpha)^2}$}
+
+\blue{(c) for any integer $z\ge 0$, $\Pr[|\gamma|>z]\le \frac{1}{\alpha^{z}}$}
+\noindent \blue{
+\textbf{2. Achieving Differential Privacy with Geometric Distribution.} 
+Let $f: \mathcal{D}\rightarrow \mathbb{Z}^d$ be a deterministic function, $0<\epsilon<1$ be the privacy parameter and
+$0<\delta<1$ be the failure probability. Let $\gamma_1, \gamma_2,\cdots, \gamma_d$ be random 
+variables independently sampled from $\text{Gemo}(\exp(\frac{\epsilon}{\Delta f}))$, where $\Delta f:=\max_{X\sim Y\in \mathcal{D}}||f(X)-f(Y)||_1$ is the $l_1$-sensitivity.\\
+Prove that the randomized function $\hat{f}$ such that $\hat{f}_i(X):=f_i(X)+\gamma_i$ for all $i\in [d]$
+\begin{itemize}
+    \item preserves $\epsilon$-differential privacy
+    \item is $(\frac{\Delta f}{\epsilon}\ln\frac{d}{\delta}, \delta)$-useful with respect to $f$, i.e., for all $X\in \mathcal{D}$, with probability at least $1-\delta$, for all $i \in [d]$, $|f_i(X)-\hat{f}_i(X)|\le \frac{\Delta f}{\epsilon}\ln \frac{d}{\delta}$.
+\end{itemize}
+}
+\noindent \blue{
+\textbf{3.Deterministic Operation on Differentially Private Output Re- mains Differentially Private.} 
+Let $f: \mathcal{D}\rightarrow \mathcal{O}_1$ be a $\epsilon$-differentially private randomized algorithm, and let $g:\mathcal{O}_1\rightarrow \mathcal{O}_2$ be a deterministic function. 
+Prove that $g \circ f: \mathcal{D}\rightarrow \mathcal{O}_2$, whose value at $X\in \mathcal{D}$ is $g(f(X))$, preserves $\epsilon$-differential privacy.
+}
+
+\noindent \blue{
+\textbf{4. Sum of Independent Laplace Random Variables.}
+In this question, we derive a measure concentration result for independent random variables drawn from Laplace distribution. We show that with high probability, the sum of independent Laplace random variables are concentrated around its mean, $0$.\\
+We use moment generating functions in a Chernoff-like argument. 
+Let $b_1,b_2,\dots,b_n>0$ and $\gamma_1, \gamma_2,\dots, \gamma_n$ be $n$ independent random variables, where for each $i$ $\gamma_i$ is sampled from $\text{Lap}(b_i)$.
+} 
+
+\blue{
+    (a) Prove that for each $\gamma_i$, the moment generating function is $\mathbb{E}[\exp(h\gamma_i)]=\frac{1}{1-h^2b_i^2}$, where $|h|<\frac{1}{b_i}$.
+}
+
+\blue{
+    (b) Show that $\mathbb{E}[\exp(h\gamma_i)]\le \exp(2h^2b_i^2)$, if $|h|<\frac{1}{\sqrt{2}b_i}$.
+}
+
+\blue{
+    (c) Let $b_M:=\max _{i\in[n]}b_i$. Also, let $\mu \ge \sqrt{\sum_{i=1}^{n}b_i^2}$ and $0<\lambda<\frac{2\sqrt{2}\mu^2}{b_M}$. 
+    Prove that $\Pr [|Y|>\lambda]\le 2\exp(-\frac{\lambda^2}{8\mu^2})$
+}
+
+\blue{
+    (d) Suppose $0<\delta<1$ and $\mu>\max\{\sqrt{\sum_{i=1}^{n}b_i^2},b_M\sqrt{\ln\frac{2}{\delta}}\}$.
+    Prove that $\Pr[|Y|>\mu \sqrt{8\ln \frac{2}{\delta}}]<\delta$.
+}
+
+\blue{
+    (e) Prove that $\Pr[|Y|>\sqrt{8}\cdot \sqrt{\sum_{i=1}^{n}b_i^2}\cdot \ln\frac{2}{\delta}]<\delta$, for $0<\delta<\frac{2}{e}$.
+}
